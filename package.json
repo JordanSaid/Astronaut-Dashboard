@@ -1,0 +1,28 @@
+{
+  "name": "wed_lab",
+  "version": "1.0.0",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.16.0",
+    "express": "^4.14.1",
+    "mocha": "^3.2.0",
+    "mongodb": "^2.2.22",
+    "webpack": "^2.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "mocha specs",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JordanSaid/dashboard.git"
+  },
+  "bugs": {
+    "url": "https://github.com/JordanSaid/dashboard/issues"
+  },
+  "homepage": "https://github.com/JordanSaid/dashboard#readme",
+  "description": ""
+}
