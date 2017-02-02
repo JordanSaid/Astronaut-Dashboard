@@ -17,6 +17,11 @@ html,body{
 display:flex;
 background-color: darkslategray;
 flex-grow: 20;
+font-size: 48px;
+justify-content: center;
+vertical-align: middle;
+line-height: 120px;
+color: red;
 }
 
 #middle{
@@ -28,6 +33,7 @@ flex-grow: 80;
 display: flex;
 background-color: #AACC22;
 flex-grow: 1;
+font-size: 36px;
 }
 
 #right {
