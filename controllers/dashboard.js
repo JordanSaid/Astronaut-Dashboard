@@ -6,8 +6,9 @@ var query = new memoQuery();
 
 
 dashboardRouter.get('/', function(req, res){
+  console.log('where am I?')
   query.all(function(results){
-    console.log("get all films");
+    console.log("get all memos");
     res.json(results);
   });
 });

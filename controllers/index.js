@@ -1,9 +1,8 @@
 var express = require('express');
-var app = express();
 var router = express.Router();
 var path = require('path');
 
-router.use(require('./dashboard'));
+router.use('/memos',require('./dashboard'));
 
 router.get('/', function(req, res) {
   console.log('index route /')

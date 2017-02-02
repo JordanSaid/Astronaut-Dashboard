@@ -26,3 +26,5 @@ UI.prototype = {
         // searchBar.setImageContainer(imageDisplay);
     }
 }
+
+module.exports = UI;
