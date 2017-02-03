@@ -9,7 +9,6 @@ var ajax = {
                 console.error('Request status:', this.status);
                 return;
             }
-
             var jsonString = this.responseText;
             var data = JSON.parse(jsonString).data;
             callback(data);
