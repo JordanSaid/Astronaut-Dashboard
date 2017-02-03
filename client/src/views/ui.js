@@ -1,10 +1,7 @@
 var News = require('../models/news');
-<<<<<<< HEAD
 var MemoView = require('./memoView')
-=======
 var MapWrapper = require('../models/MapWrapper');
 var SpaceStation = require('../models/spaceStation');
->>>>>>> 5a704ac265d0fcd98b08a422955b06aec0e29210
 
 var UI = function () {
     this.news = new News();
@@ -41,16 +38,13 @@ UI.prototype = {
              headlineTitle.innerHTML = "<a href='" + headline.url + "'>" + "<marquee direction='left'>" + headline.title + "</marquee></a>";
              headlines.appendChild(headlineTitle);
            });
-<<<<<<< HEAD
         var leftDiv = document.querySelector("#left");
         var memoView = new MemoView(leftDiv);
         memoView.renderMemoDash();
-=======
 
         // var leftDiv = document.querySelector("left-div");
         // var memoView = new MemoView(leftDiv);
         // memoView.renderMemoDash();
->>>>>>> 5a704ac265d0fcd98b08a422955b06aec0e29210
      
         // var headerContainer = this.createContainer('header', 'flex', 'center', 'shadow');
         // new Header(headerContainer);
