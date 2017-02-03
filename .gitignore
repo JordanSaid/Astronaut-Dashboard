@@ -1,3 +1,7 @@
-node_modules
+node_modules/
 client/build/bundle.js
+<<<<<<< HEAD
 client/build/bundle.js.map
+=======
+client/build/bundle.js.map
+>>>>>>> 20a7323f3333b2ffbc0bedefac619512c981e17a
