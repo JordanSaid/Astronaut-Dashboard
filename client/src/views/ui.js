@@ -41,6 +41,10 @@ UI.prototype = {
              headlines.appendChild(headlineTitle);
            });
 
+        var leftDiv = document.querySelector("left-div");
+        var memoView = new MemoView(leftDiv);
+        memoView.renderMemoDash();
+     
         // var headerContainer = this.createContainer('header', 'flex', 'center', 'shadow');
         // new Header(headerContainer);
         // var searchBar = new SearchBar(headerContainer);
@@ -53,6 +57,8 @@ UI.prototype = {
         var mapWrapper = document.querySelector('#right');
 
     }
+
+
 }
 
 module.exports = UI;

@@ -51,10 +51,6 @@ Memos.prototype = {
         data = JSON.parse(jsonString);
       });
     console.log(data);
-    });
-
-  
-
   }
 
 };
