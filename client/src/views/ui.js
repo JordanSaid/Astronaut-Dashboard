@@ -27,7 +27,7 @@ UI.prototype = {
         var headlines = document.querySelector('#ticker');
            headlinesArray.forEach(function(headline) {
              var headlineTitle = document.createElement("p");
-             headlineTitle.innerText = headline.title;
+             headlineTitle.innerHTML = "<a href='" + headline.url + "'>" + headline.title + "</a>";
              headlines.appendChild(headlineTitle);
            });
         var leftDiv = document.querySelector("left-div");

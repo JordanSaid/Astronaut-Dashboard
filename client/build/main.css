@@ -46,3 +46,8 @@ flex-grow: 1;
 background-color: #1C28B9;
 flex-grow: 20;
 }
+
+a {
+  color: white;
+  font-size: 10px;
+}
