@@ -86,7 +86,10 @@
 	             var headlineTitle = document.createElement("p");
 	             headlineTitle.innerText = headline.title;
 	             headlines.appendChild(headlineTitle);
-	           })
+	           });
+	        var leftDiv = document.querySelector("left-div");
+	        var memoView = new MemoView(leftDiv);
+	        memoView.renderMemoDash();
 	        // var headerContainer = this.createContainer('header', 'flex', 'center', 'shadow');
 	        // new Header(headerContainer);
 	        // var searchBar = new SearchBar(headerContainer);
@@ -95,6 +98,8 @@
 	        // var imageDisplay = new ImageDisplay(imageContainer);
 	        // searchBar.setImageContainer(imageDisplay);
 	    }
+	
+	
 	}
 	
 	module.exports = UI;
