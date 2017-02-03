@@ -45,11 +45,25 @@ MemoView.prototype = {
     this.container.style.flexDirection = "column";
     var headerBar = document.createElement("section");
     headerBar.setAttribute("id","control-bar");
+    var dateBox = document.createElement("input");
+    dateBox.setAttribute("id","date-box");
+    var titleBox = document.createElement("input");
+    titleBox.setAttribute("id","title-box");
+    var space = document.createElement("p");
+    space.setAttribute("id","search-bar-space");
+    var saveButton = document.createElement("button");
+    saveButton.setAttribute("id","save-button");
     var memoBody = document.createElement("textarea");
     memoBody.setAttribute("id","memo-body");
     memoBody.rows = "8";
-    console.log(memoBody.rows);
     this.container.appendChild(headerBar);
+    headerBar.appendChild(dateBox);
+    headerBar.appendChild(titleBox);
+    headerBar.appendChild(space);
+    headerBar.appendChild(saveButton);
+    saveButton.addEventListener("click",function(){
+      console.log("save button clicked")
+    });
     this.container.appendChild(memoBody);
   },
 
