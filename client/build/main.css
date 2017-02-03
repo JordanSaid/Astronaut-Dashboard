@@ -42,11 +42,6 @@ background-color: #CFa81B;
 flex-grow: 1;
 }
 
-#map{
-  width: 300px;
-  height: 300px;
-}
-
 #ticker {
 background-color: #1C28B9;
 flex-grow: 10;

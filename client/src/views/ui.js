@@ -11,8 +11,10 @@ var UI = function () {
     this.container = document.body;
 
     this.spaceStation = new SpaceStation();
-    this.spaceStation.all(function(detailsArray) {
-        this.renderMap(detailsArray);
+    this.spaceStation.currentLocation(function(location) {
+        this.renderMap(location);
+        this.currentLocationButton();
+        console.log(location)
     }.bind(this))
 
 }
@@ -50,15 +52,25 @@ UI.prototype = {
         // var imageDisplay = new ImageDisplay(imageContainer);
         // searchBar.setImageContainer(imageDisplay);
     },
-    renderMap: function (detailsArray) {
-        var mapDiv = document.querySelector('#right');
-        var stationLat = detailsArray.iss_position.latitude;
-        var stationLon = detailsArray.iss_position.longitude;
-        var spaceStationLocation = {lat: parseInt(stationLat), lng: parseInt(stationLon)};
-        this.mapWrapper = new MapWrapper(mapDiv, spaceStationLocation, 5);
-        // this.mapWrapper.addMarker(spaceStationLocation);
+    renderMap: function (location) {
+        var container = document.querySelector('#right');
+        var mapDiv = document.createElement('div');
+        container.appendChild(mapDiv);
+
+        this.mapWrapper = new MapWrapper(mapDiv, location, 5);
         var markerString = "You're soaring over here right now!"
-        this.mapWrapper.addInfoMarker(spaceStationLocation, markerString);
+        this.mapWrapper.addInfoMarker(location, markerString);
+    },
+    currentLocationButton: function() {
+        var container = document.querySelector('#right');
+        var button = document.createElement('button');
+        button.innerText = "Where Am I?"
+        container.appendChild(button);
+        button.onclick = function() {
+            this.spaceStation.currentLocation(function(location) {
+                this.renderMap(location);
+            }.bind(this))
+        }.bind(this);
     }
 
 
