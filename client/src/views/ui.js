@@ -1,6 +1,13 @@
+var News = require('../models/news');
+
 var UI = function () {
+    this.news = new News();
+    this.news.all(function(headlineArray) {
+        this.render(headlineArray);
+        console.log(headlineArray)
+    }.bind(this))
     this.container = document.body;
-    this.render();
+
 }
 
 UI.prototype = {
@@ -16,7 +23,13 @@ UI.prototype = {
     //     return newContainer;
     // },
 
-    render: function () {
+    render: function (headlinesArray) {
+        var headlines = document.querySelector('#ticker');
+           headlinesArray.forEach(function(headline) {
+             var headlineTitle = document.createElement("p");
+             headlineTitle.innerText = headline.title;
+             headlines.appendChild(headlineTitle);
+           })
         // var headerContainer = this.createContainer('header', 'flex', 'center', 'shadow');
         // new Header(headerContainer);
         // var searchBar = new SearchBar(headerContainer);
