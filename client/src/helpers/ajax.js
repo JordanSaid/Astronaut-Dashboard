@@ -16,4 +16,4 @@ var ajax = {
         
         request.send();   
     }
-}
+};
