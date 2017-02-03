@@ -19,6 +19,12 @@ MemoView.prototype = {
     var newButton = document.createElement("button");
     newButton.setAttribute("id","new-button");
     newButton.innerText = "New memo";
+    searchButton.addEventListener("click",function(){
+      console.log("search button clicked "+searchBox.value);
+    });
+    newButton.addEventListener("click",function(){
+      console.log("New memo button clicked - Yay")
+    })
     this.container.appendChild(controlBar);
     controlBar.appendChild(searchBox);
     controlBar.appendChild(searchButton);

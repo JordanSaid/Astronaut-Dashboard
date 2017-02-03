@@ -59,6 +59,8 @@ font-size: 36px;
   margin-left: 4px;
   height: 70%;
   flex-grow: 10;
+  font-size: 18px;
+  justify-content: center;
 }
 
 #search-bar-space {
@@ -68,6 +70,9 @@ font-size: 36px;
 #new-button {
  height: 70%; 
  flex-grow: 10;
+ font-size: 18px;
+ margin-right: 4px;
+ justify-content: center;
 }
 
 #right {
