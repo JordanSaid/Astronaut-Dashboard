@@ -57,7 +57,7 @@ UI.prototype = {
         var mapDiv = document.createElement('div');
         container.appendChild(mapDiv);
 
-        this.mapWrapper = new MapWrapper(mapDiv, location, 5);
+        this.mapWrapper = new MapWrapper(mapDiv, location, 4);
         var markerString = "You're soaring over here right now!"
         this.mapWrapper.addInfoMarker(location, markerString);
     },
