@@ -7,10 +7,8 @@ var MemoQuery = function(){ //NEW
 
 MemoQuery.prototype = {
   all: function(onQueryFinished){
-    console.log("in memoQuery.all")
     MongoClient.connect(this.url, function(err, db) {
       if(db){
-        console.log("in if-db function");
         var collection = db.collection('memos'); 
         collection.find().toArray(function(err, docs) {
           console.log(docs);
@@ -29,6 +27,16 @@ MemoQuery.prototype = {
             onQueryFinished(docs);
           });
         };
+    });
+  },
+
+  search: function(searchBy, searchData, onQueryFinished){
+    MongoClient.connect(this.url, function(err, db) {
+    if(db){
+      var collection = db.collection('memos');
+      // search collection on supplied key for data
+      
+      };
     });
   }
 }
