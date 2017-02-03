@@ -5,8 +5,7 @@ var Memo = function(options){
 }
 
 Memo.prototype = {
-
-
+ 
 };
 
 module.exports = Memo;

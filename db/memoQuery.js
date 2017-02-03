@@ -1,7 +1,7 @@
 var MongoClient = require('mongodb').MongoClient;
 
 var MemoQuery = function(){ //NEW
-  this.url = 'mongodb://localhost:27017/dashboard';
+  this.url = 'mongodb://localhost:27017/api/dashboard';
   console.log("creating new memo query");
 }
 
@@ -17,6 +17,7 @@ MemoQuery.prototype = {
       }
     });
   },
+  
   add: function(memoToAdd, onQueryFinished) {  
     MongoClient.connect(this.url, function(err, db) {
       if(db){
@@ -29,16 +30,6 @@ MemoQuery.prototype = {
         };
     });
   },
-
-  search: function(searchBy, searchData, onQueryFinished){
-    MongoClient.connect(this.url, function(err, db) {
-    if(db){
-      var collection = db.collection('memos');
-      // search collection on supplied key for data
-      
-      };
-    });
-  }
 }
 
 module.exports = MemoQuery;
