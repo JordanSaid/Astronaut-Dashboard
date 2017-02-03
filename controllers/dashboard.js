@@ -6,11 +6,12 @@ var query = new memoQuery();
 
 
 dashboardRouter.get('/', function(req, res){
-  // the app will not actually do this!!
-  query.all(function(results){
-    console.log("get all memos");
+    console.log("memos route")
+    query.all(function(results){
     res.json(results);
   });
 });
+
+
 
 module.exports = dashboardRouter;

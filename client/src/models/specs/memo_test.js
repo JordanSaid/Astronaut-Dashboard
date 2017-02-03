@@ -4,6 +4,7 @@ var Memo = require("../memo");
 var memo;
 var options = {
   title: "My memo",
+  timestamp: "2/3/2017, 11:47:47 AM"
   body: "Hello diary",
   emoji: {
     name: "smiley",

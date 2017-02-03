@@ -17,7 +17,7 @@ Memos.prototype = {
   
   all: function(callback){
     var self = this;
-    this.makeRequest("GET", "http://localhost:3000/api/dashboard", function(){
+    this.makeRequest("GET", "http://localhost:3000/dashboard", function(){
       if(this.status !== 200) return;
       var jsonString = this.responseText;
       var results = JSON.parse(jsonString);
@@ -34,22 +34,27 @@ Memos.prototype = {
       memos.push(memo);
     }
     return memos;
+    console.log("memos returned: ")
+    console.log(memos);
   },
 
   add: function(newMemo, callback){
-    var memoToAdd = JSON.stringify(newMemo;
+    var memoToAdd = JSON.stringify(newMemo);
     console.log("NEW Memo", memoToAdd);
-    this.makeRequest("POST", "http://localhost:3000/api/dashboard", callback, memoToAdd);
+    this.makeRequest("POST", "http://localhost:3000/dashboard", callback, memoToAdd);
   },
 
-  search: function(searchBy, searchData, onQueryFinished){
-    MongoClient.connect(this.url, function(err, db) {
-    if(db){
-      var collection = db.collection('memos');
-      // search collection on supplied key for data
-      
-      };
+  search: function(searchBy, searchData){
+    var data = [];
+     this.makeRequest("GET", "http://localhost:3000/dashboard",function(){
+        var jsonString = this.responseText;
+        data = JSON.parse(jsonString);
+      });
+    console.log(data);
     });
+
+  
+
   }
 
 };
