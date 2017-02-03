@@ -1,4 +1,6 @@
 var News = require('../models/news');
+// var MapWrapper = require('../models/MapWrapper');
+var SpaceStation = require('../models/spaceStation');
 
 var UI = function () {
     this.news = new News();
@@ -7,6 +9,10 @@ var UI = function () {
         console.log(headlineArray)
     }.bind(this))
     this.container = document.body;
+
+    this.spaceStation = new SpaceStation();
+    this.spaceStation.all(function(detailsArray) {
+    }.bind(this))
 
 }
 
@@ -29,7 +35,8 @@ UI.prototype = {
              var headlineTitle = document.createElement("p");
              headlineTitle.innerHTML = "<a href='" + headline.url + "'>" + headline.title + "</a>";
              headlines.appendChild(headlineTitle);
-           })
+           });
+
         // var headerContainer = this.createContainer('header', 'flex', 'center', 'shadow');
         // new Header(headerContainer);
         // var searchBar = new SearchBar(headerContainer);

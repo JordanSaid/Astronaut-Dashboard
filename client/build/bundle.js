@@ -56,6 +56,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var News = __webpack_require__(2);
+	// var MapWrapper = require('../models/MapWrapper');
+	var SpaceStation = __webpack_require__(4);
 	
 	var UI = function () {
 	    this.news = new News();
@@ -64,6 +66,10 @@
 	        console.log(headlineArray)
 	    }.bind(this))
 	    this.container = document.body;
+	
+	    this.spaceStation = new SpaceStation();
+	    this.spaceStation.all(function(detailsArray) {
+	    }.bind(this))
 	
 	}
 	
@@ -86,7 +92,8 @@
 	             var headlineTitle = document.createElement("p");
 	             headlineTitle.innerHTML = "<a href='" + headline.url + "'>" + headline.title + "</a>";
 	             headlines.appendChild(headlineTitle);
-	           })
+	           });
+	
 	        // var headerContainer = this.createContainer('header', 'flex', 'center', 'shadow');
 	        // new Header(headerContainer);
 	        // var searchBar = new SearchBar(headerContainer);
@@ -136,6 +143,38 @@
 	}
 	
 	module.exports = News;
+
+/***/ },
+/* 3 */,
+/* 4 */
+/***/ function(module, exports) {
+
+	var SpaceStation = function() {
+	
+	};
+	
+	SpaceStation.prototype = {
+	  makeRequest: function(url, callback) {
+	    var request = new XMLHttpRequest();
+	    request.open("GET", url);
+	    request.onload = callback;
+	    request.send();
+	  },
+	  all: function(callback) {
+	    var self = this;
+	    this.makeRequest("http://api.open-notify.org/iss-now.json", function() {
+	      if (this.status !== 200){
+	        return;
+	      }
+	      var jsonString = this.responseText;
+	      var station = JSON.parse(jsonString);
+	      callback(station);
+	      console.log(station);
+	    });
+	  }
+	}
+	
+	module.exports = SpaceStation;
 
 /***/ }
 /******/ ]);
