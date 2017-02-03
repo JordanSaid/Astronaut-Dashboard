@@ -55,8 +55,10 @@ UI.prototype = {
         var stationLat = detailsArray.iss_position.latitude;
         var stationLon = detailsArray.iss_position.longitude;
         var spaceStationLocation = {lat: parseInt(stationLat), lng: parseInt(stationLon)};
-        this.mapWrapper = new MapWrapper(mapDiv, spaceStationLocation, 4);
-        this.mapWrapper.addMarker(spaceStationLocation);
+        this.mapWrapper = new MapWrapper(mapDiv, spaceStationLocation, 5);
+        // this.mapWrapper.addMarker(spaceStationLocation);
+        var markerString = "You're soaring over here right now!"
+        this.mapWrapper.addInfoMarker(spaceStationLocation, markerString);
     }
 
 
