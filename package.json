@@ -1,5 +1,5 @@
 {
-  "name": "wed_lab",
+  "name": "dashboard",
   "version": "1.0.0",
   "main": "server.js",
   "dependencies": {
@@ -11,7 +11,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "mocha specs",
+    "test": "mocha client/src/models/specs",
     "start": "node server.js"
   },
   "author": "",
