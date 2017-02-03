@@ -1,4 +1,5 @@
 var News = require('../models/news');
+var MemoView = require('./memoView')
 
 var UI = function () {
     this.news = new News();
@@ -30,7 +31,7 @@ UI.prototype = {
              headlineTitle.innerHTML = "<a href='" + headline.url + "'>" + headline.title + "</a>";
              headlines.appendChild(headlineTitle);
            });
-        var leftDiv = document.querySelector("left-div");
+        var leftDiv = document.querySelector("#left");
         var memoView = new MemoView(leftDiv);
         memoView.renderMemoDash();
      
