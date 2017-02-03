@@ -56,7 +56,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var News = __webpack_require__(2);
-	// var MapWrapper = require('../models/MapWrapper');
+	var MapWrapper = __webpack_require__(3);
 	var SpaceStation = __webpack_require__(4);
 	
 	var UI = function () {
@@ -70,6 +70,10 @@
 	    this.spaceStation = new SpaceStation();
 	    this.spaceStation.all(function(detailsArray) {
 	    }.bind(this))
+	
+	    var mapDiv = document.querySelector('#right');
+	    // var spaceStationLocation = 
+	    this.mapWrapper = new MapWrapper(mapDiv, {lat: 51.510944, lng: -0.129403}, 10);
 	
 	}
 	
@@ -101,6 +105,10 @@
 	        // var imageContainer = this.createContainer('image-container', 'flex', 'wrap', 'center');
 	        // var imageDisplay = new ImageDisplay(imageContainer);
 	        // searchBar.setImageContainer(imageDisplay);
+	    },
+	    renderMap: function (detailsArray) {
+	        var mapWrapper = document.querySelector('#right');
+	
 	    }
 	}
 	
@@ -145,7 +153,35 @@
 	module.exports = News;
 
 /***/ },
-/* 3 */,
+/* 3 */
+/***/ function(module, exports) {
+
+	var MapWrapper = function(container, coordinates, zoom) {
+	  var container = document.querySelector("#right");
+	  this.googleMap = new google.maps.Map(container, {
+	    center: coordinates,
+	    zoom: zoom
+	  });
+	}
+	
+	MapWrapper.prototype = {
+	  addMarker: function(coordinates) {
+	    var marker = new google.maps.Marker({
+	      position: coords,
+	      map: this.googleMap,
+	    });
+	      this.googleMap.setCenter(coordinates)
+	  },
+	  setCurrentLocation: function(position) {
+	      var pos = {lat: position.coords.latitude, lng: position.coords.longitude};
+	      this.googleMap.setCenter(pos);
+	      this.googleMap.setZoom(15);
+	  },
+	}
+	
+	module.exports = MapWrapper;
+
+/***/ },
 /* 4 */
 /***/ function(module, exports) {
 

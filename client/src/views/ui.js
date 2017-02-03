@@ -1,5 +1,5 @@
 var News = require('../models/news');
-// var MapWrapper = require('../models/MapWrapper');
+var MapWrapper = require('../models/MapWrapper');
 var SpaceStation = require('../models/spaceStation');
 
 var UI = function () {
@@ -13,6 +13,10 @@ var UI = function () {
     this.spaceStation = new SpaceStation();
     this.spaceStation.all(function(detailsArray) {
     }.bind(this))
+
+    var mapDiv = document.querySelector('#right');
+    // var spaceStationLocation = 
+    this.mapWrapper = new MapWrapper(mapDiv, {lat: 51.510944, lng: -0.129403}, 10);
 
 }
 
@@ -44,6 +48,10 @@ UI.prototype = {
         // var imageContainer = this.createContainer('image-container', 'flex', 'wrap', 'center');
         // var imageDisplay = new ImageDisplay(imageContainer);
         // searchBar.setImageContainer(imageDisplay);
+    },
+    renderMap: function (detailsArray) {
+        var mapWrapper = document.querySelector('#right');
+
     }
 }
 
