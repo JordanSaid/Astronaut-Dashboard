@@ -37,7 +37,7 @@ UI.prototype = {
         var headlines = document.querySelector('#ticker');
            headlinesArray.forEach(function(headline) {
              var headlineTitle = document.createElement("p");
-             headlineTitle.innerHTML = "<a href='" + headline.url + "'>" + headline.title + "</a>";
+             headlineTitle.innerHTML = "<a href='" + headline.url + "'>" + "<marquee direction='left'>" + headline.title + "</marquee></a>";
              headlines.appendChild(headlineTitle);
            });
 
