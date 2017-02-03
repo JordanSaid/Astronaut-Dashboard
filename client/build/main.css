@@ -44,10 +44,17 @@ flex-grow: 1;
 
 #ticker {
 background-color: #1C28B9;
-flex-grow: 20;
+flex-grow: 10;
+display:inline-flex;
 }
 
 a {
   color: white;
   font-size: 10px;
+  /*display:inline-flex;*/
+  font-family: helvetica;
+}
+
+p {
+ /*display:inline-flex;*/
 }
