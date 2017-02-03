@@ -1,10 +1,15 @@
 var News = require('../models/news');
 <<<<<<< HEAD
+<<<<<<< HEAD
 var MemoView = require('./memoView')
 =======
 var MapWrapper = require('../models/MapWrapper');
 var SpaceStation = require('../models/spaceStation');
 >>>>>>> 5a704ac265d0fcd98b08a422955b06aec0e29210
+=======
+var MapWrapper = require('../models/MapWrapper');
+var SpaceStation = require('../models/spaceStation');
+>>>>>>> 9c6a596093e7f056fbbaf844275740b9fcca3ddc
 
 var UI = function () {
     this.news = new News();
@@ -15,8 +20,15 @@ var UI = function () {
     this.container = document.body;
 
     this.spaceStation = new SpaceStation();
+<<<<<<< HEAD
     this.spaceStation.all(function(detailsArray) {
         this.renderMap(detailsArray);
+=======
+    this.spaceStation.currentLocation(function(location) {
+        this.renderMap(location);
+        this.currentLocationButton();
+        console.log(location)
+>>>>>>> 9c6a596093e7f056fbbaf844275740b9fcca3ddc
     }.bind(this))
 
 }
@@ -42,15 +54,21 @@ UI.prototype = {
              headlines.appendChild(headlineTitle);
            });
 <<<<<<< HEAD
+<<<<<<< HEAD
         var leftDiv = document.querySelector("#left");
         var memoView = new MemoView(leftDiv);
         memoView.renderMemoDash();
 =======
+=======
+>>>>>>> 9c6a596093e7f056fbbaf844275740b9fcca3ddc
 
         // var leftDiv = document.querySelector("left-div");
         // var memoView = new MemoView(leftDiv);
         // memoView.renderMemoDash();
+<<<<<<< HEAD
 >>>>>>> 5a704ac265d0fcd98b08a422955b06aec0e29210
+=======
+>>>>>>> 9c6a596093e7f056fbbaf844275740b9fcca3ddc
      
         // var headerContainer = this.createContainer('header', 'flex', 'center', 'shadow');
         // new Header(headerContainer);
@@ -60,6 +78,7 @@ UI.prototype = {
         // var imageDisplay = new ImageDisplay(imageContainer);
         // searchBar.setImageContainer(imageDisplay);
     },
+<<<<<<< HEAD
     renderMap: function (detailsArray) {
         var mapDiv = document.querySelector('#right');
         var stationLat = detailsArray.iss_position.latitude;
@@ -67,6 +86,27 @@ UI.prototype = {
         var spaceStationLocation = {lat: parseInt(stationLat), lng: parseInt(stationLon)};
         this.mapWrapper = new MapWrapper(mapDiv, spaceStationLocation, 4);
         this.mapWrapper.addMarker(spaceStationLocation);
+=======
+    renderMap: function (location) {
+        var container = document.querySelector('#right');
+        var mapDiv = document.createElement('div');
+        container.appendChild(mapDiv);
+
+        this.mapWrapper = new MapWrapper(mapDiv, location, 4);
+        var markerString = "You're soaring over here right now!"
+        this.mapWrapper.addInfoMarker(location, markerString);
+    },
+    currentLocationButton: function() {
+        var container = document.querySelector('#right');
+        var button = document.createElement('button');
+        button.innerText = "Where Am I?"
+        container.appendChild(button);
+        button.onclick = function() {
+            this.spaceStation.currentLocation(function(location) {
+                this.renderMap(location);
+            }.bind(this))
+        }.bind(this);
+>>>>>>> 9c6a596093e7f056fbbaf844275740b9fcca3ddc
     }
 
 
