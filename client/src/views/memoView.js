@@ -6,6 +6,7 @@ MemoView.prototype = {
 
   renderMemoDash: function(){
     this.container.innerHTML = "";
+    this.container.style.flexDirection = "row";
     var controlBar = document.createElement("section");
     controlBar.setAttribute("id","control-bar");
     var searchBox = document.createElement("input");
@@ -26,9 +27,9 @@ MemoView.prototype = {
     });
     newButton.addEventListener("click",function(){
       //going to show a new memo here
-
-      console.log("New memo button clicked - Yay")
-    })
+      this.renderMemo();
+      
+    }.bind(this))
     this.container.appendChild(controlBar);
     controlBar.appendChild(searchBox);
     controlBar.appendChild(searchButton);
@@ -41,10 +42,15 @@ MemoView.prototype = {
   renderMemo: function(data){
     //we want a heading with space for name, date and save
     this.container.innerHTML = "";
+    this.container.style.flexDirection = "column";
     var headerBar = document.createElement("section");
     headerBar.setAttribute("id","control-bar");
-    
-
+    var memoBody = document.createElement("textarea");
+    memoBody.setAttribute("id","memo-body");
+    memoBody.rows = "8";
+    console.log(memoBody.rows);
+    this.container.appendChild(headerBar);
+    this.container.appendChild(memoBody);
   },
 
   renderMemoIndex: function(data){
