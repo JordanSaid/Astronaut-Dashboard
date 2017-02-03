@@ -6,6 +6,7 @@ var query = new memoQuery();
 
 
 dashboardRouter.get('/', function(req, res){
+  // the app will not actually do this!!
   query.all(function(results){
     console.log("get all memos");
     res.json(results);
