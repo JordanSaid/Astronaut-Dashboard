@@ -42,7 +42,7 @@ font-size: 36px;
   display:flex;
   align-self: flex-start;
   width: 100%;
-  height: 10%;
+  height: 6%;
   background-color: #DDBB77;
   align-items: center;
 }
@@ -54,19 +54,9 @@ font-size: 36px;
   flex-grow: 20;
   font-size: 24px;  
   background-color: #DDBB77;
-  border: 1px solid; 
+  border: 1px solid #997733; 
 }
 
-#date-box {
- display: flex;
- flex-grow: 10;
- height: 60%;
- width:60px;
- margin-left: 4px;
- font-size: 20px; 
- background-color: #DDBB77;
- border: 1px solid; 
-}
 
 #title-box {
  display: flex;
@@ -77,8 +67,10 @@ font-size: 36px;
  margin-right: 4px;
  font-size: 24px;  
  background-color: #DDBB77;
- border: 1px solid; 
+ border: 1px solid #997733;
+ text-align: center;
 }
+
 #search-button, #new-button {
   display: flex;
   margin-left: 4px;
@@ -93,17 +85,6 @@ display: flex;
 flex-grow: 10;
 }
 
-#save-button {
-  display: flex;
-  flex-grow: 10;
- height: 60%; 
- font-size: 18px;
- margin-right: 4px;
- justify-content: center;
-}
-
-
-
 #memo-body {
   display: flex;
   flex: 1;
@@ -113,6 +94,40 @@ flex-grow: 10;
   line-height: 50px;
 
 }
+
+#footer-bar {
+  display: flex;
+  height: 6%;
+  background-color: #DDBB77;
+  align-items: center;
+}
+#finish-button{
+  display: flex;
+  flex:1;
+  height: 80%;
+  font-size: 18px;
+  justify-content: center;
+}
+
+#date-box {
+ display: flex;
+ flex: 2;
+ height: 60%;
+ width:60px;
+ margin-left: 4px;
+ font-size: 20px; 
+ background-color: #DDBB77;
+ border: 1px solid #997733; 
+}
+
+#save-button {
+  display: flex;
+  flex:1;
+ height: 80%; 
+ font-size: 18px;
+ justify-content:center;
+}
+
 
 #right {
 display:flex;  

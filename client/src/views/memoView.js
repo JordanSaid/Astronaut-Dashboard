@@ -1,5 +1,6 @@
 var MemoView = function(container){
   this.container = container;
+  this.timestamp = null;
 };
 
 MemoView.prototype = {
@@ -29,7 +30,7 @@ MemoView.prototype = {
       //going to show a new memo here
       this.renderMemo();
       
-    }.bind(this))
+    }.bind(this));
     this.container.appendChild(controlBar);
     controlBar.appendChild(searchBox);
     controlBar.appendChild(searchButton);
@@ -40,30 +41,49 @@ MemoView.prototype = {
   },
 
   renderMemo: function(data){
-    //we want a heading with space for name, date and save
+    this.timestamp = new Date(Date.now());
+
     this.container.innerHTML = "";
     this.container.style.flexDirection = "column";
     var headerBar = document.createElement("section");
     headerBar.setAttribute("id","control-bar");
     var dateBox = document.createElement("input");
+    dateBox.class = "flatpickr";
+    dateBox.type = "text";
     dateBox.setAttribute("id","date-box");
+    dateBox.value = this.timestamp.toDateString();
     var titleBox = document.createElement("input");
     titleBox.setAttribute("id","title-box");
-    var saveButton = document.createElement("button");
-    saveButton.setAttribute("id","save-button");
-    saveButton.innerText = "Save";
+    titleBox.value = "New memo";
     var memoBody = document.createElement("textarea");
     memoBody.setAttribute("id","memo-body");
     memoBody.rows = "8";
+    var footerBar = document.createElement("section");
+    footerBar.setAttribute("id","footer-bar");
+    var saveButton = document.createElement("button");
+    saveButton.setAttribute("id","save-button");
+    saveButton.innerText = "Save";
+    var finishButton = document.createElement("button");
+    finishButton.setAttribute("id","finish-button");
+    finishButton.innerText = "Finish"
     this.container.appendChild(headerBar);
-    headerBar.appendChild(dateBox);
     headerBar.appendChild(titleBox);
-    headerBar.appendChild(saveButton);
+    footerBar.appendChild(finishButton);
+    footerBar.appendChild(dateBox);
+    footerBar.appendChild(saveButton);
+    finishButton.addEventListener("click",function(){
+      console.log("finish button clicked")
+    });
     saveButton.addEventListener("click",function(){
       console.log("save button clicked")
     });
+    dateBox.addEventListener("click",function(){
+      dateBox.flatpickr(".flatpickr");
+    })
     this.container.appendChild(memoBody);
-    console.log(this.container);
+    this.container.appendChild(footerBar);
+
+
   },
 
   renderMemoIndex: function(data){
