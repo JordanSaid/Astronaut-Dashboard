@@ -1,4 +1,5 @@
 var News = require('../models/news');
+var MemoView = require('./memoView')
 var MapWrapper = require('../models/MapWrapper');
 var SpaceStation = require('../models/spaceStation');
 
@@ -12,11 +13,8 @@ var UI = function () {
 
     this.spaceStation = new SpaceStation();
     this.spaceStation.all(function(detailsArray) {
+        this.renderMap(detailsArray);
     }.bind(this))
-
-    var mapDiv = document.querySelector('#right');
-    // var spaceStationLocation = 
-    this.mapWrapper = new MapWrapper(mapDiv, {lat: 51.510944, lng: -0.129403}, 10);
 
 }
 
@@ -40,10 +38,13 @@ UI.prototype = {
              headlineTitle.innerHTML = "<a href='" + headline.url + "'>" + "<marquee direction='left'>" + headline.title + "</marquee></a>";
              headlines.appendChild(headlineTitle);
            });
-
-        var leftDiv = document.querySelector("left-div");
+        var leftDiv = document.querySelector("#left");
         var memoView = new MemoView(leftDiv);
         memoView.renderMemoDash();
+
+        // var leftDiv = document.querySelector("left-div");
+        // var memoView = new MemoView(leftDiv);
+        // memoView.renderMemoDash();
      
         // var headerContainer = this.createContainer('header', 'flex', 'center', 'shadow');
         // new Header(headerContainer);
@@ -54,8 +55,12 @@ UI.prototype = {
         // searchBar.setImageContainer(imageDisplay);
     },
     renderMap: function (detailsArray) {
-        var mapWrapper = document.querySelector('#right');
-
+        var mapDiv = document.querySelector('#right');
+        var stationLat = detailsArray.iss_position.latitude;
+        var stationLon = detailsArray.iss_position.longitude;
+        var spaceStationLocation = {lat: parseInt(stationLat), lng: parseInt(stationLon)};
+        this.mapWrapper = new MapWrapper(mapDiv, spaceStationLocation, 4);
+        this.mapWrapper.addMarker(spaceStationLocation);
     }
 
 

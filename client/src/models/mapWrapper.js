@@ -9,7 +9,7 @@ var MapWrapper = function(container, coordinates, zoom) {
 MapWrapper.prototype = {
   addMarker: function(coordinates) {
     var marker = new google.maps.Marker({
-      position: coords,
+      position: coordinates,
       map: this.googleMap,
     });
       this.googleMap.setCenter(coordinates)

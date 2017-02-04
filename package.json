@@ -9,7 +9,10 @@
     "mongodb": "^2.2.22",
     "webpack": "^2.2.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "css-loader": "^0.26.1",
+    "style-loader": "^0.13.1"
+  },
   "scripts": {
     "test": "mocha client/src/models/specs",
     "start": "node server.js"
