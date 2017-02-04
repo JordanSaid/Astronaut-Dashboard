@@ -49,22 +49,21 @@ MemoView.prototype = {
     dateBox.setAttribute("id","date-box");
     var titleBox = document.createElement("input");
     titleBox.setAttribute("id","title-box");
-    var space = document.createElement("p");
-    space.setAttribute("id","search-bar-space");
     var saveButton = document.createElement("button");
     saveButton.setAttribute("id","save-button");
+    saveButton.innerText = "Save";
     var memoBody = document.createElement("textarea");
     memoBody.setAttribute("id","memo-body");
     memoBody.rows = "8";
     this.container.appendChild(headerBar);
     headerBar.appendChild(dateBox);
     headerBar.appendChild(titleBox);
-    headerBar.appendChild(space);
     headerBar.appendChild(saveButton);
     saveButton.addEventListener("click",function(){
       console.log("save button clicked")
     });
     this.container.appendChild(memoBody);
+    console.log(this.container);
   },
 
   renderMemoIndex: function(data){

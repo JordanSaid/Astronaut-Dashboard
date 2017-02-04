@@ -52,18 +52,33 @@ font-size: 36px;
   margin-left: 10px;
   height: 60%;
   flex-grow: 20;
-  font-size: 24px;
+  font-size: 24px;  
+  background-color: #DDBB77;
+  border: 1px solid; 
 }
 
-#date-box, #title-box {
+#date-box {
  display: flex;
- flex-grow: 1;
+ flex-grow: 10;
+ height: 60%;
+ width:60px;
+ margin-left: 4px;
+ font-size: 20px; 
+ background-color: #DDBB77;
+ border: 1px solid; 
+}
+
+#title-box {
+ display: flex;
+ flex-grow: 30;
  height: 60%;
  width:40px;
- margin-left: 10px;
- font-size: 24px; 
+ margin-left: 4px;
+ margin-right: 4px;
+ font-size: 24px;  
+ background-color: #DDBB77;
+ border: 1px solid; 
 }
-
 #search-button, #new-button {
   display: flex;
   margin-left: 4px;
@@ -75,21 +90,18 @@ font-size: 36px;
 
 #search-bar-space {
 display: flex;
-flex-grow: 1;
+flex-grow: 10;
 }
 
 #save-button {
   display: flex;
-  flex-grow: 1;
- height: 70%; 
+  flex-grow: 10;
+ height: 60%; 
  font-size: 18px;
+ margin-right: 4px;
  justify-content: center;
 }
 
-
-#title-box {
-
-}
 
 
 #memo-body {
