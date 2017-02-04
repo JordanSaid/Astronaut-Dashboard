@@ -1,5 +1,5 @@
 var Memo = require('./memo');
-
+var ajax = require("../helpers/ajax")
 
 var Memos = function(){
 
@@ -15,14 +15,13 @@ Memos.prototype = {
     request.send(payload);
   },
   
-  all: function(callback){
-    var self = this;
-    this.makeRequest("GET", "http://localhost:3000/dashboard", function(){
+  all: function(url,callback){
+    var results;
+    this.makeRequest("GET", "http://localhost:3000/memos", function(){
       if(this.status !== 200) return;
       var jsonString = this.responseText;
-      var results = JSON.parse(jsonString);
-      var memos = self.populateMemos(results);
-      callback(memos);
+      results = JSON.parse(jsonString);
+      callback(results);
     });
   },
 

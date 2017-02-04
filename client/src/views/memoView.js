@@ -77,38 +77,55 @@ MemoView.prototype = {
     footerBar.appendChild(dateBox);
     footerBar.appendChild(saveButton);
     finishButton.addEventListener("click",function(){
-    });
+      this.getMemo(1);
+    }.bind(this));
     saveButton.addEventListener("click",function(){
-    });
+      //line below just for testing
+      this.searchMemo("name","John");
+    }.bind(this));
     dateBox.addEventListener("click",function(){
           dateBox.flatpickr();
     })
     this.container.appendChild(memoBody);
     this.container.appendChild(footerBar);
     var url = "http://localhost:3000/memos/"
-    ajax.get(url,function(data){
-
+    var memos = new Memos();
+    memos.all(url,function(data){
+      console.log(data[0].body);
     });
   },
 
   renderMemoIndex: function(data){
     //render the memo index list inside this container
     //and add the names of matching memos
+
   },
 
   getMemo: function (id) {
-      ajax.get(url, function (data) {
-        console.log(data);
+      var memos = new Memos();
+      var url = "http://localhost:3000/memos/"
+      memos.all(url, function (data) {
+        console.log("getMemoById")
+        console.log(data[0]);
+      var memoBody = document.querySelector("#memo-body");
+      var memoTitle = document.querySelector("#title-box");
+      var dateBox = document.querySelector("#date-box");
+      memoTitle.value = data[0].name;
+      dateBox.value = data[0].timestamp;
+      memoBody.value = data[0].body;
         // if id is null just render a blank memo 
          // container.render(data);
       });
   },
 
   searchMemo: function (searchBy, seachData) {
-      ajax.get(url, function (data) {
-        console.log(data);
-        // if id is null just render a blank memo 
-         // container.render(data);
+        var memos = new Memos();
+        var url = "http://localhost:3000/memos/"        
+        memos.all(url, function (data) {
+          console.log("search Memos")
+          console.log(data);
+          // if id is null just render a blank memo 
+           // container.render(data);
       });
   }
 };
