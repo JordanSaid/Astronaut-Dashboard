@@ -1,3 +1,8 @@
+var flatpickr = require("flatpickr");
+require("flatpickr/dist/flatpickr.min.css");
+//flatpickr('#flatpickr-tryme');
+
+
 var MemoView = function(container){
   this.container = container;
   this.timestamp = null;
@@ -78,7 +83,8 @@ MemoView.prototype = {
       console.log("save button clicked")
     });
     dateBox.addEventListener("click",function(){
-      dateBox.flatpickr(".flatpickr");
+     console.log(dateBox.class);
+      dateBox.flatpickr();
     })
     this.container.appendChild(memoBody);
     this.container.appendChild(footerBar);
