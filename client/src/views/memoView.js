@@ -1,5 +1,7 @@
 var flatpickr = require("flatpickr");
 require("flatpickr/dist/flatpickr.min.css");
+var Memos = require('../models/memos')
+var ajax = require("../helpers/ajax")
 //flatpickr('#flatpickr-tryme');
 
 
@@ -27,8 +29,6 @@ MemoView.prototype = {
     newButton.innerText = "New memo";
     searchButton.addEventListener("click",function(){
       //going to search here
-      
-
       console.log("search button clicked "+searchBox.value);
     });
     newButton.addEventListener("click",function(){
@@ -41,13 +41,13 @@ MemoView.prototype = {
     controlBar.appendChild(searchButton);
     controlBar.appendChild(space);
     controlBar.appendChild(newButton);
+    console.log("timestamp before new memo "+this.timestamp);
     //shows a search bar, search button
     //and a new memo button
   },
 
   renderMemo: function(data){
     this.timestamp = new Date(Date.now());
-
     this.container.innerHTML = "";
     this.container.style.flexDirection = "column";
     var headerBar = document.createElement("section");
@@ -77,19 +77,18 @@ MemoView.prototype = {
     footerBar.appendChild(dateBox);
     footerBar.appendChild(saveButton);
     finishButton.addEventListener("click",function(){
-      console.log("finish button clicked")
     });
     saveButton.addEventListener("click",function(){
-      console.log("save button clicked")
     });
     dateBox.addEventListener("click",function(){
-     console.log(dateBox.class);
-      dateBox.flatpickr();
+          dateBox.flatpickr();
     })
     this.container.appendChild(memoBody);
     this.container.appendChild(footerBar);
+    var url = "http://localhost:3000/memos/"
+    ajax.get(url,function(data){
 
-
+    });
   },
 
   renderMemoIndex: function(data){
