@@ -12,6 +12,14 @@ dashboardRouter.get('/', function(req, res){
   });
 });
 
+dashboardRouter.post('/', function(req, res){
+  console.log("post new memos route");
+  query.add(req.body,function(){
+
+  })
+  res.json({data: "hello"});
+});
+
 
 
 module.exports = dashboardRouter;

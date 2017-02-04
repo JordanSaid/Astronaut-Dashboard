@@ -1,13 +1,15 @@
 var flatpickr = require("flatpickr");
 require("flatpickr/dist/flatpickr.min.css");
-var Memos = require('../models/memos')
-var ajax = require("../helpers/ajax")
+var Memos = require('../models/memos');
+var Memo = require('../models/memo');
+var ajax = require("../helpers/ajax");
+var Emoji = require('../models/emoji');
 //flatpickr('#flatpickr-tryme');
 
 
 var MemoView = function(container){
   this.container = container;
-  this.timestamp = null;
+  this.memo = {};
 };
 
 MemoView.prototype = {
@@ -32,8 +34,14 @@ MemoView.prototype = {
       console.log("search button clicked "+searchBox.value);
     });
     newButton.addEventListener("click",function(){
-      //going to show a new memo here
-      this.renderMemo();
+      var options = {};
+      options["title"] = "New memo";
+      var timestamp = new Date(Date.now());
+      options["timestamp"] = timestamp;
+      options["emoji"] = {"name":"none", "url":""}
+      options["body"] = "";
+      this.memo = new Memo(options)
+      this.renderMemo(this.memo);
       
     }.bind(this));
     this.container.appendChild(controlBar);
@@ -41,28 +49,34 @@ MemoView.prototype = {
     controlBar.appendChild(searchButton);
     controlBar.appendChild(space);
     controlBar.appendChild(newButton);
-    console.log("timestamp before new memo "+this.timestamp);
-    //shows a search bar, search button
-    //and a new memo button
   },
 
   renderMemo: function(data){
-    this.timestamp = new Date(Date.now());
+    //the data will contain the info about the memo
+    //if there isn't any then it's a new memo
+    var timestamp = data.timestamp;
     this.container.innerHTML = "";
     this.container.style.flexDirection = "column";
+    this.emoji = data.emoji;
     var headerBar = document.createElement("section");
     headerBar.setAttribute("id","control-bar");
     var dateBox = document.createElement("input");
     dateBox.class = "flatpickr";
     dateBox.type = "text";
     dateBox.setAttribute("id","date-box");
-    dateBox.value = this.timestamp.toDateString();
+    dateBox.value = timestamp.toDateString();
     var titleBox = document.createElement("input");
     titleBox.setAttribute("id","title-box");
-    titleBox.value = "New memo";
+    titleBox.value = data.title;
+    var emojiBox = document.createElement("img");
+    emojiBox.setAttribute("id","emoji-box");
+    if (data.emoji){
+    emojiBox.src = data.emoji.url;}
+
     var memoBody = document.createElement("textarea");
     memoBody.setAttribute("id","memo-body");
     memoBody.rows = "8";
+    memoBody.value = data.body;
     var footerBar = document.createElement("section");
     footerBar.setAttribute("id","footer-bar");
     var saveButton = document.createElement("button");
@@ -73,26 +87,32 @@ MemoView.prototype = {
     finishButton.innerText = "Finish"
     this.container.appendChild(headerBar);
     headerBar.appendChild(titleBox);
+    headerBar.appendChild(emojiBox);
     footerBar.appendChild(finishButton);
     footerBar.appendChild(dateBox);
     footerBar.appendChild(saveButton);
+
     finishButton.addEventListener("click",function(){
-      this.getMemo(1);
+      var url = "http://localhost:3000/memos/"
+      ajax.get(url,function(data){
+        console.log(data);
+      });
+
     }.bind(this));
+
     saveButton.addEventListener("click",function(){
-      //line below just for testing
-      this.searchMemo("name","John");
+      this.memo["title"] = titleBox.value;
+      this.memo["body"] = memoBody.value;
+      this.memo["timestamp"] = timestamp;
+      this.memo["emoji"] = {};
+      this.postMemo(this.memo);
     }.bind(this));
     dateBox.addEventListener("click",function(){
           dateBox.flatpickr();
     })
     this.container.appendChild(memoBody);
     this.container.appendChild(footerBar);
-    var url = "http://localhost:3000/memos/"
-    var memos = new Memos();
-    memos.all(url,function(data){
-      console.log(data[0].body);
-    });
+ 
   },
 
   renderMemoIndex: function(data){
@@ -127,6 +147,14 @@ MemoView.prototype = {
           // if id is null just render a blank memo 
            // container.render(data);
       });
+  },
+
+  postMemo: function(memoToAdd){
+    var url = "http://localhost:3000/memos/";
+    console.log("going to post")
+    ajax.post(url,function(){
+    console.log("postMemo function")
+    },memoToAdd);
   }
 };
 

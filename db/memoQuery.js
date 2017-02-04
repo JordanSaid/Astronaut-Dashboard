@@ -2,7 +2,6 @@ var MongoClient = require('mongodb').MongoClient;
 
 var MemoQuery = function(){ //NEW
   this.url = 'mongodb://localhost:27017/dashboard';
-  console.log("creating new memo query");
 }
 
 MemoQuery.prototype = {

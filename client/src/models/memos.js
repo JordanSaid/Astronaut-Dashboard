@@ -40,12 +40,12 @@ Memos.prototype = {
   add: function(newMemo, callback){
     var memoToAdd = JSON.stringify(newMemo);
     console.log("NEW Memo", memoToAdd);
-    this.makeRequest("POST", "http://localhost:3000/dashboard", callback, memoToAdd);
+    this.makeRequest("POST", "http://localhost:3000/memos", callback, memoToAdd);
   },
 
   search: function(searchBy, searchData){
     var data = [];
-     this.makeRequest("GET", "http://localhost:3000/dashboard",function(){
+     this.makeRequest("GET", "http://localhost:3000/",function(){
         var jsonString = this.responseText;
         data = JSON.parse(jsonString);
       });
