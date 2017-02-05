@@ -136,38 +136,29 @@ MemoView.prototype = {
   parseSearch: function(query){
     //things to search on: date, title, body
     //if we have / then it's probably a date
-    var numberArray = ['-',':','/','0','1','2','3','4','5','6','7','8','9'];
-    var searchString;
-    var datePos = query.indexOf('date');
-    if (datePos>-1){
-      console.log("probably a date");
-    // take out duff characters
-    var searchString = "";
-    var numbercount = 0;
-    for (var i = datePos+4; i < query.length;i++){
-      if (numberArray.indexOf(query[i]) != -1 ){
-        if (query[i]=='/'){
-          searchString+= '-';
-          } else
-          {
-          searchString += query[i];
-          }
-        }
-      }   
-    this.searchMemo("date",searchString); 
+    var searchString = query.toLowerCase();
+    var searchParam = ""; 
+    if (searchString.indexOf('date')>-1){
+    searchString = searchString.replace(/date/,'');
+    searchParam = "date";
+    searchString = searchString.replace(/\//g,'-')   
     }
     else
     {
-    // replace words "body" and "title" 
-    if (query.indexOf("body" > -1)){
-    searchString = query.replace("body","");
-    this.searchMemo("body",searchString);
+    console.log(searchString);
+    if (searchString.indexOf("body") > -1){
+    console.log("body?")
+    searchString = searchString.replace(/body/,"");
+    searchParam = "body";
       } else
-    if (query.indexOf("title" > -1)){
-    searchString = query.replace("title","");
-    this.searchMemo("title",searchString);
-      }
+    if (searchString.indexOf("title") > -1){
+    searchString = searchString.replace(/title/,"");
+    searchParam = "title";
+      }   
     }
+  searchString = searchString.replace(/=/g,"")  
+  searchString = searchString.replace(/^\s+|\s+$/g, "");  
+  this.searchMemo(searchParam,searchString);  
   },
 
   getMemo: function (id) {
@@ -190,25 +181,27 @@ MemoView.prototype = {
   searchMemo: function (searchBy, searchData) {
         var searchResult = [];
         var memos = new Memos();
-        console.log("in search"+ searchData);
         var url = "http://localhost:3000/memos/"        
         memos.all(url, function (data) {
-          console.log("search Memos")
-          console.log(data);
+        console.log("search by "+searchBy)
+        console.log("searchData "+searchData);
         //this is a bad way to search!
         //should be sending query to database
         //lets get something working first
-        var data;
         for (memo of data){
           if (searchBy == "date"){
             data = memo.timestamp;
           }else
           if (searchBy == "title"){
-            data = memo.title;
+            data = memo.title.toLowerCase();
           }else
           if (searchBy == "body"){
-            data = memo.body;
+            data = memo.body.toLowerCase();
           }
+      console.log("data to search below")    
+      console.log(data);  
+      console.log("search data below")
+      console.log(searchData)  
       if (data.indexOf(searchData) > -1){
         console.log("search match on "+searchData);
           }
