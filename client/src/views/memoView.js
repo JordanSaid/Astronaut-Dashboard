@@ -31,8 +31,9 @@ MemoView.prototype = {
     newButton.innerText = "New memo";
     searchButton.addEventListener("click",function(){
       //going to search here
-      console.log("search button clicked "+searchBox.value);
-    });
+      this.parseSearch(searchBox.value);
+
+    }.bind(this));
     newButton.addEventListener("click",function(){
       var options = {};
       options["title"] = "New memo";
@@ -105,6 +106,7 @@ MemoView.prototype = {
     }.bind(this));
 
     saveButton.addEventListener("click",function(){
+      if (memoBody.value != ""){
       this.memo["title"] = titleBox.value;
       this.memo["body"] = memoBody.value;
       this.memo["timestamp"] = timestamp;
@@ -115,7 +117,8 @@ MemoView.prototype = {
       this.memo["_id"] = justPosted._id;}
       console.log(justPosted);
       }.bind(this));
-    }.bind(this));
+    }
+  }.bind(this));
     dateBox.addEventListener("click",function(){
           dateBox.flatpickr();
     })
@@ -128,6 +131,25 @@ MemoView.prototype = {
     //render the memo index list inside this container
     //and add the names of matching memos
 
+  },
+
+  parseSearch: function(query){
+    //things to search on: date, title, body
+    //if we have / then it's probably a date
+    var numberArray = ['/','0','1','2','3','4','5','6','7','8','9'];
+    var datePos = query.indexOf('date');
+    if (datePos>-1){
+      console.log("probably a date");
+    // take out duff characters
+    var dateString = "";
+    for (var i = datePos+4; i < query.length;i++){
+      if (numberArray.indexOf(query[i]) != -1 ){
+        dateString+= query[i];
+        }
+      }
+    console.log("the search date is "+dateString);  
+    }
+  //else
   },
 
   getMemo: function (id) {
