@@ -36,8 +36,18 @@ MemoQuery.prototype = {
     MongoClient.connect(this.url, function(err, db) {
       if(db){
           var collection = db.collection('memos');
-          var response = collection.save(memoToAdd);
+          var memoId = memoToAdd._id;
+          if (memoId === undefined){
+            console.log("undefined id")
+          collection.save(memoToAdd);  
+          }else
+          {
+          console.log("id was found")
+          collection.update({_id: memoToAdd._id},memoToAdd,{upsert:true});
+          }
           collection.find().toArray(function(err, docs) {
+          console.log("docs below")
+          console.log(docs);
           onQueryFinished(docs);
           });
         };

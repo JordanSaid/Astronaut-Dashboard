@@ -93,11 +93,15 @@ MemoView.prototype = {
     footerBar.appendChild(saveButton);
 
     finishButton.addEventListener("click",function(){
-      var url = "http://localhost:3000/memos/"
-      ajax.get(url,function(data){
-
+      //this saves the memo if it hasn't been
+      //and closes the form, returning to the memodash
+      this.memo["title"] = titleBox.value;
+      this.memo["body"] = memoBody.value;
+      this.memo["timestamp"] = timestamp;
+      this.memo["emoji"] = {};
+      this.postMemo(this.memo,function(data){
+        this.renderMemoDash();
       }.bind(this));
-
     }.bind(this));
 
     saveButton.addEventListener("click",function(){
@@ -106,9 +110,11 @@ MemoView.prototype = {
       this.memo["timestamp"] = timestamp;
       this.memo["emoji"] = {};
       this.postMemo(this.memo,function(data){
-      // var justPosted = JSON.parse(data);
-        console.log(data);
-      });
+      var justPosted = JSON.parse(data.data);
+      if (justPosted._id != null){
+      this.memo["_id"] = justPosted._id;}
+      console.log(justPosted);
+      }.bind(this));
     }.bind(this));
     dateBox.addEventListener("click",function(){
           dateBox.flatpickr();
