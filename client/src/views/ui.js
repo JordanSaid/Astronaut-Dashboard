@@ -15,7 +15,12 @@ var UI = function () {
         this.renderMap(location);
         this.currentLocationButton();
         console.log(location)
-    }.bind(this))
+    }.bind(this));
+
+    this.countries = new Countries();
+    this.countries.all(function(result){
+      this.createDropDown(result);
+    }.bind(this));;
 
 }
 
@@ -68,10 +73,30 @@ UI.prototype = {
         container.appendChild(button);
         button.onclick = function() {
             this.spaceStation.currentLocation(function(location) {
-                this.renderMap(location);
+                this.mapWrapper.setButtonClickNewCenter(button, location, 5);
+                console.log(location)
             }.bind(this))
         }.bind(this);
-    }
+    },
+    createDropDown: function(countries){
+        var container = document.querySelector('#right');
+        var select = document.createElement('select');
+        container.appendChild(select);
+        countries.forEach( function(country){
+          var option = document.createElement('option');
+          option.text = country.name;
+          option.value = country;
+          select.appendChild(option);
+        });
+        this.handleBlButton();
+      select.onchange = function(event) {
+      var newCountry = {
+        name: event.target.name.value,
+        latlng: event.arget.latlng.value
+       }
+      };
+    },
+
 
 
 }
