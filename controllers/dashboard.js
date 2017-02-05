@@ -13,11 +13,11 @@ dashboardRouter.get('/', function(req, res){
 });
 
 dashboardRouter.post('/', function(req, res){
-  console.log("post new memos route");
-  query.add(req.body,function(){
-
+    query.add(req.body,function(docs){
+    var length = docs.length;
+    var returnedId = JSON.stringify(docs[length-1]);
+    res.json({data: returnedId});
   })
-  res.json({data: "hello"});
 });
 
 

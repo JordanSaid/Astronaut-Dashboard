@@ -95,8 +95,8 @@ MemoView.prototype = {
     finishButton.addEventListener("click",function(){
       var url = "http://localhost:3000/memos/"
       ajax.get(url,function(data){
-        console.log(data);
-      });
+
+      }.bind(this));
 
     }.bind(this));
 
@@ -105,7 +105,10 @@ MemoView.prototype = {
       this.memo["body"] = memoBody.value;
       this.memo["timestamp"] = timestamp;
       this.memo["emoji"] = {};
-      this.postMemo(this.memo);
+      this.postMemo(this.memo,function(data){
+      // var justPosted = JSON.parse(data);
+        console.log(data);
+      });
     }.bind(this));
     dateBox.addEventListener("click",function(){
           dateBox.flatpickr();
@@ -149,11 +152,10 @@ MemoView.prototype = {
       });
   },
 
-  postMemo: function(memoToAdd){
+  postMemo: function(memoToAdd,callback){
     var url = "http://localhost:3000/memos/";
-    console.log("going to post")
-    ajax.post(url,function(){
-    console.log("postMemo function")
+    ajax.post(url,function(data){
+      callback(data);
     },memoToAdd);
   }
 };

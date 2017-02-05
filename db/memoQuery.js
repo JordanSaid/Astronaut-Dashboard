@@ -17,19 +17,33 @@ MemoQuery.prototype = {
     });
   },
   
+  // add: function(memoToAdd, onQueryFinished) {  
+  //   console.log(this.url);
+  //   MongoClient.connect(this.url, function(err, db) {
+  //     if(db){
+  //         var collection = db.collection('memos');
+  //         collection.insert(memoToAdd);
+  //         collection.find().toArray(function(err, docs) {
+  //         onQueryFinished(docs);
+  //         });
+  //       };
+  //   });
+  // },
+
+
   add: function(memoToAdd, onQueryFinished) {  
     console.log(this.url);
     MongoClient.connect(this.url, function(err, db) {
       if(db){
           var collection = db.collection('memos');
-          collection.insert(memoToAdd);
+          var response = collection.save(memoToAdd);
           collection.find().toArray(function(err, docs) {
-            console.log(docs);
-            onQueryFinished(docs);
+          onQueryFinished(docs);
           });
         };
     });
   },
+
 }
 
 module.exports = MemoQuery;
