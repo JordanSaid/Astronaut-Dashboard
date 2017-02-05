@@ -19,27 +19,6 @@ MapWrapper.prototype = {
       this.googleMap.setCenter(pos);
       this.googleMap.setZoom(15);
   },
-  addInfoMarker: function(coords, contentString) {
-    var infoWindow = new google.maps.InfoWindow ({
-      content: contentString,
-      position: coords,
-      map: this.googleMap
-      });
-    // var marker = new google.maps.Marker ({
-    //   position: coords,
-    //   map: this.googleMap
-    // });
-    // marker.addListener('click', function () {
-    //   infoWindow.open(this.googleMap, marker);
-    // });
-  },
-  setButtonClickNewCenter: function(button, coords, zoom) {
-    button.onclick = function() {
-      this.googleMap.setCenter(coords);
-      this.googleMap.setZoom(zoom);
-      console.log("click")
-    }.bind(this)
-  },
 }
 
 module.exports = MapWrapper;

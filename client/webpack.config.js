@@ -4,6 +4,11 @@ config = {
     filename: "bundle.js",
     path: "./build"
   },
+  module: {
+    loaders: [
+    { test: /\.css$/, loader: "style-loader!css-loader" },
+    ]
+  },
   devtool: 'source-map'
 }
 

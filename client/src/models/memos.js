@@ -1,5 +1,5 @@
 var Memo = require('./memo');
-
+var ajax = require("../helpers/ajax")
 
 var Memos = function(){
 
@@ -15,14 +15,13 @@ Memos.prototype = {
     request.send(payload);
   },
   
-  all: function(callback){
-    var self = this;
-    this.makeRequest("GET", "http://localhost:3000/dashboard", function(){
+  all: function(url,callback){
+    var results;
+    this.makeRequest("GET", "http://localhost:3000/memos", function(){
       if(this.status !== 200) return;
       var jsonString = this.responseText;
-      var results = JSON.parse(jsonString);
-      var memos = self.populateMemos(results);
-      callback(memos);
+      results = JSON.parse(jsonString);
+      callback(results);
     });
   },
 
@@ -41,16 +40,17 @@ Memos.prototype = {
   add: function(newMemo, callback){
     var memoToAdd = JSON.stringify(newMemo);
     console.log("NEW Memo", memoToAdd);
-    this.makeRequest("POST", "http://localhost:3000/dashboard", callback, memoToAdd);
+    this.makeRequest("POST", "http://localhost:3000/memos", callback, memoToAdd);
   },
 
   search: function(searchBy, searchData){
     var data = [];
-     this.makeRequest("GET", "http://localhost:3000/dashboard",function(){
+     this.makeRequest("GET", "http://localhost:3000/",function(){
         var jsonString = this.responseText;
         data = JSON.parse(jsonString);
       });
     console.log(data);
+
   }
 
 };

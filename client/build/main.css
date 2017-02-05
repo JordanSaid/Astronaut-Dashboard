@@ -7,6 +7,7 @@ html,body{
   flex-direction: column;
   width:100%;
   height: 100%;
+  background-color: darkslategray;
 }
 
 .container>div{
@@ -15,7 +16,8 @@ html,body{
 
 #heading{
 display:flex;
-background-color: darkslategray;
+background-image: url(./heading.jpg);
+background-size: 100% 100%;
 flex-grow: 20;
 font-size: 48px;
 justify-content: center;
@@ -32,9 +34,109 @@ flex-grow: 80;
 #left {
 display: flex;
 background-color: #AACC22;
+justify-content: center;
 flex-grow: 1;
+max-width: 50%;
 font-size: 36px;
 }
+
+#control-bar {
+  display:flex;
+  align-self: flex-start;
+  width: 100%;
+  height: 6%;
+  background-color: #DDBB77;
+  align-items: center;
+}
+
+#search-box {
+  display: flex;
+  margin-left: 10px;
+  height: 60%;
+  flex-grow: 20;
+  font-size: 24px;  
+  background-color: #DDBB77;
+  border: 1px solid #997733; 
+}
+
+
+#title-box {
+ display: flex;
+ flex-grow: 30;
+ height: 60%;
+ width:40px;
+ margin-left: 4px;
+ margin-right: 4px;
+ font-size: 24px;  
+ background-color: #DDBB77;
+ border: 1px solid #997733;
+ text-align: center;
+}
+
+#emoji-box {
+  display: flex;
+  border: 1px solid #997733;
+  height: 80%;
+  flex: 2;
+}
+
+#search-button, #new-button {
+  display: flex;
+  margin-left: 4px;
+  height: 70%;
+  flex-grow: 10;
+  font-size: 18px;
+  justify-content: center;
+}
+
+#search-bar-space {
+display: flex;
+flex-grow: 10;
+}
+
+#memo-body {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  background-color: #EECC88;
+  font-size: 24px;
+  line-height: 50px;
+
+}
+
+#footer-bar {
+  display: flex;
+  height: 6%;
+  background-color: #DDBB77;
+  align-items: center;
+}
+#finish-button{
+  display: flex;
+  flex:1;
+  height: 80%;
+  font-size: 18px;
+  justify-content: center;
+}
+
+#date-box {
+ display: flex;
+ flex: 2;
+ height: 60%;
+ width:60px;
+ margin-left: 4px;
+ font-size: 20px; 
+ background-color: #DDBB77;
+ border: 1px solid #997733; 
+}
+
+#save-button {
+  display: flex;
+  flex:1;
+ height: 80%; 
+ font-size: 18px;
+ justify-content:center;
+}
+
 
 #right {
 display:flex;  
@@ -42,15 +144,20 @@ background-color: #CFa81B;
 flex-grow: 1;
 }
 
+#map{
+  width: 300px;
+  height: 300px;
+}
+
 #ticker {
-background-color: #1C28B9;
+background-color: darkslategrey;
 flex-grow: 10;
 display:inline-flex;
 }
 
 a {
   color: white;
-  font-size: 10px;
+  font-size: 12px;
   /*display:inline-flex;*/
   font-family: helvetica;
 }

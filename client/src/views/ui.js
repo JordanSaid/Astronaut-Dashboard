@@ -1,4 +1,5 @@
 var News = require('../models/news');
+var MemoView = require('./memoView')
 var MapWrapper = require('../models/MapWrapper');
 var SpaceStation = require('../models/spaceStation');
 
@@ -9,18 +10,6 @@ var UI = function () {
         console.log(headlineArray)
     }.bind(this))
     this.container = document.body;
-
-    this.spaceStation = new SpaceStation();
-    this.spaceStation.currentLocation(function(location) {
-        this.renderMap(location);
-        this.currentLocationButton();
-        console.log(location)
-    }.bind(this));
-
-    this.countries = new Countries();
-    this.countries.all(function(result){
-      this.createDropDown(result);
-    }.bind(this));;
 
 }
 
@@ -44,6 +33,9 @@ UI.prototype = {
              headlineTitle.innerHTML = "<a href='" + headline.url + "'>" + "<marquee direction='left'>" + headline.title + "</marquee></a>";
              headlines.appendChild(headlineTitle);
            });
+        var leftDiv = document.querySelector("#left");
+        var memoView = new MemoView(leftDiv);
+        memoView.renderMemoDash();
 
         // var leftDiv = document.querySelector("left-div");
         // var memoView = new MemoView(leftDiv);
@@ -57,46 +49,15 @@ UI.prototype = {
         // var imageDisplay = new ImageDisplay(imageContainer);
         // searchBar.setImageContainer(imageDisplay);
     },
-    renderMap: function (location) {
-        var container = document.querySelector('#right');
-        var mapDiv = document.createElement('div');
-        container.appendChild(mapDiv);
 
-        this.mapWrapper = new MapWrapper(mapDiv, location, 4);
-        var markerString = "You're soaring over here right now!"
-        this.mapWrapper.addInfoMarker(location, markerString);
-    },
-    currentLocationButton: function() {
-        var container = document.querySelector('#right');
-        var button = document.createElement('button');
-        button.innerText = "Where Am I?"
-        container.appendChild(button);
-        button.onclick = function() {
-            this.spaceStation.currentLocation(function(location) {
-                this.mapWrapper.setButtonClickNewCenter(button, location, 5);
-                console.log(location)
-            }.bind(this))
-        }.bind(this);
-    },
-    createDropDown: function(countries){
-        var container = document.querySelector('#right');
-        var select = document.createElement('select');
-        container.appendChild(select);
-        countries.forEach( function(country){
-          var option = document.createElement('option');
-          option.text = country.name;
-          option.value = country;
-          select.appendChild(option);
-        });
-        this.handleBlButton();
-      select.onchange = function(event) {
-      var newCountry = {
-        name: event.target.name.value,
-        latlng: event.arget.latlng.value
-       }
-      };
-    },
-
+    renderMap: function (detailsArray) {
+        var mapDiv = document.querySelector('#right');
+        var stationLat = detailsArray.iss_position.latitude;
+        var stationLon = detailsArray.iss_position.longitude;
+        var spaceStationLocation = {lat: parseInt(stationLat), lng: parseInt(stationLon)};
+        this.mapWrapper = new MapWrapper(mapDiv, spaceStationLocation, 4);
+        this.mapWrapper.addMarker(spaceStationLocation);
+    }
 
 
 }
