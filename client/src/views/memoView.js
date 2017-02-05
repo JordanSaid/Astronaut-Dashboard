@@ -136,20 +136,38 @@ MemoView.prototype = {
   parseSearch: function(query){
     //things to search on: date, title, body
     //if we have / then it's probably a date
-    var numberArray = ['/','0','1','2','3','4','5','6','7','8','9'];
+    var numberArray = ['-',':','/','0','1','2','3','4','5','6','7','8','9'];
+    var searchString;
     var datePos = query.indexOf('date');
     if (datePos>-1){
       console.log("probably a date");
     // take out duff characters
-    var dateString = "";
+    var searchString = "";
+    var numbercount = 0;
     for (var i = datePos+4; i < query.length;i++){
       if (numberArray.indexOf(query[i]) != -1 ){
-        dateString+= query[i];
+        if (query[i]=='/'){
+          searchString+= '-';
+          } else
+          {
+          searchString += query[i];
+          }
         }
-      }
-    console.log("the search date is "+dateString);  
+      }   
+    this.searchMemo("date",searchString); 
     }
-  //else
+    else
+    {
+    // replace words "body" and "title" 
+    if (query.indexOf("body" > -1)){
+    searchString = query.replace("body","");
+    this.searchMemo("body",searchString);
+      } else
+    if (query.indexOf("title" > -1)){
+    searchString = query.replace("title","");
+    this.searchMemo("title",searchString);
+      }
+    }
   },
 
   getMemo: function (id) {
@@ -169,14 +187,32 @@ MemoView.prototype = {
       });
   },
 
-  searchMemo: function (searchBy, seachData) {
+  searchMemo: function (searchBy, searchData) {
+        var searchResult = [];
         var memos = new Memos();
+        console.log("in search"+ searchData);
         var url = "http://localhost:3000/memos/"        
         memos.all(url, function (data) {
           console.log("search Memos")
           console.log(data);
-          // if id is null just render a blank memo 
-           // container.render(data);
+        //this is a bad way to search!
+        //should be sending query to database
+        //lets get something working first
+        var data;
+        for (memo of data){
+          if (searchBy == "date"){
+            data = memo.timestamp;
+          }else
+          if (searchBy == "title"){
+            data = memo.title;
+          }else
+          if (searchBy == "body"){
+            data = memo.body;
+          }
+      if (data.indexOf(searchData) > -1){
+        console.log("search match on "+searchData);
+          }
+        }
       });
   },
 

@@ -36,14 +36,21 @@ MemoQuery.prototype = {
     MongoClient.connect(this.url, function(err, db) {
       if(db){
           var collection = db.collection('memos');
-          var memoId = memoToAdd._id;
-          if (memoId === undefined){
+          if (memoToAdd._id === undefined){
             console.log("undefined id")
           collection.save(memoToAdd);  
           }else
           {
-          console.log("id was found")
-          collection.update({_id: memoToAdd._id},memoToAdd,{upsert:true});
+          console.log("id not undefined")
+          //find the memo
+          var found = collection.find({_timestamp: memoToAdd.timestamp})
+          console.log(found);
+          updatedMemo = {}
+          updatedMemo["title"] = memoToAdd.title;
+          updatedMemo["body"] = memoToAdd.body;
+          updatedMemo["emoji"] = memoToAdd.emoji;
+          updatedMemo["timestamp"] = memoToAdd.timestamp;
+          collection.update({timestamp: memoToAdd.timestamp},updatedMemo);
           }
           collection.find().toArray(function(err, docs) {
           console.log("docs below")
