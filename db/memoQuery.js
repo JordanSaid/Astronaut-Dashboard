@@ -49,6 +49,7 @@ MemoQuery.prototype = {
           updatedMemo["title"] = memoToAdd.title;
           updatedMemo["body"] = memoToAdd.body;
           updatedMemo["emoji"] = memoToAdd.emoji;
+          updatedMemo["date"] = memoToAdd.date;
           updatedMemo["timestamp"] = memoToAdd.timestamp;
           collection.update({timestamp: memoToAdd.timestamp},updatedMemo);
           }

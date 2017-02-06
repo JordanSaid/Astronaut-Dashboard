@@ -33,7 +33,7 @@ flex-grow: 80;
 
 #left {
 display: flex;
-background-color: #AACC22;
+background-color: #997733;
 /*justify-content: center;*/
 flex-grow: 1;
 max-width: 50%;
@@ -126,7 +126,8 @@ flex-grow: 10;
  margin-left: 4px;
  font-size: 20px; 
  background-color: #DDBB77;
- border: 1px solid #997733; 
+ border: 1px solid #997733;
+ text-align: center;
 }
 
 #save-button {

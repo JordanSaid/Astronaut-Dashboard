@@ -1,6 +1,7 @@
 var flatpickr = require("flatpickr");
 require("flatpickr/dist/flatpickr.min.css");
 var Memo = require('../models/memo');
+var Memos = require('../models/memos');
 var ajax = require("../helpers/ajax");
 var Emoji = require('../models/emoji');
 var searchResult = [];
@@ -15,7 +16,6 @@ var MemoView = function(container){
 MemoView.prototype = {
 
   renderMemoDash: function(){
-    console.log("render memo dash")
     this.container.innerHTML = "";
     this.container.style.flexDirection = "row";
     var controlBar = document.createElement("section");
@@ -44,6 +44,7 @@ MemoView.prototype = {
       options["title"] = "New memo";
       var timestamp = new Date(Date.now());
       options["timestamp"] = timestamp;
+      options["date"] = timestamp.toDateString();
       options["emoji"] = {"name":"none", "url":""}
       options["body"] = "";
       this.memo = new Memo(options)
@@ -74,7 +75,7 @@ MemoView.prototype = {
     dateBox.class = "flatpickr";
     dateBox.type = "text";
     dateBox.setAttribute("id","date-box");
-    dateBox.value = timestamp;
+    dateBox.value = data.date;
     var titleBox = document.createElement("input");
     titleBox.setAttribute("id","title-box");
     titleBox.value = data.title;
@@ -111,10 +112,9 @@ MemoView.prototype = {
       this.memo["title"] = titleBox.value;
       this.memo["body"] = memoBody.value;
       this.memo["timestamp"] = timestamp;
+      this.memo["date"] = dateBox.value;
       this.memo["emoji"] = {};
-      console.log("about to post")
       this.postMemo(this.memo,function(data){
-        console.log("about to render")
         this.renderMemoDash();
       }.bind(this));
     }.bind(this));
@@ -126,6 +126,7 @@ MemoView.prototype = {
         }
       this.memo["title"] = titleBox.value;
       this.memo["body"] = memoBody.value;
+      this.memo["date"] = dateBox.value;      
       this.memo["timestamp"] = timestamp;
       this.memo["emoji"] = {};
       this.postMemo(this.memo,function(data){
@@ -223,9 +224,11 @@ MemoView.prototype = {
         //this is a bad way to search!
         //should be sending query to database
         //lets get something working first
+        console.log(searchBy);
+        if (data.length > 0){
         for (memo of data){
           if (searchBy == "date"){
-            data = memo.timestamp;
+            data = memo.date;
           }else
           if (searchBy == "title"){
             data = memo.title.toLowerCase();
@@ -237,6 +240,7 @@ MemoView.prototype = {
         searchResult.push(memo);
           }
         }
+      }
     callback(searchResult)  
       }); 
   },
