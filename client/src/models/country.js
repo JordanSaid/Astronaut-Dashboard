@@ -1,6 +1,7 @@
 var Country = function(options) {
   this.name = options.name;
-  this.latlng = options.latlng;
+  this.xcoord = options.xcoord;
+  this.ycoord = options.ycoord;
 }
 
 module.exports = Country;

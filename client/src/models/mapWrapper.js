@@ -37,7 +37,7 @@ MapWrapper.prototype = {
     button.onclick = function() {
       this.googleMap.setCenter(coords);
       this.googleMap.setZoom(zoom);
-      console.log("click")
+      console.log(coords);
     }.bind(this)
   },
 }

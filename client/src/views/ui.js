@@ -17,10 +17,6 @@ var UI = function () {
         console.log(location)
     }.bind(this));
 
-    this.countries = new Countries();
-    this.countries.all(function(result){
-      this.createDropDown(result);
-    }.bind(this));;
 
 }
 
@@ -67,7 +63,7 @@ UI.prototype = {
         this.mapWrapper.addInfoMarker(location, markerString);
     },
     currentLocationButton: function() {
-        var container = document.querySelector('#right');
+        var container = document.querySelector('#left');
         var button = document.createElement('button');
         button.innerText = "Where Am I?"
         container.appendChild(button);
@@ -78,25 +74,7 @@ UI.prototype = {
             }.bind(this))
         }.bind(this);
     },
-    // createDropDown: function(countries){
-    //     var container = document.querySelector('#right');
-    //     var select = document.createElement('select');
-    //     container.appendChild(select);
-    //     countries.forEach( function(country){
-    //       var option = document.createElement('option');
-    //       option.text = country.name;
-    //       option.value = country;
-    //       select.appendChild(option);
-    //     });
-    //     this.handleBlButton();
-    //   select.onchange = function(event) {
-    //   var newCountry = {
-    //     name: event.target.name.value,
-    //     latlng: event.arget.latlng.value
-    //    }
-    //   };
-    // },
-    
+
 }
 
 module.exports = UI;

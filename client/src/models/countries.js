@@ -13,17 +13,15 @@ Countries.prototype = {
     request.onload = callback;
     request.send();
   },
-
-  
-
   all: function(callback) {
     var self = this;
-    this.makeRequest("GET", "https://restcountries.eu/rest/v1/all", function(){
+    this.makeRequest("https://restcountries.eu/rest/v1/all", function(){
       if (this.status !== 200){
         return;
       }
       var jsonString = this.responseText;
       countries = JSON.parse(jsonString);
+      console.log(countries);
       callback(countries);    
     }
   )}
