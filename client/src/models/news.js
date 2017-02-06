@@ -27,7 +27,21 @@ News.prototype = {
       // var titles = self.populateHeadlines(headlineArray);
       callback(headlineArray);
     })
+  },
+
+  buzzfeedNews: function(callback) {
+    var self = this;
+    this.makeRequest("https://newsapi.org/v1/articles?source=buzzfeed&sortBy=top&apiKey=fab20889cd4f496eaebc7399e6c081a2", function() {
+      if(this.status !== 200) return;
+      var jsonString = this.responseText;
+      buzzfeed = JSON.parse(jsonString);
+      var buzzArray = buzzfeed.articles;
+      // var titles = self.populateHeadlines(headlineArray);
+      callback(buzzArray);
+  })
   }
 }
+
+
 
 module.exports = News;
