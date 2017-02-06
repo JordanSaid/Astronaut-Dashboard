@@ -149,19 +149,19 @@ flex-grow: 1;
   height: 300px;
 }
 
-#ticker {
-background-color: darkslategrey;
-flex-grow: 10;
-display:inline-flex;
+#ticker, #ticker2 {
+  background-image:url(https://media.disquscdn.com/home/channels/breakingnews/breakingnews-tile.png);
+  background-size: 150px 50px;
+  background-repeat: no-repeat;
+  position: left;
+  background-color: #1b3866;
+  flex-grow: 10;
+  display:inline-flex;
 }
 
 a {
   color: white;
   font-size: 12px;
-  /*display:inline-flex;*/
   font-family: helvetica;
 }
 
-p {
- /*display:inline-flex;*/
-}
