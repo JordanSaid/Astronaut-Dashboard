@@ -15,6 +15,7 @@ var MemoView = function(container){
 MemoView.prototype = {
 
   renderMemoDash: function(){
+    console.log("render memo dash")
     this.container.innerHTML = "";
     this.container.style.flexDirection = "row";
     var controlBar = document.createElement("section");
