@@ -34,7 +34,7 @@ flex-grow: 80;
 #left {
 display: flex;
 background-color: #AACC22;
-justify-content: center;
+/*justify-content: center;*/
 flex-grow: 1;
 max-width: 50%;
 font-size: 36px;
@@ -137,6 +137,13 @@ flex-grow: 10;
  justify-content:center;
 }
 
+#index-div{
+  display:flex;
+  flex:1;
+  background-color: #EECC88;
+
+  /*align-self: flex-end;*/
+}
 
 #right {
 display:flex;  

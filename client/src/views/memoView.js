@@ -1,9 +1,9 @@
 var flatpickr = require("flatpickr");
 require("flatpickr/dist/flatpickr.min.css");
-var Memos = require('../models/memos');
 var Memo = require('../models/memo');
 var ajax = require("../helpers/ajax");
 var Emoji = require('../models/emoji');
+var searchResult = [];
 //flatpickr('#flatpickr-tryme');
 
 
@@ -31,8 +31,12 @@ MemoView.prototype = {
     newButton.innerText = "New memo";
     searchButton.addEventListener("click",function(){
       //going to search here
-      this.parseSearch(searchBox.value);
-
+      searchResult = [];
+      this.parseSearch(searchBox.value,function(){
+        console.log("callback")
+        if (searchResult.length > 0){
+        this.renderMemoIndex(searchResult);}
+      }.bind(this));
     }.bind(this));
     newButton.addEventListener("click",function(){
       var options = {};
@@ -55,6 +59,10 @@ MemoView.prototype = {
   renderMemo: function(data){
     //the data will contain the info about the memo
     //if there isn't any then it's a new memo
+    var id = null;
+    if (data._id != null){
+    console.log(data._id);
+    id = data._id}
     var timestamp = data.timestamp;
     this.container.innerHTML = "";
     this.container.style.flexDirection = "column";
@@ -65,7 +73,7 @@ MemoView.prototype = {
     dateBox.class = "flatpickr";
     dateBox.type = "text";
     dateBox.setAttribute("id","date-box");
-    dateBox.value = timestamp.toDateString();
+    dateBox.value = timestamp;
     var titleBox = document.createElement("input");
     titleBox.setAttribute("id","title-box");
     titleBox.value = data.title;
@@ -96,17 +104,25 @@ MemoView.prototype = {
     finishButton.addEventListener("click",function(){
       //this saves the memo if it hasn't been
       //and closes the form, returning to the memodash
+      if (id != null){
+        this.memo["_id"] = id;
+      }
       this.memo["title"] = titleBox.value;
       this.memo["body"] = memoBody.value;
       this.memo["timestamp"] = timestamp;
       this.memo["emoji"] = {};
+      console.log("about to post")
       this.postMemo(this.memo,function(data){
+        console.log("about to render")
         this.renderMemoDash();
       }.bind(this));
     }.bind(this));
 
     saveButton.addEventListener("click",function(){
       if (memoBody.value != ""){
+        if (id != null){
+          this.memo["_id"] = id;
+        }
       this.memo["title"] = titleBox.value;
       this.memo["body"] = memoBody.value;
       this.memo["timestamp"] = timestamp;
@@ -130,24 +146,47 @@ MemoView.prototype = {
   renderMemoIndex: function(data){
     //render the memo index list inside this container
     //and add the names of matching memos
+    console.log("render memo index")
+    console.log(this.container);
 
+    this.container.style.flexDirection = "column";
+    var resultDiv = document.querySelector("#index-div");
+    if (resultDiv == null){      
+    resultDiv = document.createElement("section");
+    resultDiv.setAttribute("id","index-div");
+    this.container.appendChild(resultDiv);
+    }
+    resultDiv.innerHTML = "";
+    var ul = document.createElement("ul");
+    ul.setAttribute("id","index-list");
+    resultDiv.appendChild(ul);
+    var li;
+    console.log(data)
+    for (var i=0;i<data.length;i++){
+      li = document.createElement("li");
+      li.setAttribute("id",i)
+      li.innerText = data[i].title;
+      ul.appendChild(li);
+    }
+  ul.addEventListener("click",function(event){
+    var target = event.target.id;
+    this.renderMemo(data[target]);
+    }.bind(this))  
   },
 
-  parseSearch: function(query){
+  parseSearch: function(query,callback){
     //things to search on: date, title, body
     //if we have / then it's probably a date
     var searchString = query.toLowerCase();
     var searchParam = ""; 
     if (searchString.indexOf('date')>-1){
-    searchString = searchString.replace(/date/,'');
+    searchString = searchString.replace(/date/g,'');
     searchParam = "date";
     searchString = searchString.replace(/\//g,'-')   
     }
     else
     {
-    console.log(searchString);
     if (searchString.indexOf("body") > -1){
-    console.log("body?")
     searchString = searchString.replace(/body/,"");
     searchParam = "body";
       } else
@@ -157,16 +196,14 @@ MemoView.prototype = {
       }   
     }
   searchString = searchString.replace(/=/g,"")  
-  searchString = searchString.replace(/^\s+|\s+$/g, "");  
-  this.searchMemo(searchParam,searchString);  
+  searchString = searchString.replace(/^\s+|\s+$/g, ""); 
+  this.searchMemo(searchParam,searchString,callback);  
   },
 
   getMemo: function (id) {
       var memos = new Memos();
       var url = "http://localhost:3000/memos/"
       memos.all(url, function (data) {
-        console.log("getMemoById")
-        console.log(data[0]);
       var memoBody = document.querySelector("#memo-body");
       var memoTitle = document.querySelector("#title-box");
       var dateBox = document.querySelector("#date-box");
@@ -178,13 +215,10 @@ MemoView.prototype = {
       });
   },
 
-  searchMemo: function (searchBy, searchData) {
-        var searchResult = [];
+  searchMemo: function (searchBy, searchData,callback) {
         var memos = new Memos();
         var url = "http://localhost:3000/memos/"        
         memos.all(url, function (data) {
-        console.log("search by "+searchBy)
-        console.log("searchData "+searchData);
         //this is a bad way to search!
         //should be sending query to database
         //lets get something working first
@@ -198,19 +232,18 @@ MemoView.prototype = {
           if (searchBy == "body"){
             data = memo.body.toLowerCase();
           }
-      console.log("data to search below")    
-      console.log(data);  
-      console.log("search data below")
-      console.log(searchData)  
       if (data.indexOf(searchData) > -1){
-        console.log("search match on "+searchData);
+        searchResult.push(memo);
           }
         }
-      });
+    callback(searchResult)  
+      }); 
   },
 
   postMemo: function(memoToAdd,callback){
     var url = "http://localhost:3000/memos/";
+    console.log("post memo function")
+    console.log(memoToAdd)
     ajax.post(url,function(data){
       callback(data);
     },memoToAdd);

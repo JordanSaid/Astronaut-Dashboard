@@ -43,8 +43,8 @@ MemoQuery.prototype = {
           {
           console.log("id not undefined")
           //find the memo
-          var found = collection.find({_timestamp: memoToAdd.timestamp})
-          console.log(found);
+          var found = collection.find({timestamp: memoToAdd.timestamp})
+
           updatedMemo = {}
           updatedMemo["title"] = memoToAdd.title;
           updatedMemo["body"] = memoToAdd.body;
