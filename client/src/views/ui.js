@@ -1,4 +1,5 @@
 var News = require('../models/news');
+var MemoView = require('./memoView');
 var MapWrapper = require('../models/MapWrapper');
 var SpaceStation = require('../models/spaceStation');
 
@@ -23,7 +24,7 @@ var UI = function () {
         this.currentLocationButton();
         console.log(location)
     }.bind(this));
-
+    this.renderMemo();
 
 }
 
@@ -83,6 +84,13 @@ UI.prototype = {
         // var imageDisplay = new ImageDisplay(imageContainer);
         // searchBar.setImageContainer(imageDisplay);
     },
+
+    renderMemo: function(){
+    var leftDiv = document.querySelector("#left");
+    var memoView = new MemoView(leftDiv);
+    memoView.renderMemoDash();
+    },
+
     renderMap: function (location) {
         var container = document.querySelector('#right');
         var mapDiv = document.createElement('div');
@@ -93,7 +101,7 @@ UI.prototype = {
         this.mapWrapper.addInfoMarker(location, markerString);
     },
     currentLocationButton: function() {
-        var container = document.querySelector('#left');
+        var container = document.querySelector('#right');
         var button = document.createElement('button');
         button.innerText = "Where Am I?"
         container.appendChild(button);
