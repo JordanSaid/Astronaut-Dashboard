@@ -142,12 +142,28 @@ flex-grow: 10;
 display:flex;  
 background-color: #CFa81B;
 flex-grow: 1;
+width:1%;
+height: 469px;
+transition: width 2s, height 2s;
 }
 
-#map{
-  width: 300px;
-  height: 300px;
+#right:hover {
+  width: 200%;
+  height: 469px;
+  /*position:fixed;
+  padding-right: 25%;*/
 }
+
+/*#map{
+  width: 100px;
+  height: 100px;
+  transition: width 2s, height 4s;
+}*/
+
+/*#map {
+    width: 300px;
+    height: 300px;
+}*/
 
 #ticker, #ticker2 {
   background-image:url(https://media.disquscdn.com/home/channels/breakingnews/breakingnews-tile.png);
@@ -165,3 +181,9 @@ a {
   font-family: helvetica;
 }
 
+.headlinetags {
+  margin-right: 25px;
+  color: white;
+  font-size: 12px;
+  font-family: helvetica;
+}

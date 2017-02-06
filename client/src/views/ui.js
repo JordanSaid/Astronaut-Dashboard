@@ -6,9 +6,9 @@ var UI = function () {
     this.news = new News();
 
     this.news.buzzfeedNews(function(buzzArray) {
-            this.renderBuzz(buzzArray);
-            console.log(buzzArray)
-        }.bind(this))
+        this.renderBuzz(buzzArray);
+        console.log(buzzArray)
+    }.bind(this))
     
 
     this.news.all(function(headlineArray) {
@@ -41,25 +41,40 @@ UI.prototype = {
     // },
     renderBuzz: function(buzzArray) {
         var headlines = document.querySelector('#ticker2');
-           buzzArray.forEach(function(buzz) {
-            var buzzTitle = document.createElement("p");
-             buzzTitle.innerHTML = "<a href='" + buzz.url + "'>" + "<marquee direction='left'>" + buzz.title + "</marquee></a>";
-             headlines.appendChild(buzzTitle);
-           });
+
+        var marqueeStart = "<marquee direction='left'>";
+        var marqueeEnd = "</marquee>";
+
+        buzzArray.forEach(function(buzz) {
+            // var buzzTitle = document.createElement("p");
+
+            marqueeStart += "<a class='headlinetags' href='" + buzz.url + "'>" + buzz.title + "</a>";
+
+        });
+
+        var buzzMarquee = document.createElement('p');
+        buzzMarquee.innerHTML = marqueeStart + marqueeEnd;
+
+        headlines.appendChild(buzzMarquee);
     },
 
     render: function (headlinesArray) {
         var headlines = document.querySelector('#ticker');
-           headlinesArray.forEach(function(headline) {
-             var headlineTitle = document.createElement("p");
-             headlineTitle.innerHTML = "<a href='" + headline.url + "'>" + "<marquee direction='left'>" + headline.title + "</marquee></a>";
-             headlines.appendChild(headlineTitle);
-           });
+        var marqueeStart = "<marquee direction='left'>";
+        var marqueeEnd = "</marquee>";
+
+        headlinesArray.forEach(function(headline) {
+
+            marqueeStart += "<a class='headlinetags' href='" + headline.url + "'>" + headline.title + "</a>";
+        });
+        var headlineMarquee = document.createElement("p");
+        headlineMarquee.innerHTML = marqueeStart + marqueeEnd;
+        headlines.appendChild(headlineMarquee);
 
         // var leftDiv = document.querySelector("left-div");
         // var memoView = new MemoView(leftDiv);
         // memoView.renderMemoDash();
-     
+
         // var headerContainer = this.createContainer('header', 'flex', 'center', 'shadow');
         // new Header(headerContainer);
         // var searchBar = new SearchBar(headerContainer);
@@ -84,7 +99,8 @@ UI.prototype = {
         container.appendChild(button);
         button.onclick = function() {
             this.spaceStation.currentLocation(function(location) {
-                this.mapWrapper.setButtonClickNewCenter(button, location, 5);
+                this.renderMap(location);
+                // this.mapWrapper.setButtonClickNewCenter(button, location, 5);
                 console.log(location)
             }.bind(this))
         }.bind(this);
