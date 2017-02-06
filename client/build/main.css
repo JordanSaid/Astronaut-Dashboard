@@ -14,6 +14,38 @@ html,body{
   flex:1;
 }
 
+#index-div{
+  display: flex;
+  flex:1;
+}
+
+#button-div{
+  flex: 1;
+  background-color: green;
+}
+
+#list-div{
+  flex: 2;
+  background-color: red;
+}
+
+li{
+  display: flex;
+  align-items: center;
+}
+
+
+
+.deleteButton {
+  
+  margin-left: 10px;
+  font-size: 18px;
+  text-align: center;
+  height:30px;
+  width:70px;
+}
+
+
 #heading{
 display:flex;
 background-image: url(./heading.jpg);
@@ -138,13 +170,6 @@ flex-grow: 10;
  justify-content:center;
 }
 
-#index-div{
-  display:flex;
-  flex:1;
-  background-color: #EECC88;
-
-  /*align-self: flex-end;*/
-}
 
 #right {
 display:flex;  

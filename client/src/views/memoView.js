@@ -1,7 +1,6 @@
 var flatpickr = require("flatpickr");
 require("flatpickr/dist/flatpickr.min.css");
 var Memo = require('../models/memo');
-var Memos = require('../models/memos');
 var ajax = require("../helpers/ajax");
 var Emoji = require('../models/emoji');
 var searchResult = [];
@@ -159,19 +158,33 @@ MemoView.prototype = {
     this.container.appendChild(resultDiv);
     }
     resultDiv.innerHTML = "";
+    var listDiv = document.createElement("div");
+    listDiv.setAttribute("id","list-div");
+    resultDiv.appendChild(listDiv);
+    var buttonDiv = document.createElement("div");
+    buttonDiv.setAttribute("id","button-div");
+    resultDiv.appendChild(buttonDiv);
     var ul = document.createElement("ul");
     ul.setAttribute("id","index-list");
-    resultDiv.appendChild(ul);
+    listDiv.appendChild(ul);
     var li;
+    var delButton;
     console.log(data)
     for (var i=0;i<data.length;i++){
       li = document.createElement("li");
       li.setAttribute("id",i)
       li.innerText = data[i].title;
       ul.appendChild(li);
+      delButton = document.createElement('button');
+      delButton.className = "deleteButton"
+      delButton.setAttribute("id",i);
+      delButton.innerText = "Delete"
+      buttonDiv.appendChild(delButton);
     }
   ul.addEventListener("click",function(event){
     var target = event.target.id;
+    //check if it's a button
+    console.log(event)
     this.renderMemo(data[target]);
     }.bind(this))  
   },
@@ -202,25 +215,10 @@ MemoView.prototype = {
   this.searchMemo(searchParam,searchString,callback);  
   },
 
-  getMemo: function (id) {
-      var memos = new Memos();
-      var url = "http://localhost:3000/memos/"
-      memos.all(url, function (data) {
-      var memoBody = document.querySelector("#memo-body");
-      var memoTitle = document.querySelector("#title-box");
-      var dateBox = document.querySelector("#date-box");
-      memoTitle.value = data[0].name;
-      dateBox.value = data[0].timestamp;
-      memoBody.value = data[0].body;
-        // if id is null just render a blank memo 
-         // container.render(data);
-      });
-  },
 
   searchMemo: function (searchBy, searchData,callback) {
-        var memos = new Memos();
         var url = "http://localhost:3000/memos/"        
-        memos.all(url, function (data) {
+        ajax.get(url, function (data) {
         //this is a bad way to search!
         //should be sending query to database
         //lets get something working first
@@ -247,8 +245,6 @@ MemoView.prototype = {
 
   postMemo: function(memoToAdd,callback){
     var url = "http://localhost:3000/memos/";
-    console.log("post memo function")
-    console.log(memoToAdd)
     ajax.post(url,function(data){
       callback(data);
     },memoToAdd);
