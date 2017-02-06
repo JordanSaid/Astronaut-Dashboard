@@ -4,6 +4,13 @@ var SpaceStation = require('../models/spaceStation');
 
 var UI = function () {
     this.news = new News();
+
+    this.news.buzzfeedNews(function(buzzArray) {
+            this.renderBuzz(buzzArray);
+            console.log(buzzArray)
+        }.bind(this))
+    
+
     this.news.all(function(headlineArray) {
         this.render(headlineArray);
         console.log(headlineArray)
@@ -32,6 +39,14 @@ UI.prototype = {
     //     this.container.appendChild(newContainer);
     //     return newContainer;
     // },
+    renderBuzz: function(buzzArray) {
+        var headlines = document.querySelector('#ticker2');
+           buzzArray.forEach(function(buzz) {
+            var buzzTitle = document.createElement("p");
+             buzzTitle.innerHTML = "<a href='" + buzz.url + "'>" + "<marquee direction='left'>" + buzz.title + "</marquee></a>";
+             headlines.appendChild(buzzTitle);
+           });
+    },
 
     render: function (headlinesArray) {
         var headlines = document.querySelector('#ticker');
