@@ -137,9 +137,7 @@ UI.prototype = {
     addMapMarker: function (location) {
         var markerString = "You're soaring over here right now!"
         this.mapWrapper.addInfoMarker(location, markerString);
-    },
-    onClickSetLocation: function(location) {
-
+        this.mapWrapper.mapClickChangesWeather();
     },
     currentLocationButton: function() {
         var container = document.querySelector('#centre');
