@@ -39,7 +39,7 @@ var UI = function () {
 
     this.spaceStation = new SpaceStation();
     this.spaceStation.currentLocation(function(location) {
-        var container = document.querySelector('#right');
+        var container = document.querySelector('#centre');
         var mapDiv = document.createElement('div');
         container.appendChild(mapDiv);
         this.mapWrapper = new MapWrapper(mapDiv, location, 5);
@@ -115,7 +115,7 @@ UI.prototype = {
     },
 
     renderApod: function(apodPhoto) {
-        var apodBox = document.querySelector('#centre');
+        var apodBox = document.querySelector('#right');
         var apodImage = document.createElement('img');
         apodImage.src = apodPhoto.url;
         apodBox.appendChild(apodImage);
@@ -141,7 +141,7 @@ UI.prototype = {
     },
 
     renderMap: function (location) {
-        var container = document.querySelector('#right');
+        var container = document.querySelector('#centre');
         var mapDiv = document.createElement('div');
         container.appendChild(mapDiv);
 
@@ -151,7 +151,7 @@ UI.prototype = {
         this.mapWrapper.getBoundsCoords(this.weather);
     },
     currentLocationButton: function() {
-        var container = document.querySelector('#right');
+        var container = document.querySelector('#centre');
         var button = document.createElement('button');
         button.innerText = "Where Am I?"
         container.appendChild(button);
