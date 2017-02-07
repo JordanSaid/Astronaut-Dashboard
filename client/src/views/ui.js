@@ -33,7 +33,7 @@ var UI = function () {
 
     this.spaceStation = new SpaceStation();
     this.spaceStation.currentLocation(function(location) {
-        var container = document.querySelector('#right');
+        var container = document.querySelector('#centre');
         var mapDiv = document.createElement('div');
         container.appendChild(mapDiv);
         this.mapWrapper = new MapWrapper(mapDiv, location, 5);
@@ -137,11 +137,11 @@ UI.prototype = {
     },
 
     addMapMarker: function (location) {
-        var markerString = "You're soaring over ekjnfkewj right now!"
+        var markerString = "You're soaring over here right now!"
         this.mapWrapper.addInfoMarker(location, markerString);
     },
     currentLocationButton: function() {
-        var container = document.querySelector('#right');
+        var container = document.querySelector('#centre');
         var button = document.createElement('button');
         button.innerText = "Where Am I?"
         container.appendChild(button);
@@ -153,7 +153,7 @@ UI.prototype = {
         }.bind(this);
     },
     renderWeather: function(location) {
-        var container = document.querySelector('#left');
+        var container = document.querySelector('#centre');
         var ul = document.createElement('ul');
         container.appendChild(ul);
 
@@ -170,10 +170,12 @@ UI.prototype = {
         ul.appendChild(descriptionLi);
 
         var iconLi = document.createElement('li');
-        // iconLi.innerText = location.weather[0].icon;
-        iconLi.innerText = "http://openweathermap.org/img/w/"
+        var iconImg = document.createElement('img')
+        iconImg.src = "http://openweathermap.org/img/w/"
               + location.weather[0].icon  + ".png",
         ul.appendChild(iconLi);
+        iconLi.appendChild(iconImg);
+
     }
 }
 
