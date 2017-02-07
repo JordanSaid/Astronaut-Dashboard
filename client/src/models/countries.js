@@ -1,9 +1,6 @@
 var Country = require('./country');
 
-var countries = null;
-
 var Countries = function() {
-
 }
 
 Countries.prototype = {
