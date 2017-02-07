@@ -111,7 +111,7 @@ UI.prototype = {
     },
 
     renderApod: function(apodPhoto) {
-        var apodBox = document.querySelector('#centre');
+        var apodBox = document.querySelector('#right');
         var apodImage = document.createElement('img');
         apodImage.src = apodPhoto.url;
         apodBox.appendChild(apodImage);
@@ -135,7 +135,6 @@ UI.prototype = {
         var memoView = new MemoView(leftDiv);
         memoView.renderMemoDash();
     },
-
     addMapMarker: function (location) {
         var markerString = "You're soaring over here right now!"
         this.mapWrapper.addInfoMarker(location, markerString);
