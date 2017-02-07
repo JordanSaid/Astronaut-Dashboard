@@ -157,11 +157,11 @@ UI.prototype = {
         container.appendChild(ul);
 
         var cityLi = document.createElement('li');
-        cityLi.innerText = location.name;
+        cityLi.innerText = "City: " + location.name;
         ul.appendChild(cityLi);
 
         var tempLi = document.createElement('li');
-        tempLi.innerText = location.main.temp;
+        tempLi.innerText = "Temp: " + location.main.temp + "C";
         ul.appendChild(tempLi);
 
         var descriptionLi = document.createElement('li');
