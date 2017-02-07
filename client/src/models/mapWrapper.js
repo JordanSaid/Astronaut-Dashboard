@@ -1,5 +1,5 @@
 var MapWrapper = function(container, coordinates, zoom) {
-  var container = document.querySelector("#centre");
+  var container = document.querySelector("#map-div");
   this.googleMap = new google.maps.Map(container, {
     center: coordinates,
     zoom: zoom
@@ -33,13 +33,12 @@ MapWrapper.prototype = {
       console.log(coords);
     }.bind(this)
   },
-  getBoundsCoords: function(weather) {
-        var bounds = this.googleMap.getBounds();
-        var NE = bounds.getNorthEast();
-        var SW = bounds.getSouthWest();
-        weather.getWeather(NE.lat(), NE.lng(), SW.lat(), SW.lng(), this.googleMap);
-        console.log(bounds);
-  },
+  mapClickChangesWeather: function() {
+    google.maps.event.addListener(this.googleMap, "click", function(event) {
+      var lat = event.latLng.lat();
+      var lng = event.latLng.lng();
+    }.bind(this))
+  }
 }
 
 module.exports = MapWrapper;
