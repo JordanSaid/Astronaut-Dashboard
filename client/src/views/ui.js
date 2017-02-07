@@ -33,12 +33,11 @@ var UI = function () {
 
     this.spaceStation = new SpaceStation();
     this.spaceStation.currentLocation(function(location) {
-        var container = document.querySelector('#centre');
-        var mapDiv = document.createElement('div');
-        container.appendChild(mapDiv);
+  
+        var mapDiv = document.querySelector('#map-div');
+  
         this.mapWrapper = new MapWrapper(mapDiv, location, 5);
         this.weather = new Weather(this.mapWrapper.googleMap);
-        // console.log(this.weather.map)
         this.weather.findWeatherByCoords(location.lat, location.lng, function(weather) { 
             this.addMapMarker(location);
             this.currentLocationButton();
@@ -140,7 +139,7 @@ UI.prototype = {
         this.mapWrapper.addInfoMarker(location, markerString);
     },
     currentLocationButton: function() {
-        var container = document.querySelector('#centre');
+        var container = document.querySelector('#map-div');
         var button = document.createElement('button');
         button.innerText = "Where Am I?"
         container.appendChild(button);
@@ -152,7 +151,7 @@ UI.prototype = {
         }.bind(this);
     },
     renderWeather: function(location) {
-        var container = document.querySelector('#centre');
+        var container = document.querySelector('#map-div');
         var ul = document.createElement('ul');
         container.appendChild(ul);
 
