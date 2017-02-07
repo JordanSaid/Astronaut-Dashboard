@@ -4,7 +4,7 @@ var Memo = require('../models/memo');
 var ajax = require("../helpers/ajax");
 var Emoji = require('../models/emoji');
 var searchResult = [];
-var elementResizeDetectorMaker = require("element-resize-detector");
+
 
 //flatpickr('#flatpickr-tryme');
 
@@ -13,27 +13,14 @@ var elementResizeDetectorMaker = require("element-resize-detector");
 var MemoView = function(container){
   this.container = container;
   this.memo = {};
-  var erd = elementResizeDetectorMaker({
-    strategy: "scroll" //<- For ultra performance.
-  });
-  var leftDiv = document.querySelector("#left");
-  erd.listenTo(leftDiv, function(element) {
-    var width = element.offsetWidth;
-    console.log(((width-46)/535));
-    //581 - 46 = 535
-
-    leftDiv.style.opacity = ((width-46)/535)
-  });
 };
 
 MemoView.prototype = {
 
-  resizeFunction: function(e){
-    console.log("resized")
-  },
 
   renderMemoDash: function(){
-    this.container.innerHTML = "";
+    // this.container.innerHTML = "";
+    this.clearMemoForm();
     this.container.style.flexDirection = "row";
     var controlBar = document.createElement("section");
     controlBar.setAttribute("id","control-bar");
@@ -72,13 +59,12 @@ MemoView.prototype = {
   },
 
   renderMemo: function(data){
-    //the data will contain the info about the memo
-    //if there isn't any then it's a new memo
+    this.clearMemoForm()
     var id = null;
     if (data._id != null){
     id = data._id}
     var timestamp = data.timestamp;
-    this.container.innerHTML = "";
+    // this.container.innerHTML = "";
     this.container.style.flexDirection = "column";
     this.emoji = data.emoji;
     var headerBar = document.createElement("section");
@@ -153,8 +139,6 @@ MemoView.prototype = {
     })
     this.container.appendChild(memoBody);
     this.container.appendChild(footerBar);
-  
-
   },
 
   renderMemoIndex: function(data){
@@ -203,7 +187,23 @@ MemoView.prototype = {
       {
       this.renderMemo(data[target]);
       }
-    }.bind(this))  
+    }.bind(this)); 
+  },
+
+  clearMemoForm: function(query){
+  var i = 0;
+  while (i < this.container.children.length){
+    childNode = this.container.children[i];
+    if (childNode.id != ""){
+      this.container.removeChild(childNode);
+    }else i++;
+    
+  };
+ 
+// ("#control-bar");
+// ("footer-bar");
+// ("memo-body");
+
   },
 
   startSearch: function(query){
