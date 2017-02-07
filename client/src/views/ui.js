@@ -33,8 +33,10 @@ var UI = function () {
 
     this.spaceStation = new SpaceStation();
     this.spaceStation.currentLocation(function(location) {
+
         var mapDiv = document.querySelector('#map-div');
         this.mapWrapper = new MapWrapper(mapDiv, location, 4);
+
         this.weather = new Weather(this.mapWrapper.googleMap);
         this.weather.findWeatherByCoords(location.lat, location.lng, function(weather) { 
             this.addMapMarker(location);
