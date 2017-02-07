@@ -1,4 +1,5 @@
 var News = require('../models/news');
+var Apod = require('../models/apod');
 var MemoView = require('./memoView');
 var MapWrapper = require('../models/MapWrapper');
 var SpaceStation = require('../models/spaceStation');
@@ -9,13 +10,20 @@ var UI = function () {
     this.news.buzzfeedNews(function(buzzArray) {
         this.renderBuzz(buzzArray);
         console.log(buzzArray)
-    }.bind(this))
+    }.bind(this));
     
 
     this.news.all(function(headlineArray) {
         this.render(headlineArray);
         console.log(headlineArray)
-    }.bind(this))
+    }.bind(this));
+
+    this.apod = new Apod();
+    this.apod.all(function(apodPhoto) {
+        this.renderApod(apodPhoto)
+    }.bind(this));
+
+
     this.container = document.body;
 
     this.spaceStation = new SpaceStation();
@@ -47,7 +55,7 @@ UI.prototype = {
         var marqueeEnd = "</marquee>";
 
         buzzArray.forEach(function(buzz) {
-            // var buzzTitle = document.createElement("p");
+
 
             marqueeStart += "<a class='headlinetags' href='" + buzz.url + "'>" + buzz.title + "</a>";
 
@@ -57,11 +65,12 @@ UI.prototype = {
         buzzMarquee.innerHTML = marqueeStart + marqueeEnd;
 
         headlines.appendChild(buzzMarquee);
+        console.log(buzzMarquee)
     },
 
     render: function (headlinesArray) {
         var headlines = document.querySelector('#ticker');
-        var marqueeStart = "<marquee direction='left'>";
+        var marqueeStart = "<marquee direction='left' speed='fast'>";
         var marqueeEnd = "</marquee>";
 
         headlinesArray.forEach(function(headline) {
@@ -85,10 +94,30 @@ UI.prototype = {
         // searchBar.setImageContainer(imageDisplay);
     },
 
+    renderApod: function(apodPhoto) {
+        var apodBox = document.querySelector('#centre');
+        var apodImage = document.createElement('img');
+        apodImage.src = apodPhoto.url;
+        apodBox.appendChild(apodImage);
+
+        apodImage.onclick = function() {
+            var apodText = document.createElement('p');
+            apodText.innerText = apodPhoto.title + ": " + "\n"+ apodPhoto.explanation;
+            apodBox.appendChild(apodText);
+        }
+
+        apodImage.onmousemove = function() {
+            var apodText = document.querySelector('p');
+            apodText.innerText = "";
+            apodBox.appendChild(apodText);
+        }
+        
+    },
+
     renderMemo: function(){
-    var leftDiv = document.querySelector("#left");
-    var memoView = new MemoView(leftDiv);
-    memoView.renderMemoDash();
+        var leftDiv = document.querySelector("#left");
+        var memoView = new MemoView(leftDiv);
+        memoView.renderMemoDash();
     },
 
     renderMap: function (location) {
