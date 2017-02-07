@@ -142,7 +142,8 @@ MemoView.prototype = {
     })
     this.container.appendChild(memoBody);
     this.container.appendChild(footerBar);
- 
+  
+
   },
 
   renderMemoIndex: function(data){
@@ -186,10 +187,15 @@ MemoView.prototype = {
   ul.addEventListener("click",function(event){
     console.log(event)
     var target = event.target.id
-    if (event.target.nodeName = "BUTTON"){
+    if (event.target.nodeName == "BUTTON"){
       var retVal = confirm("Delete memo "+data[target].title+"?");
       if (retVal = true){
         console.log("memo is to be deleted")
+        this.deleteMemo(data[target],function(data){
+          console.log("returned data")
+          console.log(data)
+          this.renderMemoIndex(data);
+          }.bind(this));
         }
       }else
       {
@@ -256,6 +262,14 @@ MemoView.prototype = {
     ajax.post(url,function(data){
       callback(data);
     },memoToAdd);
+  },
+
+  deleteMemo: function(memoToDelete,callback){
+    var url = "http://localhost:3000/memos/";
+    ajax.delete(url,function(data){
+      console.log(data)
+      callback(data);
+    },memoToDelete);
   }
 };
 
