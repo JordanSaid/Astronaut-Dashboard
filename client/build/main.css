@@ -15,32 +15,44 @@ html,body{
 }
 
 #index-div{
+  background-color: #997733;
   display: flex;
   flex:1;
 }
+#index-list{
+  margin-top: 2px;
+  padding-left: 2px;
+}
 
 #button-div{
+  display: flex;
   flex: 1;
-  background-color: green;
+  align-items: flex-end;
+  flex-direction: column;
+  margin-right: 10px;
 }
 
 #list-div{
   flex: 2;
-  background-color: red;
 }
 
 li{
   display: flex;
   align-items: center;
+  font-size: 28px;
+  height: 40px;
+}
+
+li:nth-child(odd) {
+   background-color: #AA8844; 
 }
 
 
-
 .deleteButton {
-  
   margin-left: 10px;
   font-size: 18px;
   text-align: center;
+  margin-top: 10px;
   height:30px;
   width:70px;
 }
