@@ -20,6 +20,14 @@ dashboardRouter.post('/', function(req, res){
   })
 });
 
+dashboardRouter.delete('/',function(req,res){
+    query.delete(req.body,function(docs){
+      var length = docs.length;
+      var returnedId = JSON.stringify(docs[length-1]);
+      res.json({data: returnedId});
+    })
+});
+
 
 
 module.exports = dashboardRouter;

@@ -142,7 +142,8 @@ MemoView.prototype = {
     })
     this.container.appendChild(memoBody);
     this.container.appendChild(footerBar);
- 
+  
+
   },
 
   renderMemoIndex: function(data){
@@ -162,13 +163,11 @@ MemoView.prototype = {
     var listDiv = document.createElement("div");
     listDiv.setAttribute("id","list-div");
     resultDiv.appendChild(listDiv);
-    var buttonDiv = document.createElement("div");
-    buttonDiv.setAttribute("id","button-div");
-    resultDiv.appendChild(buttonDiv);
     var ul = document.createElement("ul");
     ul.setAttribute("id","index-list");
     listDiv.appendChild(ul);
     var li;
+    var space;
     var delButton;
     console.log(data)
     for (var i=0;i<data.length;i++){
@@ -176,17 +175,32 @@ MemoView.prototype = {
       li.setAttribute("id",i)
       li.innerText = data[i].title;
       ul.appendChild(li);
+      space = document.createElement("section");
+      space.setAttribute("id","list-space");
+      li.appendChild(space);
       delButton = document.createElement('button');
       delButton.className = "deleteButton"
       delButton.setAttribute("id",i);
       delButton.innerText = "Delete"
-      buttonDiv.appendChild(delButton);
+      li.appendChild(delButton);
     }
   ul.addEventListener("click",function(event){
-    var target = event.target.id;
-    //check if it's a button
     console.log(event)
-    this.renderMemo(data[target]);
+    var target = event.target.id
+    if (event.target.nodeName == "BUTTON"){
+      var retVal = confirm("Delete memo "+data[target].title+"?");
+      if (retVal = true){
+        console.log("memo is to be deleted")
+        this.deleteMemo(data[target],function(data){
+          console.log("returned data")
+          console.log(data)
+          this.renderMemoIndex(data);
+          }.bind(this));
+        }
+      }else
+      {
+      this.renderMemo(data[target]);
+      }
     }.bind(this))  
   },
 
@@ -248,6 +262,14 @@ MemoView.prototype = {
     ajax.post(url,function(data){
       callback(data);
     },memoToAdd);
+  },
+
+  deleteMemo: function(memoToDelete,callback){
+    var url = "http://localhost:3000/memos/";
+    ajax.delete(url,function(data){
+      console.log(data)
+      callback(data);
+    },memoToDelete);
   }
 };
 

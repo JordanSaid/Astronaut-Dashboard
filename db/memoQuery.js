@@ -62,6 +62,16 @@ MemoQuery.prototype = {
     });
   },
 
+  delete: function(memoToDelete,onQueryFinished){
+    MongoClient.connect(this.url, function(err, db) {
+      if(db){
+          var collection = db.collection('memos');
+         collection.remove({timestamp: memoToDelete.timestamp});
+         onQueryFinished("deleted")
+        }
+      })  
+  }
+
 }
 
 module.exports = MemoQuery;

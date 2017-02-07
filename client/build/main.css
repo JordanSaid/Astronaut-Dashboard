@@ -15,7 +15,7 @@ html,body{
 }
 
 #index-div{
-  background-color: #997733;
+  /*background-color: #997733;*/
   display: flex;
   flex:1;
 }
@@ -24,29 +24,28 @@ html,body{
   padding-left: 2px;
 }
 
-#button-div{
-  display: flex;
-  flex: 1;
-  align-items: flex-end;
-  flex-direction: column;
-  margin-right: 10px;
-}
-
 #list-div{
-  flex: 2;
+width: 100%;
 }
 
 li{
-  display: flex;
-  align-items: center;
+  display: inline-flex;
   font-size: 28px;
   height: 40px;
+  margin-left: 13%;
+  width: 70%;
+  max-width: 70%;
+  color: #DDBB77;
 }
 
 li:nth-child(odd) {
-   background-color: #AA8844; 
 }
 
+#list-space{
+  flex:1;
+  width: 10%;
+  font-size: 10px;
+}
 
 .deleteButton {
   margin-left: 10px;
@@ -54,9 +53,7 @@ li:nth-child(odd) {
   text-align: center;
   margin-top: 10px;
   height:30px;
-  width:70px;
 }
-
 
 #heading{
   display:flex;
@@ -75,28 +72,20 @@ li:nth-child(odd) {
   flex-grow: 80;
 }
 
-
-/*http://il3.picdn.net/shutterstock/videos/6244652/thumb/11.jpg*/
 #left {
   background-image:url(./diary.jpg);
   background-size: 100% 100%;
   display: flex;
   background-color: #997733;
-  /*justify-content: center;*/
   flex-grow: 1;
-/*max-width: 50%;
-font-size: 36px;*/
-flex-grow: 1;
-width:1%;
-height: 469px;
-transition: width 2s, height 2s;
+  width:1%;
+  height: 469px;
+  transition: width 2s, height 2s;
 }
 
 #left:hover {
   width: 60%;
   height: 469px;
-  /*position:fixed;
-  padding-right: 25%;*/
 }
 
 #centre{
@@ -108,8 +97,6 @@ transition: width 2s, height 2s;
   transition: width 2s, height 2s;
 }
 
-
-
 #centre:hover {
   width: 60%;
   height: 469px;
@@ -118,28 +105,29 @@ transition: width 2s, height 2s;
 #control-bar {
   display:flex;
   align-self: flex-start;
-  width: 100%;
+  margin-top: 43px;
+  margin-left: 13%;
+  width: 72%;
   height: 6%;
   background-color: #DDBB77;
   align-items: center;
 }
 
 #search-box {
-  display: flex;
-  margin-left: 10px;
   height: 60%;
-  flex-grow: 20;
-  font-size: 24px;  
-  background-color: #DDBB77;
-  border: 1px solid #997733; 
+  width: 50%;
+  margin-left: 10%;
+  font-size: 24px; 
+  opacity: 0.6; 
+/*  background-color: #DDBB77;
+  border: 1px solid #997733;*/ 
 }
-
 
 #title-box {
  display: flex;
  flex-grow: 30;
  height: 60%;
- width:40px;
+ width:60%;
  margin-left: 4px;
  margin-right: 4px;
  font-size: 24px;  
@@ -150,18 +138,19 @@ transition: width 2s, height 2s;
 
 #emoji-box {
   display: flex;
-  border: 1px solid #997733;
   height: 80%;
-  flex: 2;
+  width:10%;
 }
 
 #search-button, #new-button {
-  display: flex;
+
   margin-left: 4px;
   height: 70%;
-  flex-grow: 10;
+  width: 10%;
   font-size: 18px;
-  justify-content: center;
+  text-align: center;
+  vertical-align: middle;
+  /*justify-content: center;*/
 }
 
 #search-bar-space {
@@ -171,8 +160,9 @@ transition: width 2s, height 2s;
 
 #memo-body {
   display: flex;
-  flex: 1;
-  width: 100%;
+  margin-left: 13%;
+  width: 71%;
+  height:63%;
   background-color: #EECC88;
   font-size: 24px;
   line-height: 50px;
@@ -182,22 +172,25 @@ transition: width 2s, height 2s;
 #footer-bar {
   display: flex;
   height: 6%;
+  width:72%;
+  margin-left: 13%;
   background-color: #DDBB77;
   align-items: center;
 }
 #finish-button{
   display: flex;
   flex:1;
-  height: 80%;
+  /*height: 80%;*/
   font-size: 18px;
+  text-align: center;
   justify-content: center;
 }
 
 #date-box {
  display: flex;
  flex: 2;
- height: 60%;
- width:60px;
+ /*height: 60%;*/
+ width:60%;
  margin-left: 4px;
  font-size: 20px; 
  background-color: #DDBB77;
@@ -219,80 +212,50 @@ transition: width 2s, height 2s;
   background-color: #CFa81B;
   flex-grow: 1;
   width:1%;
-  height: 457px;
+  height: 450px;
   transition: width 2s, height 2s;
 }
 
 #right:hover {
   width: 30%;
-  height: 457px;
-  /*position:fixed;
-  padding-right: 25%;*/
+  height: 450px;
 }
 
-/*#map{
-  width: 100px;
-  height: 100px;
-  transition: width 2s, height 4s;
-  }*/
-
-/*#map {
-    width: 300px;
-    height: 300px;
-    }*/
-
-    #ticker {
-      padding-top: 20px;
-      background-image:url(./footer1.jpg);
-      background-size: 100% 200%;
-      background-repeat: no-repeat;
-      position: left;
-      flex-grow: 10;
-  
-    }
-
-    #ticker2 {
-      background-image:url(./footer2.jpg);
-      background-size: 100%;
-      background-repeat: no-repeat;
-      position: left;
-      flex-grow: 10;
-
-    }
-
-    #ticker, #ticker2 {
-/*  background-image:url(https://media.disquscdn.com/home/channels/breakingnews/breakingnews-tile.png);
-  background-size: 150px 50px;
+#ticker {
+  padding-top: 30px;
+  background-image:url(./footer1.jpg);
+  background-size: 100% 200%;
   background-repeat: no-repeat;
-  position: left;*/
+  position: center;
+}
+
+#ticker2 {
+  background-image:url(./footer2.jpg);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  position: center;
+}
+
+#ticker, #ticker2 {
   background-color: #120928;
   flex-grow: 10;
   display:inline-flex;
-}
+  }
 
-/*a {
-  color: white;
-  font-size: 10px;
-  font-family: helvetica;
-}*/
+  .headlinetags {
+    margin-right: 25px;
+    color: white;
+    font-size: 10px;
+    font-family: helvetica;
+    text-decoration: none;
+    flex-direction: row;
+  }
 
-.headlinetags {
-  margin-right: 25px;
-  color: white;
-  font-size: 10px;
-  font-family: helvetica;
-  text-decoration: none;
-  flex-direction: row;
-  z-index: 1;
-}
-
-p {
-  position: absolute;
-  margin: 10% 40% 10% 10%;
-  font-size: 10px;
-  color: white;
-  font-family: helvetica;
-}
-
-
-/*#122936*/
+  p {
+    position: absolute;
+    padding-left: 20%;
+    padding-right: 20%;
+    font-size: 10px;
+    color: white;
+    font-family: helvetica;
+  }
