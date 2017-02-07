@@ -5,25 +5,19 @@ var MapWrapper = require('../models/MapWrapper');
 var SpaceStation = require('../models/spaceStation');
 var Weather = require('../models/weather');
 
-// var map;
-//   var geoJSON;
-//   var request;
-//   var gettingData = false;
-//   var openWeatherMapKey = "2f99194c7b21871f02ba48c822e9600e"
-
 
 var UI = function () {
     this.news = new News();
 
     this.news.buzzfeedNews(function(buzzArray) {
             this.renderBuzz(buzzArray);
-            console.log(buzzArray)
+            // console.log(buzzArray)
         }.bind(this))
 
 
     this.news.all(function(headlineArray) {
         this.render(headlineArray);
-        console.log(headlineArray)
+        // console.log(headlineArray)
     }.bind(this));
 
     this.apod = new Apod();
@@ -43,11 +37,13 @@ var UI = function () {
         var mapDiv = document.createElement('div');
         container.appendChild(mapDiv);
         this.mapWrapper = new MapWrapper(mapDiv, location, 5);
-        console.log(location)
-        this.weather = new Weather(this.mapWrapper);
-        this.weather.findWeatherByCoords(location.lat, location.lng, function(newLocation) { 
-            this.mapMarker(location);
+        this.weather = new Weather(this.mapWrapper.googleMap);
+        // console.log(this.weather.map)
+        this.weather.findWeatherByCoords(location.lat, location.lng, function(weather) { 
+            this.addMapMarker(location);
             this.currentLocationButton();
+            this.renderWeather(weather);
+            console.log(weather)
         }.bind(this))
     }.bind(this));
 
@@ -85,7 +81,7 @@ UI.prototype = {
         buzzMarquee.innerHTML = marqueeStart + marqueeEnd;
 
         headlines.appendChild(buzzMarquee);
-        console.log(buzzMarquee)
+        // console.log(buzzMarquee)
     },
 
     render: function (headlinesArray) {
@@ -139,16 +135,9 @@ UI.prototype = {
         var memoView = new MemoView(leftDiv);
         memoView.renderMemoDash();
     },
-
-    renderMap: function (location) {
-        var container = document.querySelector('#centre');
-        var mapDiv = document.createElement('div');
-        container.appendChild(mapDiv);
-
-        this.mapWrapper = new MapWrapper(mapDiv, location, 4);
+    addMapMarker: function (location) {
         var markerString = "You're soaring over here right now!"
         this.mapWrapper.addInfoMarker(location, markerString);
-        this.mapWrapper.getBoundsCoords(this.weather);
     },
     currentLocationButton: function() {
         var container = document.querySelector('#centre');
@@ -162,8 +151,30 @@ UI.prototype = {
             }.bind(this))
         }.bind(this);
     },
-    play: function() {
-        this.weather.getCoords();
+    renderWeather: function(location) {
+        var container = document.querySelector('#centre');
+        var ul = document.createElement('ul');
+        container.appendChild(ul);
+
+        var cityLi = document.createElement('li');
+        cityLi.innerText = location.name;
+        ul.appendChild(cityLi);
+
+        var tempLi = document.createElement('li');
+        tempLi.innerText = location.main.temp;
+        ul.appendChild(tempLi);
+
+        var descriptionLi = document.createElement('li');
+         location.weather[0].description;
+        ul.appendChild(descriptionLi);
+
+        var iconLi = document.createElement('li');
+        var iconImg = document.createElement('img')
+        iconImg.src = "http://openweathermap.org/img/w/"
+              + location.weather[0].icon  + ".png",
+        ul.appendChild(iconLi);
+        iconLi.appendChild(iconImg);
+
     }
 }
 
