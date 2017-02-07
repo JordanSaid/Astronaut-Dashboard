@@ -15,7 +15,7 @@ html,body{
 }
 
 #index-div{
-  background-color: #997733;
+  /*background-color: #997733;*/
   display: flex;
   flex:1;
 }
@@ -24,29 +24,28 @@ html,body{
   padding-left: 2px;
 }
 
-#button-div{
-  display: flex;
-  flex: 1;
-  align-items: flex-end;
-  flex-direction: column;
-  margin-right: 10px;
-}
-
 #list-div{
-  flex: 2;
+width: 100%;
 }
 
 li{
-  display: flex;
-  align-items: center;
+  display: inline-flex;
   font-size: 28px;
   height: 40px;
+  margin-left: 13%;
+  width: 70%;
+  max-width: 70%;
+  color: #DDBB77;
 }
 
 li:nth-child(odd) {
- background-color: #AA8844; 
 }
 
+#list-space{
+  flex:1;
+  width: 10%;
+  font-size: 10px;
+}
 
 .deleteButton {
   margin-left: 10px;
@@ -54,7 +53,6 @@ li:nth-child(odd) {
   text-align: center;
   margin-top: 10px;
   height:30px;
-  width:70px;
 }
 
 #heading{
@@ -115,27 +113,29 @@ li:nth-child(odd) {
 #control-bar {
   display:flex;
   align-self: flex-start;
-  width: 100%;
+  margin-top: 43px;
+  margin-left: 13%;
+  width: 72%;
   height: 6%;
   background-color: #DDBB77;
   align-items: center;
 }
 
 #search-box {
-  display: flex;
-  margin-left: 10px;
   height: 60%;
-  flex-grow: 20;
-  font-size: 24px;  
-  background-color: #DDBB77;
-  border: 1px solid #997733; 
+  width: 50%;
+  margin-left: 10%;
+  font-size: 24px; 
+  opacity: 0.6; 
+/*  background-color: #DDBB77;
+  border: 1px solid #997733;*/ 
 }
 
 #title-box {
  display: flex;
  flex-grow: 30;
  height: 60%;
- width:40px;
+ width:60%;
  margin-left: 4px;
  margin-right: 4px;
  font-size: 24px;  
@@ -146,18 +146,19 @@ li:nth-child(odd) {
 
 #emoji-box {
   display: flex;
-  border: 1px solid #997733;
   height: 80%;
-  flex: 2;
+  width:10%;
 }
 
 #search-button, #new-button {
-  display: flex;
+
   margin-left: 4px;
   height: 70%;
-  flex-grow: 10;
+  width: 10%;
   font-size: 18px;
-  justify-content: center;
+  text-align: center;
+  vertical-align: middle;
+  /*justify-content: center;*/
 }
 
 #search-bar-space {
@@ -167,8 +168,9 @@ li:nth-child(odd) {
 
 #memo-body {
   display: flex;
-  flex: 1;
-  width: 100%;
+  margin-left: 13%;
+  width: 71%;
+  height:63%;
   background-color: #EECC88;
   font-size: 24px;
   line-height: 50px;
@@ -178,22 +180,25 @@ li:nth-child(odd) {
 #footer-bar {
   display: flex;
   height: 6%;
+  width:72%;
+  margin-left: 13%;
   background-color: #DDBB77;
   align-items: center;
 }
 #finish-button{
   display: flex;
   flex:1;
-  height: 80%;
+  /*height: 80%;*/
   font-size: 18px;
+  text-align: center;
   justify-content: center;
 }
 
 #date-box {
  display: flex;
  flex: 2;
- height: 60%;
- width:60px;
+ /*height: 60%;*/
+ width:60%;
  margin-left: 4px;
  font-size: 20px; 
  background-color: #DDBB77;
