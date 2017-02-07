@@ -119,12 +119,17 @@ MapWrapper.prototype = {
       console.log(coords);
     }.bind(this)
   },
+  setCenter: function(lati, lngi, zoom) {
+      this.googleMap.setCenter({lat: lati, lng: lngi});
+      this.googleMap.setZoom(zoom);
+  },
   mapClickChangesWeather: function(weather, ui) {
     google.maps.event.addListener(this.googleMap, "click", function(event) {
       var lat = event.latLng.lat();
       var lng = event.latLng.lng();
       weather.findWeatherByCoords(lat, lng, function(weathers) {
         this.googleMap.setCenter({lat: lat, lng: lng});
+        this.addMarker({lat: lat, lng: lng});
         ui.renderWeather(weathers);
         }.bind(this))  
       }.bind(this))

@@ -148,9 +148,8 @@ UI.prototype = {
             this.spaceStation.currentLocation(function(location) {
                 this.mapWrapper.setButtonClickNewCenter(button, location, 4);
                 this.weather.findWeatherByCoords(location.lat, location.lng, function(weathers) {
-                this.googleMap.setCenter({lat: lat, lng: lng});
+                this.mapWrapper.setCenter(location.lat,location.lng, 4);
                 this.renderWeather(weathers);
-                console.log(location)
                 }.bind(this))
             }.bind(this));
         }.bind(this)
@@ -161,9 +160,6 @@ UI.prototype = {
         while (ul.firstChild) {
           ul.removeChild(ul.firstChild);
         };
-
-        // ul = document.createElement('ul');
-        // container.appendChild(ul);
 
         var li1 = document.createElement('li');
         if (location.name != "") {
