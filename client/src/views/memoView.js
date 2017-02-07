@@ -12,11 +12,6 @@ var searchResult = [];
 var MemoView = function(container){
   this.container = container;
   this.memo = {};
-  var leftDiv = document.querySelector("#left");
-    resizeCallback = function(){
-      console.log("the div was resized")
-    }
-  // addResizeListener(leftDiv,resizeCallback);
 };
 
 MemoView.prototype = {
@@ -170,7 +165,8 @@ MemoView.prototype = {
       li.innerText = data[i].title;
       ul.appendChild(li);
       space = document.createElement("section");
-      space.setAttribute("id","list-space");
+      space.className = "space"
+      space.setAttribute("id",i);
       li.appendChild(space);
       delButton = document.createElement('button');
       delButton.className = "deleteButton"
