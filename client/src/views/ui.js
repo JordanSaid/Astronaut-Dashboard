@@ -146,7 +146,7 @@ UI.prototype = {
         container.appendChild(button);
         button.onclick = function() {
             this.spaceStation.currentLocation(function(location) {
-                this.mapWrapper.setButtonClickNewCenter(button, location, 5);
+                this.mapWrapper.setButtonClickNewCenter(button, location, 4);
                 console.log(location)
             }.bind(this))
         }.bind(this);
