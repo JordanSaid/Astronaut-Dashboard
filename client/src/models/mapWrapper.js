@@ -33,12 +33,11 @@ MapWrapper.prototype = {
       console.log(coords);
     }.bind(this)
   },
-  mapClickNewInfo: function(map) {
-    this.googleMap.event.addListener(map, "click", function(event) {
+  mapClickChangesWeather: function() {
+    google.maps.event.addListener(this.googleMap, "click", function(event) {
       var lat = event.latLng.lat();
       var lng = event.latLng.lng();
-      console.log(lat, +"," +lng)
-    })
+    }.bind(this))
   }
 }
 
