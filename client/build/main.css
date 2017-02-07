@@ -144,6 +144,7 @@ li:nth-child(odd) {
  background-color: transparent;
  color: #DDBB77;
  font-size: 24px;  
+ justify-content: center;
  text-align: center;
  border-style: none;
 }
