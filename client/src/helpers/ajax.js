@@ -18,6 +18,7 @@ var ajax = {
 
     get: function(url, callback) {
         this.makeRequest('GET', url,callback);
+        
     },
 
     post: function(url,callback,payload){
