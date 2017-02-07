@@ -14,30 +14,105 @@ html,body{
   flex:1;
 }
 
+#index-div{
+  background-color: #997733;
+  display: flex;
+  flex:1;
+}
+#index-list{
+  margin-top: 2px;
+  padding-left: 2px;
+}
+
+#button-div{
+  display: flex;
+  flex: 1;
+  align-items: flex-end;
+  flex-direction: column;
+  margin-right: 10px;
+}
+
+#list-div{
+  flex: 2;
+}
+
+li{
+  display: flex;
+  align-items: center;
+  font-size: 28px;
+  height: 40px;
+}
+
+li:nth-child(odd) {
+   background-color: #AA8844; 
+}
+
+
+.deleteButton {
+  margin-left: 10px;
+  font-size: 18px;
+  text-align: center;
+  margin-top: 10px;
+  height:30px;
+  width:70px;
+}
+
+
 #heading{
-display:flex;
-background-image: url(./heading.jpg);
-background-size: 100% 100%;
-flex-grow: 20;
-font-size: 48px;
-justify-content: center;
-vertical-align: middle;
-line-height: 120px;
-color: red;
+  display:flex;
+  background-image: url(./heading2.jpg);
+  background-size: 100% 100%;
+  flex-grow: 20;
+  font-size: 48px;
+  justify-content: center;
+  vertical-align: middle;
+  line-height: 120px;
+  color: red;
 }
 
 #middle{
-display: flex;
-flex-grow: 80;
+  display: flex;
+  flex-grow: 80;
 }
 
+
+/*http://il3.picdn.net/shutterstock/videos/6244652/thumb/11.jpg*/
 #left {
-display: flex;
-background-color: #AACC22;
-justify-content: center;
+  background-image:url(./diary.jpg);
+  background-size: 100% 100%;
+  display: flex;
+  background-color: #997733;
+  /*justify-content: center;*/
+  flex-grow: 1;
+/*max-width: 50%;
+font-size: 36px;*/
 flex-grow: 1;
-max-width: 50%;
-font-size: 36px;
+width:1%;
+height: 469px;
+transition: width 2s, height 2s;
+}
+
+#left:hover {
+  width: 60%;
+  height: 469px;
+  /*position:fixed;
+  padding-right: 25%;*/
+}
+
+#centre{
+  display: flex;
+  background-color: #0D0D0D;
+  flex-grow: 1;
+  width:1%;
+  height: 469px;
+  transition: width 2s, height 2s;
+}
+
+
+
+#centre:hover {
+  width: 60%;
+  height: 469px;
 }
 
 #control-bar {
@@ -90,8 +165,8 @@ font-size: 36px;
 }
 
 #search-bar-space {
-display: flex;
-flex-grow: 10;
+  display: flex;
+  flex-grow: 10;
 }
 
 #memo-body {
@@ -126,42 +201,98 @@ flex-grow: 10;
  margin-left: 4px;
  font-size: 20px; 
  background-color: #DDBB77;
- border: 1px solid #997733; 
+ border: 1px solid #997733;
+ text-align: center;
 }
 
 #save-button {
   display: flex;
   flex:1;
- height: 80%; 
- font-size: 18px;
- justify-content:center;
+  height: 80%; 
+  font-size: 18px;
+  justify-content:center;
 }
 
 
 #right {
-display:flex;  
-background-color: #CFa81B;
-flex-grow: 1;
+  display:flex;  
+  background-color: #CFa81B;
+  flex-grow: 1;
+  width:1%;
+  height: 457px;
+  transition: width 2s, height 2s;
 }
 
-#map{
-  width: 300px;
-  height: 300px;
+#right:hover {
+  width: 30%;
+  height: 457px;
+  /*position:fixed;
+  padding-right: 25%;*/
 }
 
-#ticker, #ticker2 {
-  background-image:url(https://media.disquscdn.com/home/channels/breakingnews/breakingnews-tile.png);
+/*#map{
+  width: 100px;
+  height: 100px;
+  transition: width 2s, height 4s;
+  }*/
+
+/*#map {
+    width: 300px;
+    height: 300px;
+    }*/
+
+    #ticker {
+      padding-top: 20px;
+      background-image:url(./footer1.jpg);
+      background-size: 100% 200%;
+      background-repeat: no-repeat;
+      position: left;
+      flex-grow: 10;
+  
+    }
+
+    #ticker2 {
+      background-image:url(./footer2.jpg);
+      background-size: 100%;
+      background-repeat: no-repeat;
+      position: left;
+      flex-grow: 10;
+
+    }
+
+    #ticker, #ticker2 {
+/*  background-image:url(https://media.disquscdn.com/home/channels/breakingnews/breakingnews-tile.png);
   background-size: 150px 50px;
   background-repeat: no-repeat;
-  position: left;
-  background-color: #1b3866;
+  position: left;*/
+  background-color: #120928;
   flex-grow: 10;
   display:inline-flex;
 }
 
-a {
+/*a {
   color: white;
-  font-size: 12px;
+  font-size: 10px;
+  font-family: helvetica;
+}*/
+
+.headlinetags {
+  margin-right: 25px;
+  color: white;
+  font-size: 10px;
+  font-family: helvetica;
+  text-decoration: none;
+  flex-direction: row;
+  z-index: 1;
+}
+
+p {
+  position: absolute;
+  margin: 10% 40% 10% 10%;
+  font-size: 10px;
+  color: white;
   font-family: helvetica;
 }
 
+
+/*#122936*/

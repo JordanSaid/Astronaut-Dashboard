@@ -1,4 +1,6 @@
 var News = require('../models/news');
+var Apod = require('../models/apod');
+var MemoView = require('./memoView');
 var MapWrapper = require('../models/MapWrapper');
 var SpaceStation = require('../models/spaceStation');
 var Weather = require('../models/weather');
@@ -18,10 +20,18 @@ var UI = function () {
             console.log(buzzArray)
         }.bind(this))
 
+
     this.news.all(function(headlineArray) {
         this.render(headlineArray);
         console.log(headlineArray)
-    }.bind(this))
+    }.bind(this));
+
+    this.apod = new Apod();
+    this.apod.all(function(apodPhoto) {
+        this.renderApod(apodPhoto)
+    }.bind(this));
+
+
     this.container = document.body;
 
     this.mapWrapper = null;
@@ -41,6 +51,9 @@ var UI = function () {
         }.bind(this))
     }.bind(this));
 
+    this.renderMemo();
+
+
 }
 
 UI.prototype = {
@@ -57,25 +70,41 @@ UI.prototype = {
     // },
     renderBuzz: function(buzzArray) {
         var headlines = document.querySelector('#ticker2');
-           buzzArray.forEach(function(buzz) {
-            var buzzTitle = document.createElement("p");
-             buzzTitle.innerHTML = "<a href='" + buzz.url + "'>" + "<marquee direction='left'>" + buzz.title + "</marquee></a>";
-             headlines.appendChild(buzzTitle);
-           });
+
+        var marqueeStart = "<marquee direction='left'>";
+        var marqueeEnd = "</marquee>";
+
+        buzzArray.forEach(function(buzz) {
+
+
+            marqueeStart += "<a class='headlinetags' href='" + buzz.url + "'>" + buzz.title + "</a>";
+
+        });
+
+        var buzzMarquee = document.createElement('p');
+        buzzMarquee.innerHTML = marqueeStart + marqueeEnd;
+
+        headlines.appendChild(buzzMarquee);
+        console.log(buzzMarquee)
     },
 
     render: function (headlinesArray) {
         var headlines = document.querySelector('#ticker');
-           headlinesArray.forEach(function(headline) {
-             var headlineTitle = document.createElement("p");
-             headlineTitle.innerHTML = "<a href='" + headline.url + "'>" + "<marquee direction='left'>" + headline.title + "</marquee></a>";
-             headlines.appendChild(headlineTitle);
-           });
+        var marqueeStart = "<marquee direction='left' speed='fast'>";
+        var marqueeEnd = "</marquee>";
+
+        headlinesArray.forEach(function(headline) {
+
+            marqueeStart += "<a class='headlinetags' href='" + headline.url + "'>" + headline.title + "</a>";
+        });
+        var headlineMarquee = document.createElement("p");
+        headlineMarquee.innerHTML = marqueeStart + marqueeEnd;
+        headlines.appendChild(headlineMarquee);
 
         // var leftDiv = document.querySelector("left-div");
         // var memoView = new MemoView(leftDiv);
         // memoView.renderMemoDash();
-     
+
         // var headerContainer = this.createContainer('header', 'flex', 'center', 'shadow');
         // new Header(headerContainer);
         // var searchBar = new SearchBar(headerContainer);
@@ -84,19 +113,50 @@ UI.prototype = {
         // var imageDisplay = new ImageDisplay(imageContainer);
         // searchBar.setImageContainer(imageDisplay);
     },
-    mapMarker: function (location) {
+
+    renderApod: function(apodPhoto) {
+        var apodBox = document.querySelector('#centre');
+        var apodImage = document.createElement('img');
+        apodImage.src = apodPhoto.url;
+        apodBox.appendChild(apodImage);
+
+        apodImage.onclick = function() {
+            var apodText = document.createElement('p');
+            apodText.innerText = apodPhoto.title + ": " + "\n"+ apodPhoto.explanation;
+            apodBox.appendChild(apodText);
+        }
+
+        apodImage.onmousemove = function() {
+            var apodText = document.querySelector('p');
+            apodText.innerText = "";
+            apodBox.appendChild(apodText);
+        }
+        
+    },
+
+    renderMemo: function(){
+        var leftDiv = document.querySelector("#left");
+        var memoView = new MemoView(leftDiv);
+        memoView.renderMemoDash();
+    },
+
+    renderMap: function (location) {
+        var container = document.querySelector('#right');
+        var mapDiv = document.createElement('div');
+        container.appendChild(mapDiv);
+
+        this.mapWrapper = new MapWrapper(mapDiv, location, 4);
         var markerString = "You're soaring over here right now!"
         this.mapWrapper.addInfoMarker(location, markerString);
         this.mapWrapper.getBoundsCoords(this.weather);
     },
     currentLocationButton: function() {
-        var container = document.querySelector('#left');
+        var container = document.querySelector('#right');
         var button = document.createElement('button');
         button.innerText = "Where Am I?"
         container.appendChild(button);
         button.onclick = function() {
             this.spaceStation.currentLocation(function(location) {
-                // this.renderMap(location);
                 this.mapWrapper.setButtonClickNewCenter(button, location, 5);
                 console.log(location)
             }.bind(this))
