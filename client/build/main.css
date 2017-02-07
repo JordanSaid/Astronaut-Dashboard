@@ -76,7 +76,8 @@ li:nth-child(odd) {
   background-image:url(./diary.jpg);
   background-size: 100% 100%;
   display: flex;
-  background-color: #997733;
+ /* background-color: #997733;
+  color: #DDBB77;*/
   flex-grow: 1;
   width:1%;
   height: 469px;
@@ -109,48 +110,57 @@ li:nth-child(odd) {
   margin-left: 13%;
   width: 72%;
   height: 6%;
-  background-color: #DDBB77;
+  /*background-color: #DDBB77;*/
+  background-color: transparent;
+  color: #DDBB77;
   align-items: center;
+  overflow-x: hidden;
 }
 
 #search-box {
   height: 60%;
   width: 50%;
   margin-left: 10%;
-  font-size: 24px; 
-  opacity: 0.6; 
-/*  background-color: #DDBB77;
-  border: 1px solid #997733;*/ 
+  font-size: 18px; 
+ background-color: transparent;
+ color: #DDBB77;
 }
 
 #title-box {
  display: flex;
  flex-grow: 30;
- height: 60%;
+ height: 80%;
  width:60%;
  margin-left: 4px;
  margin-right: 4px;
+ background-color: transparent;
+ color: #DDBB77;
  font-size: 24px;  
- background-color: #DDBB77;
- border: 1px solid #997733;
  text-align: center;
+ border-style: none;
 }
 
 #emoji-box {
   display: flex;
   height: 80%;
   width:10%;
+  max-width: 25px;
 }
 
-#search-button, #new-button {
+#search-button {
 
   margin-left: 4px;
-  height: 70%;
-  width: 10%;
-  font-size: 18px;
+ /* height: 70%;*/
   text-align: center;
   vertical-align: middle;
-  /*justify-content: center;*/
+}
+
+#new-button{
+  margin-left: 4px;
+ /* height: 70%;*/
+  text-align: center;
+  vertical-align: middle;
+
 }
 
 #search-bar-space {
@@ -160,12 +170,13 @@ li:nth-child(odd) {
 
 #memo-body {
   display: flex;
-  margin-left: 13%;
+  margin-left: 14%;
   width: 71%;
   height:63%;
-  background-color: #EECC88;
   font-size: 24px;
   line-height: 50px;
+  background-color: transparent;
+  color: #DDBB77;
 
 }
 
@@ -173,8 +184,8 @@ li:nth-child(odd) {
   display: flex;
   height: 6%;
   width:72%;
-  margin-left: 13%;
-  background-color: #DDBB77;
+  margin-left: 14%;
+  /*background-color: #DDBB77;*/
   align-items: center;
 }
 #finish-button{
@@ -193,15 +204,17 @@ li:nth-child(odd) {
  width:60%;
  margin-left: 4px;
  font-size: 20px; 
- background-color: #DDBB77;
- border: 1px solid #997733;
+ /*background-color: #DDBB77;*/
+ /*border: 1px solid #997733;*/
+ background-color: transparent;
+ color: #DDBB77;
  text-align: center;
 }
 
 #save-button {
   display: flex;
   flex:1;
-  height: 80%; 
+  /*height: 80%; */
   font-size: 18px;
   justify-content:center;
 }
