@@ -25,13 +25,6 @@ MapWrapper.prototype = {
       position: coords,
       map: this.googleMap
       });
-    // var marker = new google.maps.Marker ({
-    //   position: coords,
-    //   map: this.googleMap
-    // });
-    // marker.addListener('click', function () {
-    //   infoWindow.open(this.googleMap, marker);
-    // });
   },
   setButtonClickNewCenter: function(button, coords, zoom) {
     button.onclick = function() {
@@ -39,6 +32,13 @@ MapWrapper.prototype = {
       this.googleMap.setZoom(zoom);
       console.log(coords);
     }.bind(this)
+  },
+  getBoundsCoords: function(weather) {
+        var bounds = this.googleMap.getBounds();
+        var NE = bounds.getNorthEast();
+        var SW = bounds.getSouthWest();
+        weather.getWeather(NE.lat(), NE.lng(), SW.lat(), SW.lng(), this.googleMap);
+        console.log(bounds);
   },
 }
 
