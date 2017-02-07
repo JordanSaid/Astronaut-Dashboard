@@ -5,12 +5,6 @@ var MapWrapper = require('../models/MapWrapper');
 var SpaceStation = require('../models/spaceStation');
 var Weather = require('../models/weather');
 
-// var map;
-//   var geoJSON;
-//   var request;
-//   var gettingData = false;
-//   var openWeatherMapKey = "2f99194c7b21871f02ba48c822e9600e"
-
 
 var UI = function () {
     this.news = new News();
@@ -172,11 +166,13 @@ UI.prototype = {
         ul.appendChild(tempLi);
 
         var descriptionLi = document.createElement('li');
-        descriptionLi.innerText = location.weather[0].description;
+         location.weather[0].description;
         ul.appendChild(descriptionLi);
 
         var iconLi = document.createElement('li');
-        iconLi.innerText = location.weather[0].icon;
+        // iconLi.innerText = location.weather[0].icon;
+        iconLi.innerText = "http://openweathermap.org/img/w/"
+              + location.weather[0].icon  + ".png",
         ul.appendChild(iconLi);
     }
 }
