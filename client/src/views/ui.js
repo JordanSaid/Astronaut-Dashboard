@@ -33,12 +33,9 @@ var UI = function () {
 
     this.spaceStation = new SpaceStation();
     this.spaceStation.currentLocation(function(location) {
-        var container = document.querySelector('#centre');
-        var mapDiv = document.createElement('div');
-        container.appendChild(mapDiv);
-        this.mapWrapper = new MapWrapper(mapDiv, location, 5);
+        var mapDiv = document.querySelector('#map-div');
+        this.mapWrapper = new MapWrapper(mapDiv, location, 4);
         this.weather = new Weather(this.mapWrapper.googleMap);
-        // console.log(this.weather.map)
         this.weather.findWeatherByCoords(location.lat, location.lng, function(weather) { 
             this.addMapMarker(location);
             this.currentLocationButton();
@@ -139,8 +136,11 @@ UI.prototype = {
         var markerString = "You're soaring over here right now!"
         this.mapWrapper.addInfoMarker(location, markerString);
     },
+    onClickSetLocation: function(location) {
+
+    },
     currentLocationButton: function() {
-        var container = document.querySelector('#centre');
+        var container = document.querySelector('#map-div');
         var button = document.createElement('button');
         button.innerText = "Where Am I?"
         container.appendChild(button);
@@ -152,7 +152,7 @@ UI.prototype = {
         }.bind(this);
     },
     renderWeather: function(location) {
-        var container = document.querySelector('#centre');
+        var container = document.querySelector('#map-div');
         var ul = document.createElement('ul');
         container.appendChild(ul);
 
@@ -165,7 +165,7 @@ UI.prototype = {
         ul.appendChild(tempLi);
 
         var descriptionLi = document.createElement('li');
-         location.weather[0].description;
+        descriptionLi.innerText = location.weather[0].description.charAt(0).toUpperCase() + location.weather[0].description.slice(1);
         ul.appendChild(descriptionLi);
 
         var iconLi = document.createElement('li');

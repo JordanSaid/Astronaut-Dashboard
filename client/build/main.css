@@ -89,7 +89,19 @@ li:nth-child(odd) {
 }
 
 #centre {
+  display:flex;
+  flex-direction: column;
+  background-color: #110A21;
+  flex-grow: 1;
+  align-items: flex-end;
+  width: 250px;
+  height: 350px;
+}
+
+#map-div {
   display:flex;  
+  flex-direction: column;
+  /*align-items: flex-end;*/
   background-color: #110A21;
   flex-grow: 1;
   width: 250px;

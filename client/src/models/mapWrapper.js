@@ -33,13 +33,13 @@ MapWrapper.prototype = {
       console.log(coords);
     }.bind(this)
   },
-  getBoundsCoords: function(weather) {
-        var bounds = this.googleMap.getBounds();
-        var NE = bounds.getNorthEast();
-        var SW = bounds.getSouthWest();
-        weather.getWeather(NE.lat(), NE.lng(), SW.lat(), SW.lng(), this.googleMap);
-        console.log(bounds);
-  },
+  mapClickNewInfo: function(map) {
+    this.googleMap.event.addListener(map, "click", function(event) {
+      var lat = event.latLng.lat();
+      var lng = event.latLng.lng();
+      console.log(lat, +"," +lng)
+    })
+  }
 }
 
 module.exports = MapWrapper;
