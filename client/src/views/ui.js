@@ -111,7 +111,7 @@ UI.prototype = {
     },
 
     renderApod: function(apodPhoto) {
-        var apodBox = document.querySelector('#centre');
+        var apodBox = document.querySelector('#right');
         var apodImage = document.createElement('img');
         apodImage.src = apodPhoto.url;
         apodBox.appendChild(apodImage);
