@@ -222,7 +222,7 @@ MemoView.prototype = {
         //this is a bad way to search!
         //should be sending query to database
         //lets get something working first
-        console.log(searchBy);
+        console.log(data);
         if (data.length > 0){
         for (memo of data){
           if (searchBy == "date"){
