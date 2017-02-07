@@ -4,6 +4,7 @@ var Memo = require('../models/memo');
 var ajax = require("../helpers/ajax");
 var Emoji = require('../models/emoji');
 var searchResult = [];
+var resizeListener = require('javascript-detect-element-resize/detect-element-resize');
 //flatpickr('#flatpickr-tryme');
 
 
@@ -11,6 +12,12 @@ var searchResult = [];
 var MemoView = function(container){
   this.container = container;
   this.memo = {};
+  var leftDiv = document.querySelector("#left");
+    resizeCallback = function(){
+      console.log("the div was resized")
+    }
+    
+  window.addResizeListener(leftDiv,resizeCallback);
 };
 
 MemoView.prototype = {
@@ -29,7 +36,7 @@ MemoView.prototype = {
     space.setAttribute("id","search-bar-space");
     var newButton = document.createElement("button");
     newButton.setAttribute("id","new-button");
-    newButton.innerText = "New memo";
+    newButton.innerText = "New";
     searchButton.addEventListener("click",function(){
       //going to search here
       searchResult = [];
