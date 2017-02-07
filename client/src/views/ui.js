@@ -17,13 +17,13 @@ var UI = function () {
 
     this.news.buzzfeedNews(function(buzzArray) {
             this.renderBuzz(buzzArray);
-            console.log(buzzArray)
+            // console.log(buzzArray)
         }.bind(this))
 
 
     this.news.all(function(headlineArray) {
         this.render(headlineArray);
-        console.log(headlineArray)
+        // console.log(headlineArray)
     }.bind(this));
 
     this.apod = new Apod();
@@ -43,11 +43,13 @@ var UI = function () {
         var mapDiv = document.createElement('div');
         container.appendChild(mapDiv);
         this.mapWrapper = new MapWrapper(mapDiv, location, 5);
-        console.log(location)
-        this.weather = new Weather(this.mapWrapper);
-        this.weather.findWeatherByCoords(location.lat, location.lng, function(newLocation) { 
-            this.mapMarker(location);
+        this.weather = new Weather(this.mapWrapper.googleMap);
+        // console.log(this.weather.map)
+        this.weather.findWeatherByCoords(location.lat, location.lng, function(weather) { 
+            this.addMapMarker(location);
             this.currentLocationButton();
+            this.renderWeather(weather);
+            console.log(weather)
         }.bind(this))
     }.bind(this));
 
@@ -85,7 +87,7 @@ UI.prototype = {
         buzzMarquee.innerHTML = marqueeStart + marqueeEnd;
 
         headlines.appendChild(buzzMarquee);
-        console.log(buzzMarquee)
+        // console.log(buzzMarquee)
     },
 
     render: function (headlinesArray) {
@@ -140,15 +142,9 @@ UI.prototype = {
         memoView.renderMemoDash();
     },
 
-    renderMap: function (location) {
-        var container = document.querySelector('#right');
-        var mapDiv = document.createElement('div');
-        container.appendChild(mapDiv);
-
-        this.mapWrapper = new MapWrapper(mapDiv, location, 4);
-        var markerString = "You're soaring over here right now!"
+    addMapMarker: function (location) {
+        var markerString = "You're soaring over ekjnfkewj right now!"
         this.mapWrapper.addInfoMarker(location, markerString);
-        this.mapWrapper.getBoundsCoords(this.weather);
     },
     currentLocationButton: function() {
         var container = document.querySelector('#right');
@@ -162,8 +158,26 @@ UI.prototype = {
             }.bind(this))
         }.bind(this);
     },
-    play: function() {
-        this.weather.getCoords();
+    renderWeather: function(location) {
+        var container = document.querySelector('#left');
+        var ul = document.createElement('ul');
+        container.appendChild(ul);
+
+        var cityLi = document.createElement('li');
+        cityLi.innerText = location.name;
+        ul.appendChild(cityLi);
+
+        var tempLi = document.createElement('li');
+        tempLi.innerText = location.main.temp;
+        ul.appendChild(tempLi);
+
+        var descriptionLi = document.createElement('li');
+        descriptionLi.innerText = location.weather[0].description;
+        ul.appendChild(descriptionLi);
+
+        var iconLi = document.createElement('li');
+        iconLi.innerText = location.weather[0].icon;
+        ul.appendChild(iconLi);
     }
 }
 
