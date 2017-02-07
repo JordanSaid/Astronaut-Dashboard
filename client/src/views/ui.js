@@ -146,7 +146,7 @@ UI.prototype = {
         container.appendChild(button);
         button.onclick = function() {
             this.spaceStation.currentLocation(function(location) {
-                this.mapWrapper.setButtonClickNewCenter(button, location, 5);
+                this.mapWrapper.setButtonClickNewCenter(button, location, 4);
                 console.log(location)
             }.bind(this))
         }.bind(this);
@@ -156,24 +156,32 @@ UI.prototype = {
         var ul = document.createElement('ul');
         container.appendChild(ul);
 
-        var cityLi = document.createElement('li');
-        cityLi.innerText = "City: " + location.name;
-        ul.appendChild(cityLi);
+        var li1 = document.createElement('li');
+        if (location.name != "") {
+        li1.innerText = "City:  " + location.name 
+        li1.style.fontSize = "small";
+        ul.appendChild(li1);
+    } else {
+        li1.innerText = "Over the sea";
+        li1.style.fontSize = "small";
+        ul.appendChild(li1);
+    }
 
-        var tempLi = document.createElement('li');
-        tempLi.innerText = "Temp: " + location.main.temp + "C";
-        ul.appendChild(tempLi);
+        var li2 = document.createElement('li');
+        li2.innerText = "Temp: " + location.main.temp + "C";
+        li2.style.fontSize = "small";
+        ul.appendChild(li2);
 
-        var descriptionLi = document.createElement('li');
-        descriptionLi.innerText = location.weather[0].description.charAt(0).toUpperCase() + location.weather[0].description.slice(1);
-        ul.appendChild(descriptionLi);
+        var li3 = document.createElement('li');
+        li3.innerText = location.weather[0].description.charAt(0).toUpperCase() + location.weather[0].description.slice(1) + "   ";
+        li3.style.fontSize = "small";
+        ul.appendChild(li3);
 
-        var iconLi = document.createElement('li');
         var iconImg = document.createElement('img')
         iconImg.src = "http://openweathermap.org/img/w/"
               + location.weather[0].icon  + ".png",
-        ul.appendChild(iconLi);
-        iconLi.appendChild(iconImg);
+        li3.appendChild(iconImg);
+        ul.appendChild(li3);
 
     }
 }
