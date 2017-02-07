@@ -135,7 +135,6 @@ UI.prototype = {
         var memoView = new MemoView(leftDiv);
         memoView.renderMemoDash();
     },
-
     addMapMarker: function (location) {
         var markerString = "You're soaring over here right now!"
         this.mapWrapper.addInfoMarker(location, markerString);
