@@ -4,6 +4,7 @@ var Memo = require('../models/memo');
 var ajax = require("../helpers/ajax");
 var Emoji = require('../models/emoji');
 var searchResult = [];
+var resize = require('javascript-detect-element-resize/detect-element-resize');
 
 //flatpickr('#flatpickr-tryme');
 
@@ -12,9 +13,17 @@ var searchResult = [];
 var MemoView = function(container){
   this.container = container;
   this.memo = {};
+
+  var leftDiv = document.querySelector("#left");
+  window.addResizeListener(leftDiv,this.resizeFunction());
+  // window.removeResizeListener(leftDiv,this.resizeFunction());
 };
 
 MemoView.prototype = {
+
+  resizeFunction: function(e){
+    console.log("resized")
+  },
 
   renderMemoDash: function(){
     this.container.innerHTML = "";
