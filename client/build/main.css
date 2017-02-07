@@ -1,5 +1,6 @@
 html,body{
   height:100%;
+  background-color: #110A21;
 }
 
 .container{
@@ -12,6 +13,7 @@ html,body{
 
 .container>div{
   flex:1;
+  background-color: #110A21;
 }
 
 #index-div{
@@ -162,7 +164,6 @@ li:nth-child(odd) {
  background-color: transparent;
  color: #DDBB77;
  font-size: 24px;  
- justify-content: center;
  text-align: center;
  border-style: none;
 }
