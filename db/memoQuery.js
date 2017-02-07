@@ -54,8 +54,6 @@ MemoQuery.prototype = {
           collection.update({timestamp: memoToAdd.timestamp},updatedMemo);
           }
           collection.find().toArray(function(err, docs) {
-          console.log("docs below")
-          console.log(docs);
           onQueryFinished(docs);
           });
         };
@@ -66,8 +64,11 @@ MemoQuery.prototype = {
     MongoClient.connect(this.url, function(err, db) {
       if(db){
           var collection = db.collection('memos');
-         collection.remove({timestamp: memoToDelete.timestamp});
-         onQueryFinished("deleted")
+         collection.remove({timestamp: memoToDelete.timestamp});          
+         collection.find().toArray(function(err, docs) {
+          console.log(docs);
+          onQueryFinished(docs);
+          });        
         }
       })  
   }

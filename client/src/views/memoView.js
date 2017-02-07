@@ -4,7 +4,7 @@ var Memo = require('../models/memo');
 var ajax = require("../helpers/ajax");
 var Emoji = require('../models/emoji');
 var searchResult = [];
-var resizeListener = require('javascript-detect-element-resize/detect-element-resize');
+
 //flatpickr('#flatpickr-tryme');
 
 
@@ -12,12 +12,6 @@ var resizeListener = require('javascript-detect-element-resize/detect-element-re
 var MemoView = function(container){
   this.container = container;
   this.memo = {};
-  var leftDiv = document.querySelector("#left");
-    resizeCallback = function(){
-      console.log("the div was resized")
-    }
-    
-  window.addResizeListener(leftDiv,resizeCallback);
 };
 
 MemoView.prototype = {
@@ -39,12 +33,8 @@ MemoView.prototype = {
     newButton.innerText = "New";
     searchButton.addEventListener("click",function(){
       //going to search here
-      searchResult = [];
-      this.parseSearch(searchBox.value,function(){
-        console.log("callback")
-        if (searchResult.length > 0){
-        this.renderMemoIndex(searchResult);}
-      }.bind(this));
+    this.startSearch(searchBox.value);
+
     }.bind(this));
     newButton.addEventListener("click",function(){
       var options = {};
@@ -70,7 +60,6 @@ MemoView.prototype = {
     //if there isn't any then it's a new memo
     var id = null;
     if (data._id != null){
-    console.log(data._id);
     id = data._id}
     var timestamp = data.timestamp;
     this.container.innerHTML = "";
@@ -111,19 +100,19 @@ MemoView.prototype = {
     footerBar.appendChild(saveButton);
 
     finishButton.addEventListener("click",function(){
-      //this saves the memo if it hasn't been
-      //and closes the form, returning to the memodash
-      if (id != null){
-        this.memo["_id"] = id;
+      if ((memoBody.value != "")&&(titleBox.value != "New Memo")){
+          if (id != null){
+            this.memo["_id"] = id;
+          }
+        this.memo["title"] = titleBox.value;
+        this.memo["body"] = memoBody.value;
+        this.memo["timestamp"] = timestamp;
+        this.memo["date"] = dateBox.value;
+        this.memo["emoji"] = {};
+        this.postMemo(this.memo,function(data){
+        }.bind(this));
       }
-      this.memo["title"] = titleBox.value;
-      this.memo["body"] = memoBody.value;
-      this.memo["timestamp"] = timestamp;
-      this.memo["date"] = dateBox.value;
-      this.memo["emoji"] = {};
-      this.postMemo(this.memo,function(data){
-        this.renderMemoDash();
-      }.bind(this));
+    this.renderMemoDash();
     }.bind(this));
 
     saveButton.addEventListener("click",function(){
@@ -140,7 +129,6 @@ MemoView.prototype = {
       var justPosted = JSON.parse(data.data);
       if (justPosted._id != null){
       this.memo["_id"] = justPosted._id;}
-      console.log(justPosted);
       }.bind(this));
     }
   }.bind(this));
@@ -154,11 +142,6 @@ MemoView.prototype = {
   },
 
   renderMemoIndex: function(data){
-    //render the memo index list inside this container
-    //and add the names of matching memos
-    console.log("render memo index")
-    console.log(this.container);
-
     this.container.style.flexDirection = "column";
     var resultDiv = document.querySelector("#index-div");
     if (resultDiv == null){      
@@ -176,14 +159,14 @@ MemoView.prototype = {
     var li;
     var space;
     var delButton;
-    console.log(data)
     for (var i=0;i<data.length;i++){
       li = document.createElement("li");
       li.setAttribute("id",i)
       li.innerText = data[i].title;
       ul.appendChild(li);
       space = document.createElement("section");
-      space.setAttribute("id","list-space");
+      space.className = "space"
+      space.setAttribute("id",i);
       li.appendChild(space);
       delButton = document.createElement('button');
       delButton.className = "deleteButton"
@@ -192,15 +175,11 @@ MemoView.prototype = {
       li.appendChild(delButton);
     }
   ul.addEventListener("click",function(event){
-    console.log(event)
     var target = event.target.id
     if (event.target.nodeName == "BUTTON"){
       var retVal = confirm("Delete memo "+data[target].title+"?");
       if (retVal = true){
-        console.log("memo is to be deleted")
         this.deleteMemo(data[target],function(data){
-          console.log("returned data")
-          console.log(data)
           this.renderMemoIndex(data);
           }.bind(this));
         }
@@ -209,6 +188,14 @@ MemoView.prototype = {
       this.renderMemo(data[target]);
       }
     }.bind(this))  
+  },
+
+  startSearch: function(query){
+    searchResult = [];
+    this.parseSearch(query,function(){
+      if (searchResult.length > 0){
+      this.renderMemoIndex(searchResult);}
+    }.bind(this));
   },
 
   parseSearch: function(query,callback){
@@ -240,10 +227,7 @@ MemoView.prototype = {
   searchMemo: function (searchBy, searchData,callback) {
         var url = "http://localhost:3000/memos/"        
         ajax.get(url, function (data) {
-        //this is a bad way to search!
-        //should be sending query to database
-        //lets get something working first
-        console.log(data);
+
         if (data.length > 0){
         for (memo of data){
           if (searchBy == "date"){
@@ -274,7 +258,6 @@ MemoView.prototype = {
   deleteMemo: function(memoToDelete,callback){
     var url = "http://localhost:3000/memos/";
     ajax.delete(url,function(data){
-      console.log(data)
       callback(data);
     },memoToDelete);
   }
