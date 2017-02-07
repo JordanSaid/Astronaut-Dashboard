@@ -142,7 +142,7 @@ UI.prototype = {
 
     },
     currentLocationButton: function() {
-        var container = document.querySelector('#map-div');
+        var container = document.querySelector('#centre');
         var button = document.createElement('button');
         button.innerText = "Where Am I?"
         container.appendChild(button);
@@ -154,7 +154,7 @@ UI.prototype = {
         }.bind(this);
     },
     renderWeather: function(location) {
-        var container = document.querySelector('#map-div');
+        var container = document.querySelector('#centre');
         var ul = document.createElement('ul');
         container.appendChild(ul);
 

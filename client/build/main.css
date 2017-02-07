@@ -93,37 +93,25 @@ li:nth-child(odd) {
 #centre {
   padding-top: 4.5%;
   display:flex;  
-  position: center;
-  display:flex;
-  flex-direction: column;
   background-color: #110A21;
   flex-grow: 1;
-  align-items: flex-end;
-  width: 250px;
-  height: 350px;
-}
-
-#map-div {
-  display:flex;  
-  flex-direction: column;
-  /*align-items: flex-end;*/
-  background-color: #110A21;
-  flex-grow: 1;
-  width: 400px;
+  width: 38%;
   height: 340px;
+  font-size: 1px;
+  font-family: helvetica;
+  align-items: center;
   flex-direction: column;
 
 
 }
 #map-div {
+  padding-top: 40%;
   display:flex;  
   background-color: #110A21;
   flex-grow: 1;
-  width: 50%;
+  width: 80%;
   height: 350px;
-  flex-direction: column;
-
-
+  flex-direction: row;
 }
 
 
@@ -132,13 +120,13 @@ li:nth-child(odd) {
   background-color: #110A21;
   flex-grow: 1;
   width: 1%;
-  height: 469px;
+  height: 460px;
   transition: width 2s, height 2s;
 }
 
 #right:hover {
   width: 50%;
-  height: 469px;
+  height: 460px;
 }
 
 #control-bar {
@@ -258,7 +246,7 @@ li:nth-child(odd) {
 }
 
 #ticker {
-  padding-top: 30px;
+  padding-top: 17px;
   background-image:url(./footer1.jpg);
   background-size: 100% 200%;
   background-repeat: no-repeat;
