@@ -4,7 +4,7 @@ var Memo = require('../models/memo');
 var ajax = require("../helpers/ajax");
 var Emoji = require('../models/emoji');
 var searchResult = [];
-var resizeListener = require('../detect-element-resize');
+var resizeListener = require('javascript-detect-element-resize/detect-element-resize');
 //flatpickr('#flatpickr-tryme');
 
 
@@ -12,6 +12,12 @@ var resizeListener = require('../detect-element-resize');
 var MemoView = function(container){
   this.container = container;
   this.memo = {};
+  var leftDiv = document.querySelector("#left");
+    resizeCallback = function(){
+      console.log("the div was resized")
+    }
+    
+  window.addResizeListener(leftDiv,resizeCallback);
 };
 
 MemoView.prototype = {
