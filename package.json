@@ -4,9 +4,9 @@
   "main": "server.js",
   "dependencies": {
     "body-parser": "^1.16.0",
+    "element-resize-detector": "^1.1.10",
     "express": "^4.14.1",
     "flatpickr": "^2.3.5",
-    "javascript-detect-element-resize": "^0.5.3",
     "mocha": "^3.2.0",
     "mongodb": "^2.2.22",
     "webpack": "^2.2.1"

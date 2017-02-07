@@ -4,6 +4,7 @@ var Memo = require('../models/memo');
 var ajax = require("../helpers/ajax");
 var Emoji = require('../models/emoji');
 var searchResult = [];
+var elementResizeDetectorMaker = require("element-resize-detector");
 
 //flatpickr('#flatpickr-tryme');
 
@@ -12,9 +13,24 @@ var searchResult = [];
 var MemoView = function(container){
   this.container = container;
   this.memo = {};
+  var erd = elementResizeDetectorMaker({
+    strategy: "scroll" //<- For ultra performance.
+  });
+  var leftDiv = document.querySelector("#left");
+  erd.listenTo(leftDiv, function(element) {
+    var width = element.offsetWidth;
+    console.log(((width-46)/535));
+    //581 - 46 = 535
+
+    leftDiv.style.opacity = ((width-46)/535)
+  });
 };
 
 MemoView.prototype = {
+
+  resizeFunction: function(e){
+    console.log("resized")
+  },
 
   renderMemoDash: function(){
     this.container.innerHTML = "";
