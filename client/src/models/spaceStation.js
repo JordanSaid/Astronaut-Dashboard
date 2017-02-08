@@ -6,7 +6,11 @@ SpaceStation.prototype = {
   makeRequest: function(url, callback) {
     var request = new XMLHttpRequest();
     request.open("GET", url);
+    request.timeout = 2000;
     request.onload = callback;
+    request.ontimeout = function (e) {
+      console.log("timeout")
+    };
     request.send();
   },
   all: function(callback) {

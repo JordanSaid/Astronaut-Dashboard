@@ -98,9 +98,10 @@ MapWrapper.prototype = {
   setCurrentLocation: function(position) {
       var pos = {lat: position.coords.latitude, lng: position.coords.longitude};
       this.googleMap.setCenter(pos);
-      this.googleMap.setZoom(15);
+      this.googleMap.setZoom(4);
   },
   addMarker: function(coords) {
+    this.clearMarkers();
     var marker = new google.maps.Marker({
       position: coords,
       map: this.googleMap,
@@ -134,7 +135,6 @@ MapWrapper.prototype = {
     button.onclick = function() {
       this.googleMap.setCenter(coords);
       this.googleMap.setZoom(zoom);
-      console.log(coords);
     }.bind(this)
   },
   setMapOnAll: function (map) {
@@ -158,7 +158,7 @@ MapWrapper.prototype = {
       var lng = event.latLng.lng();
       weather.findWeatherByCoords(lat, lng, function(weathers) {
         this.googleMap.setCenter({lat: lat, lng: lng});
-        this.clearMarkers();
+        // this.clearMarkers();
         this.addMarker({lat: lat, lng: lng});
         ui.renderWeather(weathers);
       }.bind(this))  

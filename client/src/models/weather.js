@@ -11,7 +11,6 @@ Weather.prototype = {
   },
   findWeatherByCoords: function(lat, lon, callback) {
     var url = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&units=metric&appid=" + this.apiKey
-    console.log(url)
     // 
     this.makeRequest(url,  function(){
           if (this.status !== 200){
@@ -19,7 +18,6 @@ Weather.prototype = {
           }
           var jsonString = this.responseText;
           weather = JSON.parse(jsonString);
-          console.log(weather);
           callback(weather);    
     }
   )}
