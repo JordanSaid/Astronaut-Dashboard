@@ -99,6 +99,12 @@ MapWrapper.prototype = {
       this.googleMap.setCenter(pos);
       this.googleMap.setZoom(15);
   },
+  addMarker: function(coords) {
+    var marker = new google.maps.Marker({
+      position: coords,
+      map: this.googleMap,
+    })
+  },
   addInfoMarker: function(coords, contentString) {
     var infoWindow = new google.maps.InfoWindow ({
       content: contentString,
@@ -113,11 +119,20 @@ MapWrapper.prototype = {
       console.log(coords);
     }.bind(this)
   },
-  mapClickChangesWeather: function() {
+  setCenter: function(lati, lngi, zoom) {
+      this.googleMap.setCenter({lat: lati, lng: lngi});
+      this.googleMap.setZoom(zoom);
+  },
+  mapClickChangesWeather: function(weather, ui) {
     google.maps.event.addListener(this.googleMap, "click", function(event) {
       var lat = event.latLng.lat();
       var lng = event.latLng.lng();
-    }.bind(this))
+      weather.findWeatherByCoords(lat, lng, function(weathers) {
+        this.googleMap.setCenter({lat: lat, lng: lng});
+        this.addMarker({lat: lat, lng: lng});
+        ui.renderWeather(weathers);
+        }.bind(this))  
+      }.bind(this))
   }
 }
 

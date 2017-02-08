@@ -39,9 +39,9 @@ var UI = function () {
 
         this.weather = new Weather(this.mapWrapper.googleMap);
         this.weather.findWeatherByCoords(location.lat, location.lng, function(weather) { 
-            this.addMapMarker(location);
-            this.currentLocationButton();
+            this.currentLocationButton()
             this.renderWeather(weather);
+            this.renderMapFeatures(location);
             console.log(weather)
         }.bind(this))
     }.bind(this));
@@ -149,27 +149,33 @@ UI.prototype = {
     
     },
 
-    addMapMarker: function (location) {
+    renderMapFeatures: function (location) {
         var markerString = "You're soaring over here right now!"
         this.mapWrapper.addInfoMarker(location, markerString);
-        this.mapWrapper.mapClickChangesWeather();
+        this.mapWrapper.mapClickChangesWeather(this.weather, this);
     },
+    
     currentLocationButton: function() {
-        var container = document.querySelector('#centre');
-        var button = document.createElement('button');
-        button.innerText = "Where Am I?"
-        container.appendChild(button);
+        var button = document.querySelector('#whereami');
+        // var button = document.createElement('button');
+        // button.innerText = "Where Am I?"
+        // container.appendChild(button);
         button.onclick = function() {
             this.spaceStation.currentLocation(function(location) {
                 this.mapWrapper.setButtonClickNewCenter(button, location, 4);
-                console.log(location)
-            }.bind(this))
-        }.bind(this);
+                this.weather.findWeatherByCoords(location.lat, location.lng, function(weathers) {
+                this.mapWrapper.setCenter(location.lat,location.lng, 4);
+                this.renderWeather(weathers);
+                }.bind(this))
+            }.bind(this));
+        }.bind(this)
     },
     renderWeather: function(location) {
-        var container = document.querySelector('#centre');
-        var ul = document.createElement('ul');
-        container.appendChild(ul);
+        var ul = document.querySelector('#weather');
+
+        while (ul.firstChild) {
+          ul.removeChild(ul.firstChild);
+        };
 
         var li1 = document.createElement('li');
         if (location.name != "") {
