@@ -1,4 +1,5 @@
 var MapWrapper = function(container, coordinates, zoom) {
+  this.markers = [];
   var container = document.querySelector("#map-div");
   this.googleMap = new google.maps.Map(container, {
     center: coordinates,
@@ -104,6 +105,7 @@ MapWrapper.prototype = {
       position: coords,
       map: this.googleMap,
     })
+    this.markers.push(marker);
   },
   addAstroMarker: function(coords) {
     var astro = {
@@ -118,6 +120,7 @@ MapWrapper.prototype = {
       animation: google.maps.Animation.DROP,
       icon: astro
     })
+    this.markers.push(marker);
   },
   addInfoMarker: function(coords, contentString) {
     var infoWindow = new google.maps.InfoWindow ({
@@ -125,6 +128,7 @@ MapWrapper.prototype = {
       position: coords,
       map: this.googleMap
       });
+    this.markers.push(infoWindow);
   },
   setButtonClickNewCenter: function(button, coords, zoom) {
     button.onclick = function() {
@@ -132,6 +136,17 @@ MapWrapper.prototype = {
       this.googleMap.setZoom(zoom);
       console.log(coords);
     }.bind(this)
+  },
+  setMapOnAll: function (map) {
+    for (var i = 0; i < this.markers.length; i++) {
+      this.markers[i].setMap(map);
+    }
+  },
+  clearMarkers: function () {
+    this.setMapOnAll(null);
+  },
+  showMarkers: function () {
+    this.setMapOnAll(map);
   },
   setCenter: function(lati, lngi, zoom) {
       this.googleMap.setCenter({lat: lati, lng: lngi});
@@ -143,10 +158,11 @@ MapWrapper.prototype = {
       var lng = event.latLng.lng();
       weather.findWeatherByCoords(lat, lng, function(weathers) {
         this.googleMap.setCenter({lat: lat, lng: lng});
+        this.clearMarkers();
         this.addMarker({lat: lat, lng: lng});
         ui.renderWeather(weathers);
-        }.bind(this))  
-      }.bind(this))
+      }.bind(this))  
+    }.bind(this))
   }
 }
 

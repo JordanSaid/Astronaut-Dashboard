@@ -6,6 +6,7 @@ var SpaceStation = require('../models/spaceStation');
 var Weather = require('../models/weather');
 var elementResizeDetectorMaker = require("element-resize-detector");
 
+
 var UI = function () {
     this.news = new News();
 
@@ -148,14 +149,14 @@ UI.prototype = {
     });
     
     },
-
     renderMapFeatures: function (location) {
+        this.mapWrapper.setMapOnAll(this.mapWrapper);
         var markerString = "You're here!"
-        this.mapWrapper.addInfoMarker(location, markerString);
+        this.mapWrapper.addInfoMarker(location, markerString, this);
         this.mapWrapper.addAstroMarker(location);
         this.mapWrapper.mapClickChangesWeather(this.weather, this);
+        console.log(this.mapWrapper.markers)
     },
-    
     currentLocationButton: function() {
         var button = document.querySelector('#whereami');
         button.onclick = function() {
@@ -163,6 +164,10 @@ UI.prototype = {
                 this.mapWrapper.setButtonClickNewCenter(button, location, 4);
                 this.weather.findWeatherByCoords(location.lat, location.lng, function(newWeather) {
                 this.mapWrapper.setCenter(location.lat,location.lng, 4);
+                var markerString = "You're here!"
+                this.mapWrapper.addInfoMarker(location, markerString, this);
+                this.mapWrapper.addAstroMarker(location);
+                this.renderMapFeatures();
                 this.renderWeather(newWeather);
                 }.bind(this))
             }.bind(this));
