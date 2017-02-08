@@ -55,6 +55,7 @@ li:nth-child(odd) {
   text-align: center;
   margin-top: 10px;
   height:30px;
+  border-radius: 25px;
 }
 
 #heading{
@@ -166,6 +167,7 @@ li:nth-child(odd) {
  font-size: 24px;  
  text-align: center;
  border-style: none;
+ text-shadow: 1px 1px #ff0000;
 }
 
 #emoji-box {
@@ -181,6 +183,7 @@ li:nth-child(odd) {
  /* height: 70%;*/
   text-align: center;
   vertical-align: middle;
+  border-radius: 25px;
 }
 
 #new-button{
@@ -188,7 +191,7 @@ li:nth-child(odd) {
  /* height: 70%;*/
   text-align: center;
   vertical-align: middle;
-
+  border-radius: 25px;
 }
 
 #search-bar-space {
@@ -198,6 +201,7 @@ li:nth-child(odd) {
 
 #memo-body {
   display: flex;
+  margin-top: 2px;
   margin-left: 14%;
   width: 71%;
   height:63%;
@@ -205,6 +209,7 @@ li:nth-child(odd) {
   line-height: 50px;
   background-color: transparent;
   color: #DDBB77;
+  border-radius: 10px;
 
 }
 
@@ -212,6 +217,7 @@ li:nth-child(odd) {
   display: flex;
   height: 6%;
   width:72%;
+  margin-top: 3px;
   margin-left: 14%;
   /*background-color: #DDBB77;*/
   align-items: center;
@@ -219,32 +225,31 @@ li:nth-child(odd) {
 #finish-button{
   display: flex;
   flex:1;
-  /*height: 80%;*/
   font-size: 18px;
   text-align: center;
   justify-content: center;
+  border-radius: 25px;
 }
 
 #date-box {
  display: flex;
  flex: 2;
- /*height: 60%;*/
  width:60%;
  margin-left: 4px;
  font-size: 20px; 
- /*background-color: #DDBB77;*/
- /*border: 1px solid #997733;*/
  background-color: transparent;
  color: #DDBB77;
  text-align: center;
+ text-shadow: 1px 1px #ff0000;
 }
 
 #save-button {
   display: flex;
   flex:1;
-  /*height: 80%; */
+  margin-left: 2px;
   font-size: 18px;
   justify-content:center;
+  border-radius: 25px;
 }
 
 #ticker {

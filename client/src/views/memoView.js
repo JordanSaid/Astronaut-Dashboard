@@ -72,7 +72,7 @@ MemoView.prototype = {
     var headerBar = document.createElement("section");
     headerBar.setAttribute("id","control-bar");
     var dateBox = document.createElement("input");
-    dateBox.class = "flatpickr";
+    // dateBox.class = "flatpickr";
     dateBox.type = "text";
     dateBox.setAttribute("id","date-box");
     dateBox.value = data.date;
@@ -156,9 +156,9 @@ MemoView.prototype = {
       }.bind(this));
     }
   }.bind(this));
-    dateBox.addEventListener("click",function(){
-          dateBox.flatpickr();
-    })
+    // dateBox.addEventListener("click",function(){
+    //       dateBox.flatpickr();
+    // })
     this.container.appendChild(memoBody);
     this.container.appendChild(footerBar);
   },
@@ -199,10 +199,14 @@ MemoView.prototype = {
   ul.addEventListener("click",function(event){
     var target = event.target.id
     if (event.target.nodeName == "BUTTON"){
+      var searchBox = document.querySelector("#search-box");
+      var oldQuery = searchBox.value;
+      console.log(oldQuery);
       var retVal = confirm("Delete memo "+data[target].title+"?");
       if (retVal = true){
         this.deleteMemo(data[target],function(data){
-          this.renderMemoIndex(data);
+          this.startSearch(oldQuery);
+          // this.renderMemoIndex(data);
           }.bind(this));
         }
       }else
@@ -212,7 +216,7 @@ MemoView.prototype = {
     }.bind(this)); 
   },
 
-  clearMemoForm: function(query){
+  clearMemoForm: function(){
   var i = 0;
   while (i < this.container.children.length){
     childNode = this.container.children[i];
@@ -230,9 +234,14 @@ MemoView.prototype = {
 
   startSearch: function(query){
     searchResult = [];
+    console.log(query);
     this.parseSearch(query,function(){
       if (searchResult.length > 0){
-      this.renderMemoIndex(searchResult);}
+      this.renderMemoIndex(searchResult);} else
+      {
+      var resultDiv = document.querySelector("#index-div");
+      if (resultDiv != undefined){resultDiv.innerHTML = ""}
+      }
     }.bind(this));
   },
 
