@@ -10,6 +10,7 @@ var MemoView = function(container){
   this.memo = {};
 };
 MemoView.prototype = {
+
   renderMemoDash: function(){
     this.clearMemoForm();
     this.container.style.flexDirection = "row";
@@ -25,9 +26,7 @@ MemoView.prototype = {
     var newButton = document.createElement("button");
     newButton.setAttribute("id","new-button");
     newButton.innerText = "New";
-    searchButton.addEventListener("click",function(){
-
-    this.startSearch(searchBox.value);
+    searchButton.addEventListener("click",function(){this.startSearch(searchBox.value);
     }.bind(this));
     newButton.addEventListener("click",function(){
       var options = {};
@@ -58,37 +57,35 @@ MemoView.prototype = {
       var headerBar = document.createElement("section");
       headerBar.setAttribute("id","control-bar");
       var dateBox = document.createElement("input");
-
-    dateBox.type = "text";
-    dateBox.setAttribute("id","date-box");
-    dateBox.value = data.date;
-    var titleBox = document.createElement("input");
-    titleBox.setAttribute("id","title-box");
-    titleBox.value = data.title;
-    var emojiBox = document.createElement("select");
-    emojiBox.setAttribute("id","emoji-box");
+      dateBox.type = "text";
+      dateBox.setAttribute("id","date-box");
+      dateBox.value = data.date;
+      var titleBox = document.createElement("input");
+      titleBox.setAttribute("id","title-box");
+      titleBox.value = data.title;
+      var emojiBox = document.createElement("select");
+      emojiBox.setAttribute("id","emoji-box");
     
-    var select = document.createElement("option");
-    select.innerHTML = "😀";
-    emojiBox.appendChild(select);
-    select = document.createElement("option");
-    select.innerHTML = "😟";
-    emojiBox.appendChild(select);
-    select = document.createElement("option");
-    select.innerHTML = "😢";
-    emojiBox.appendChild(select);
-    select = document.createElement("option");
-    select.innerHTML = "😡";
-    emojiBox.appendChild(select);
+      var select = document.createElement("option");
+      select.innerHTML = "😀";
+      emojiBox.appendChild(select);
+      select = document.createElement("option");
+      select.innerHTML = "😟";
+      emojiBox.appendChild(select);
+      select = document.createElement("option");
+      select.innerHTML = "😢";
+      emojiBox.appendChild(select);
+      select = document.createElement("option");
+      select.innerHTML = "😡";
+      emojiBox.appendChild(select);
     
-    if (data.emoji){
+      if (data.emoji){
       console.log(data.emoji)
       emojiBox.value = data.emoji.name};
       
       emojiBox.addEventListener("change",function(){
         this.memo.emoji.name = emojiBox.value;
       }.bind(this))
-
       var memoBody = document.createElement("textarea");
       memoBody.setAttribute("id","memo-body");
       memoBody.rows = "8";
@@ -107,7 +104,6 @@ MemoView.prototype = {
       footerBar.appendChild(finishButton);
       footerBar.appendChild(dateBox);
       footerBar.appendChild(saveButton);
-
       finishButton.addEventListener("click",function(){
         if ((memoBody.value != "")&&(titleBox.value != "New Memo")){
           if (id != null){
@@ -118,42 +114,11 @@ MemoView.prototype = {
           this.memo["body"] = memoBody.value;
           this.memo["timestamp"] = timestamp;
           this.memo["date"] = dateBox.value;
-   
-    emojiBox.addEventListener("change",function(){
-      this.memo.emoji.name = emojiBox.value;
-    }.bind(this))
-    var memoBody = document.createElement("textarea");
-    memoBody.setAttribute("id","memo-body");
-    memoBody.rows = "8";
-    memoBody.value = data.body;
-    var footerBar = document.createElement("section");
-    footerBar.setAttribute("id","footer-bar");
-    var saveButton = document.createElement("button");
-    saveButton.setAttribute("id","save-button");
-    saveButton.innerText = "Save";
-    var finishButton = document.createElement("button");
-    finishButton.setAttribute("id","finish-button");
-    finishButton.innerText = "Finish"
-    this.container.appendChild(headerBar);
-    headerBar.appendChild(titleBox);
-    headerBar.appendChild(emojiBox);
-    footerBar.appendChild(finishButton);
-    footerBar.appendChild(dateBox);
-    footerBar.appendChild(saveButton);
-    finishButton.addEventListener("click",function(){
-      if ((memoBody.value != "")&&(titleBox.value != "New Memo")){
-          if (id != null){
-            this.memo["_id"] = id;
-          }
-        this.memo["title"] = titleBox.value;
-        this.memo["body"] = memoBody.value;
-        this.memo["timestamp"] = timestamp;
-        this.memo["date"] = dateBox.value;
-        this.postMemo(this.memo,function(data){
-        }.bind(this));
-      }
+          this.postMemo(this.memo,function(data){
+          }.bind(this));
+        }
       this.renderMemoDash();
-    }.bind(this));
+      }.bind(this));
       saveButton.addEventListener("click",function(){
         if (memoBody.value != ""){
           if (id != null){
@@ -163,16 +128,17 @@ MemoView.prototype = {
           this.memo["body"] = memoBody.value;
           this.memo["date"] = dateBox.value;      
           this.memo["timestamp"] = timestamp;
-        this.postMemo(this.memo,function(data){
-        var justPosted = JSON.parse(data.data);
-        if (justPosted._id != null){
+          this.postMemo(this.memo,function(data){
+          var justPosted = JSON.parse(data.data);
+          if (justPosted._id != null){
           this.memo["_id"] = justPosted._id;}
-        }.bind(this));
-    }
-  }.bind(this));
+          }.bind(this));
+        }
+      }.bind(this));
     this.container.appendChild(memoBody);
     this.container.appendChild(footerBar);
   },
+
   renderMemoIndex: function(data){
     this.container.style.flexDirection = "column";
     var resultDiv = document.querySelector("#index-div");
@@ -225,7 +191,6 @@ MemoView.prototype = {
     }.bind(this)); 
   },
   clearMemoForm: function(){
-<<<<<<< HEAD
     var i = 0;
     while (i < this.container.children.length){
       childNode = this.container.children[i];
@@ -235,10 +200,6 @@ MemoView.prototype = {
       
     };
     
-// ("#control-bar");
-// ("footer-bar");
-// ("memo-body");
-
 },
 
 startSearch: function(query){
