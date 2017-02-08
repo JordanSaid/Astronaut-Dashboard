@@ -17,6 +17,7 @@ MemoQuery.prototype = {
     });
   },
 
+
   add: function(memoToAdd, onQueryFinished) {  
     console.log(this.url);
     MongoClient.connect(this.url, function(err, db) {
