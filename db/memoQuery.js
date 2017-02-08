@@ -66,7 +66,6 @@ MemoQuery.prototype = {
           var collection = db.collection('memos');
          collection.remove({timestamp: memoToDelete.timestamp});          
          collection.find().toArray(function(err, docs) {
-          console.log(docs);
           onQueryFinished(docs);
           });        
         }

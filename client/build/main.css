@@ -170,9 +170,9 @@ li:nth-child(odd) {
 
 #emoji-box {
   display: flex;
-  height: 80%;
-  width:10%;
-  max-width: 25px;
+  height: 100%;
+  width:20%;
+  max-width: 45px;
 }
 
 #search-button {

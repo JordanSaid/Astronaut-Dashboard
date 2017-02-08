@@ -10,9 +10,12 @@ var searchResult = [];
 
 
 
+"😂"
+
 var MemoView = function(container){
   this.container = container;
   this.memo = {};
+
 };
 
 MemoView.prototype = {
@@ -64,7 +67,6 @@ MemoView.prototype = {
     if (data._id != null){
     id = data._id}
     var timestamp = data.timestamp;
-    // this.container.innerHTML = "";
     this.container.style.flexDirection = "column";
     this.emoji = data.emoji;
     var headerBar = document.createElement("section");
@@ -77,10 +79,29 @@ MemoView.prototype = {
     var titleBox = document.createElement("input");
     titleBox.setAttribute("id","title-box");
     titleBox.value = data.title;
-    var emojiBox = document.createElement("img");
+    var emojiBox = document.createElement("select");
     emojiBox.setAttribute("id","emoji-box");
+      
+    var select = document.createElement("option");
+    select.innerHTML = "😀";
+    emojiBox.appendChild(select);
+    select = document.createElement("option");
+    select.innerHTML = "😟";
+    emojiBox.appendChild(select);
+    select = document.createElement("option");
+    select.innerHTML = "😢";
+    emojiBox.appendChild(select);
+    select = document.createElement("option");
+    select.innerHTML = "😡";
+    emojiBox.appendChild(select);
+    
     if (data.emoji){
-    emojiBox.src = data.emoji.url;}
+      console.log(data.emoji)
+      emojiBox.value = data.emoji.name};
+    
+    emojiBox.addEventListener("change",function(){
+      this.memo.emoji.name = emojiBox.value;
+    }.bind(this))
 
     var memoBody = document.createElement("textarea");
     memoBody.setAttribute("id","memo-body");
@@ -106,11 +127,12 @@ MemoView.prototype = {
           if (id != null){
             this.memo["_id"] = id;
           }
+        console.log(this.memo);  
         this.memo["title"] = titleBox.value;
         this.memo["body"] = memoBody.value;
         this.memo["timestamp"] = timestamp;
         this.memo["date"] = dateBox.value;
-        this.memo["emoji"] = {};
+        // this.memo["emoji"] = {};
         this.postMemo(this.memo,function(data){
         }.bind(this));
       }
@@ -126,7 +148,7 @@ MemoView.prototype = {
       this.memo["body"] = memoBody.value;
       this.memo["date"] = dateBox.value;      
       this.memo["timestamp"] = timestamp;
-      this.memo["emoji"] = {};
+      // this.memo["emoji"] = {};
       this.postMemo(this.memo,function(data){
       var justPosted = JSON.parse(data.data);
       if (justPosted._id != null){
