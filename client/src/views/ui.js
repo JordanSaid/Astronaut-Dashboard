@@ -135,21 +135,19 @@ UI.prototype = {
         memoView.renderMemoDash();
     },
     renderMapFeatures: function (location) {
-        var markerString = "You're soaring over here right now!"
+        var markerString = "You're here!"
         this.mapWrapper.addInfoMarker(location, markerString);
+        this.mapWrapper.addAstroMarker(location);
         this.mapWrapper.mapClickChangesWeather(this.weather, this);
     },
     currentLocationButton: function() {
         var button = document.querySelector('#whereami');
-        // var button = document.createElement('button');
-        // button.innerText = "Where Am I?"
-        // container.appendChild(button);
         button.onclick = function() {
             this.spaceStation.currentLocation(function(location) {
                 this.mapWrapper.setButtonClickNewCenter(button, location, 4);
-                this.weather.findWeatherByCoords(location.lat, location.lng, function(weathers) {
+                this.weather.findWeatherByCoords(location.lat, location.lng, function(newWeather) {
                 this.mapWrapper.setCenter(location.lat,location.lng, 4);
-                this.renderWeather(weathers);
+                this.renderWeather(newWeather);
                 }.bind(this))
             }.bind(this));
         }.bind(this)

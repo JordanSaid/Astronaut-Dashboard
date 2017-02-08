@@ -105,6 +105,20 @@ MapWrapper.prototype = {
       map: this.googleMap,
     })
   },
+  addAstroMarker: function(coords) {
+    var astro = {
+        url: "astro.png", 
+        scaledSize: new google.maps.Size(50, 50), 
+        origin: new google.maps.Point(0,0), 
+        anchor: new google.maps.Point(0, 0) 
+    };
+    var marker = new google.maps.Marker({
+      position: coords,
+      map: this.googleMap,
+      animation: google.maps.Animation.DROP,
+      icon: astro
+    })
+  },
   addInfoMarker: function(coords, contentString) {
     var infoWindow = new google.maps.InfoWindow ({
       content: contentString,
