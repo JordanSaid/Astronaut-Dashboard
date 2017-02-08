@@ -5,7 +5,7 @@ var MapWrapper = function(container, coordinates, zoom) {
     center: coordinates,
     zoom: zoom,
     styles: [
-    {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
+    {elementType: 'geometry', stylers: [{color: '#2F4F4F'}]},
     {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
     {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
     {
@@ -167,3 +167,4 @@ MapWrapper.prototype = {
 }
 
 module.exports = MapWrapper;
+
