@@ -158,7 +158,8 @@ MapWrapper.prototype = {
       var lng = event.latLng.lng();
       weather.findWeatherByCoords(lat, lng, function(newWeather) {
         this.googleMap.setCenter({lat: lat, lng: lng});
-        this.addMarker({lat: lat, lng: lng});
+        this.clearMarkers();
+        this.addAstroMarker({lat: lat, lng: lng});
         ui.renderWeather(newWeather);
       }.bind(this))  
     }.bind(this))
