@@ -39,7 +39,7 @@ MemoView.prototype = {
     newButton.innerText = "New";
     searchButton.addEventListener("click",function(){
       //going to search here
-    this.startSearch(searchBox.value);
+      this.startSearch(searchBox.value);
 
     }.bind(this));
     newButton.addEventListener("click",function(){
@@ -65,13 +65,13 @@ MemoView.prototype = {
     this.clearMemoForm()
     var id = null;
     if (data._id != null){
-    id = data._id}
-    var timestamp = data.timestamp;
-    this.container.style.flexDirection = "column";
-    this.emoji = data.emoji;
-    var headerBar = document.createElement("section");
-    headerBar.setAttribute("id","control-bar");
-    var dateBox = document.createElement("input");
+      id = data._id}
+      var timestamp = data.timestamp;
+      this.container.style.flexDirection = "column";
+      this.emoji = data.emoji;
+      var headerBar = document.createElement("section");
+      headerBar.setAttribute("id","control-bar");
+      var dateBox = document.createElement("input");
     // dateBox.class = "flatpickr";
     dateBox.type = "text";
     dateBox.setAttribute("id","date-box");
@@ -81,7 +81,7 @@ MemoView.prototype = {
     titleBox.value = data.title;
     var emojiBox = document.createElement("select");
     emojiBox.setAttribute("id","emoji-box");
-      
+    
     var select = document.createElement("option");
     select.innerHTML = "😀";
     emojiBox.appendChild(select);
@@ -98,62 +98,62 @@ MemoView.prototype = {
     if (data.emoji){
       console.log(data.emoji)
       emojiBox.value = data.emoji.name};
-    
-    emojiBox.addEventListener("change",function(){
-      this.memo.emoji.name = emojiBox.value;
-    }.bind(this))
+      
+      emojiBox.addEventListener("change",function(){
+        this.memo.emoji.name = emojiBox.value;
+      }.bind(this))
 
-    var memoBody = document.createElement("textarea");
-    memoBody.setAttribute("id","memo-body");
-    memoBody.rows = "8";
-    memoBody.value = data.body;
-    var footerBar = document.createElement("section");
-    footerBar.setAttribute("id","footer-bar");
-    var saveButton = document.createElement("button");
-    saveButton.setAttribute("id","save-button");
-    saveButton.innerText = "Save";
-    var finishButton = document.createElement("button");
-    finishButton.setAttribute("id","finish-button");
-    finishButton.innerText = "Finish"
-    this.container.appendChild(headerBar);
-    headerBar.appendChild(titleBox);
-    headerBar.appendChild(emojiBox);
-    footerBar.appendChild(finishButton);
-    footerBar.appendChild(dateBox);
-    footerBar.appendChild(saveButton);
+      var memoBody = document.createElement("textarea");
+      memoBody.setAttribute("id","memo-body");
+      memoBody.rows = "8";
+      memoBody.value = data.body;
+      var footerBar = document.createElement("section");
+      footerBar.setAttribute("id","footer-bar");
+      var saveButton = document.createElement("button");
+      saveButton.setAttribute("id","save-button");
+      saveButton.innerText = "Save";
+      var finishButton = document.createElement("button");
+      finishButton.setAttribute("id","finish-button");
+      finishButton.innerText = "Finish"
+      this.container.appendChild(headerBar);
+      headerBar.appendChild(titleBox);
+      headerBar.appendChild(emojiBox);
+      footerBar.appendChild(finishButton);
+      footerBar.appendChild(dateBox);
+      footerBar.appendChild(saveButton);
 
-    finishButton.addEventListener("click",function(){
-      if ((memoBody.value != "")&&(titleBox.value != "New Memo")){
+      finishButton.addEventListener("click",function(){
+        if ((memoBody.value != "")&&(titleBox.value != "New Memo")){
           if (id != null){
             this.memo["_id"] = id;
           }
-        console.log(this.memo);  
-        this.memo["title"] = titleBox.value;
-        this.memo["body"] = memoBody.value;
-        this.memo["timestamp"] = timestamp;
-        this.memo["date"] = dateBox.value;
+          console.log(this.memo);  
+          this.memo["title"] = titleBox.value;
+          this.memo["body"] = memoBody.value;
+          this.memo["timestamp"] = timestamp;
+          this.memo["date"] = dateBox.value;
         // this.memo["emoji"] = {};
         this.postMemo(this.memo,function(data){
         }.bind(this));
       }
-    this.renderMemoDash();
+      this.renderMemoDash();
     }.bind(this));
 
-    saveButton.addEventListener("click",function(){
-      if (memoBody.value != ""){
-        if (id != null){
-          this.memo["_id"] = id;
-        }
-      this.memo["title"] = titleBox.value;
-      this.memo["body"] = memoBody.value;
-      this.memo["date"] = dateBox.value;      
-      this.memo["timestamp"] = timestamp;
+      saveButton.addEventListener("click",function(){
+        if (memoBody.value != ""){
+          if (id != null){
+            this.memo["_id"] = id;
+          }
+          this.memo["title"] = titleBox.value;
+          this.memo["body"] = memoBody.value;
+          this.memo["date"] = dateBox.value;      
+          this.memo["timestamp"] = timestamp;
       // this.memo["emoji"] = {};
       this.postMemo(this.memo,function(data){
-      var justPosted = JSON.parse(data.data);
-      if (justPosted._id != null){
-      this.memo["_id"] = justPosted._id;}
-      }.bind(this));
+        var justPosted = JSON.parse(data.data);
+        if (justPosted._id != null){
+          this.memo["_id"] = justPosted._id;}
+        }.bind(this));
     }
   }.bind(this));
     // dateBox.addEventListener("click",function(){
@@ -167,9 +167,9 @@ MemoView.prototype = {
     this.container.style.flexDirection = "column";
     var resultDiv = document.querySelector("#index-div");
     if (resultDiv == null){      
-    resultDiv = document.createElement("section");
-    resultDiv.setAttribute("id","index-div");
-    this.container.appendChild(resultDiv);
+      resultDiv = document.createElement("section");
+      resultDiv.setAttribute("id","index-div");
+      this.container.appendChild(resultDiv);
     }
     resultDiv.innerHTML = "";
     var listDiv = document.createElement("div");
@@ -196,86 +196,86 @@ MemoView.prototype = {
       delButton.innerText = "Delete"
       li.appendChild(delButton);
     }
-  ul.addEventListener("click",function(event){
-    var target = event.target.id
-    if (event.target.nodeName == "BUTTON"){
-      var searchBox = document.querySelector("#search-box");
-      var oldQuery = searchBox.value;
-      console.log(oldQuery);
-      var retVal = confirm("Delete memo "+data[target].title+"?");
-      if (retVal = true){
-        this.deleteMemo(data[target],function(data){
-          this.startSearch(oldQuery);
+    ul.addEventListener("click",function(event){
+      var target = event.target.id
+      if (event.target.nodeName == "BUTTON"){
+        var searchBox = document.querySelector("#search-box");
+        var oldQuery = searchBox.value;
+        console.log(oldQuery);
+        var retVal = confirm("Delete memo "+data[target].title+"?");
+        if (retVal = true){
+          this.deleteMemo(data[target],function(data){
+            this.startSearch(oldQuery);
           // this.renderMemoIndex(data);
-          }.bind(this));
+        }.bind(this));
         }
       }else
       {
-      this.renderMemo(data[target]);
+        this.renderMemo(data[target]);
       }
     }.bind(this)); 
   },
 
   clearMemoForm: function(){
-  var i = 0;
-  while (i < this.container.children.length){
-    childNode = this.container.children[i];
-    if (childNode.id != ""){
-      this.container.removeChild(childNode);
-    }else i++;
+    var i = 0;
+    while (i < this.container.children.length){
+      childNode = this.container.children[i];
+      if (childNode.id != ""){
+        this.container.removeChild(childNode);
+      }else i++;
+      
+    };
     
-  };
- 
 // ("#control-bar");
 // ("footer-bar");
 // ("memo-body");
 
-  },
+},
 
-  startSearch: function(query){
-    searchResult = [];
-    console.log(query);
-    this.parseSearch(query,function(){
-      if (searchResult.length > 0){
+startSearch: function(query){
+  searchResult = [];
+  console.log(query);
+  this.parseSearch(query,function(){
+    if (searchResult.length > 0){
       this.renderMemoIndex(searchResult);} else
       {
-      var resultDiv = document.querySelector("#index-div");
-      if (resultDiv != undefined){resultDiv.innerHTML = ""}
+        var resultDiv = document.querySelector("#index-div");
+        if (resultDiv != undefined){resultDiv.innerHTML = ""}
       }
-    }.bind(this));
-  },
+  }.bind(this));
+},
 
-  parseSearch: function(query,callback){
+parseSearch: function(query,callback){
     //things to search on: date, title, body
     //if we have / then it's probably a date
     var searchString = query.toLowerCase();
     var searchParam = ""; 
     if (searchString.indexOf('date')>-1){
-    searchString = searchString.replace(/date/g,'');
-    searchParam = "date";
-    searchString = searchString.replace(/\//g,'-')   
+      searchString = searchString.replace(/date/g,'');
+      searchParam = "date";
+      searchString = searchString.replace(/\//g,'-')   
     }
     else
     {
-    if (searchString.indexOf("body") > -1){
-    searchString = searchString.replace(/body/,"");
-    searchParam = "body";
+      if (searchString.indexOf("body") > -1){
+        searchString = searchString.replace(/body/,"");
+        searchParam = "body";
       } else
-    if (searchString.indexOf("title") > -1){
-    searchString = searchString.replace(/title/,"");
-    searchParam = "title";
+      if (searchString.indexOf("title") > -1){
+        searchString = searchString.replace(/title/,"");
+        searchParam = "title";
       }   
     }
-  searchString = searchString.replace(/=/g,"")  
-  searchString = searchString.replace(/^\s+|\s+$/g, ""); 
-  this.searchMemo(searchParam,searchString,callback);  
+    searchString = searchString.replace(/=/g,"")  
+    searchString = searchString.replace(/^\s+|\s+$/g, ""); 
+    this.searchMemo(searchParam,searchString,callback);  
   },
 
   searchMemo: function (searchBy, searchData,callback) {
-        var url = "http://localhost:3000/memos/"        
-        ajax.get(url, function (data) {
+    var url = "http://localhost:3000/memos/"        
+    ajax.get(url, function (data) {
 
-        if (data.length > 0){
+      if (data.length > 0){
         for (memo of data){
           if (searchBy == "date"){
             data = memo.date;
@@ -286,13 +286,13 @@ MemoView.prototype = {
           if (searchBy == "body"){
             data = memo.body.toLowerCase();
           }
-      if (data.indexOf(searchData) > -1){
-        searchResult.push(memo);
+          if (data.indexOf(searchData) > -1){
+            searchResult.push(memo);
           }
         }
       }
-    callback(searchResult)  
-      }); 
+      callback(searchResult)  
+    }); 
   },
 
   postMemo: function(memoToAdd,callback){
@@ -311,4 +311,4 @@ MemoView.prototype = {
 };
 
 
- module.exports = MemoView;
+module.exports = MemoView;
