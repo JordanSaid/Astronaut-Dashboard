@@ -80,8 +80,6 @@ li:nth-child(odd) {
   background-image:url(./diary.jpg);
   background-size: 100% 100%;
   display: flex;
- /* background-color: #997733;
-  color: #DDBB77;*/
   flex-grow: 1;
   width:1%;
   height: 469px;
