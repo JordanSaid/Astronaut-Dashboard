@@ -6,6 +6,7 @@ var SpaceStation = require('../models/spaceStation');
 var Weather = require('../models/weather');
 var elementResizeDetectorMaker = require("element-resize-detector");
 
+
 var UI = function () {
     this.news = new News();
 
@@ -33,7 +34,6 @@ var UI = function () {
 
     this.spaceStation = new SpaceStation();
     this.spaceStation.currentLocation(function(location) {
-
         var mapDiv = document.querySelector('#map-div');
         this.mapWrapper = new MapWrapper(mapDiv, location, 4);
 
@@ -42,7 +42,6 @@ var UI = function () {
             this.currentLocationButton()
             this.renderWeather(weather);
             this.renderMapFeatures(location);
-            console.log(weather)
         }.bind(this))
     }.bind(this));
 
@@ -148,22 +147,24 @@ UI.prototype = {
         });
         
     },
-
     renderMapFeatures: function (location) {
         var markerString = "You're here!"
-        this.mapWrapper.addInfoMarker(location, markerString);
+        this.mapWrapper.addInfoMarker(location, markerString, this);
         this.mapWrapper.addAstroMarker(location);
         this.mapWrapper.mapClickChangesWeather(this.weather, this);
     },
-    
     currentLocationButton: function() {
         var button = document.querySelector('#whereami');
         button.onclick = function() {
             this.spaceStation.currentLocation(function(location) {
-                this.mapWrapper.setButtonClickNewCenter(button, location, 4);
+                this.mapWrapper.clearMarkers();
                 this.weather.findWeatherByCoords(location.lat, location.lng, function(newWeather) {
-                    this.mapWrapper.setCenter(location.lat,location.lng, 4);
-                    this.renderWeather(newWeather);
+                this.mapWrapper.setCenter(location.lat,location.lng, 4);
+                var markerString = "You're here!"
+                this.mapWrapper.addInfoMarker(location, markerString, this);
+                this.mapWrapper.addAstroMarker(location);
+                this.renderMapFeatures();
+                this.renderWeather(newWeather);
                 }.bind(this))
             }.bind(this));
         }.bind(this)

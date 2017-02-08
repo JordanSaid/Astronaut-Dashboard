@@ -55,4 +55,4 @@ Memos.prototype = {
 
 };
 
-module.exports = Memos;
+// module.exports = Memos;

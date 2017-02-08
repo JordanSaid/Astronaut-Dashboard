@@ -1,4 +1,5 @@
 var MapWrapper = function(container, coordinates, zoom) {
+  this.markers = [];
   var container = document.querySelector("#map-div");
   this.googleMap = new google.maps.Map(container, {
     center: coordinates,
@@ -95,15 +96,17 @@ MapWrapper.prototype = {
     this.googleMap.setCenter(coordinates)
   },
   setCurrentLocation: function(position) {
-    var pos = {lat: position.coords.latitude, lng: position.coords.longitude};
-    this.googleMap.setCenter(pos);
-    this.googleMap.setZoom(15);
+      var pos = {lat: position.coords.latitude, lng: position.coords.longitude};
+      this.googleMap.setCenter(pos);
+      this.googleMap.setZoom(4);
   },
   addMarker: function(coords) {
+    this.clearMarkers();
     var marker = new google.maps.Marker({
       position: coords,
       map: this.googleMap,
     })
+    this.markers.push(marker);
   },
   addAstroMarker: function(coords) {
     var astro = {
@@ -118,20 +121,32 @@ MapWrapper.prototype = {
       animation: google.maps.Animation.DROP,
       icon: astro
     })
+    this.markers.push(marker);
   },
   addInfoMarker: function(coords, contentString) {
     var infoWindow = new google.maps.InfoWindow ({
       content: contentString,
       position: coords,
       map: this.googleMap
-    });
+      });
+    this.markers.push(infoWindow);
   },
   setButtonClickNewCenter: function(button, coords, zoom) {
     button.onclick = function() {
       this.googleMap.setCenter(coords);
       this.googleMap.setZoom(zoom);
-      console.log(coords);
     }.bind(this)
+  },
+  setMapOnAll: function (map) {
+    for (var i = 0; i < this.markers.length; i++) {
+      this.markers[i].setMap(map);
+    }
+  },
+  clearMarkers: function () {
+    this.setMapOnAll(null);
+  },
+  showMarkers: function () {
+    this.setMapOnAll(map);
   },
   setCenter: function(lati, lngi, zoom) {
     this.googleMap.setCenter({lat: lati, lng: lngi});
@@ -143,6 +158,7 @@ MapWrapper.prototype = {
       var lng = event.latLng.lng();
       weather.findWeatherByCoords(lat, lng, function(weathers) {
         this.googleMap.setCenter({lat: lat, lng: lng});
+        // this.clearMarkers();
         this.addMarker({lat: lat, lng: lng});
         ui.renderWeather(weathers);
       }.bind(this))  
