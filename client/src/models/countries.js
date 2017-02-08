@@ -21,7 +21,7 @@ Countries.prototype = {
       console.log(countries);
       callback(countries);    
     }
-  )}
-}
+    )}
+  }
 
   module.exports = Countries;

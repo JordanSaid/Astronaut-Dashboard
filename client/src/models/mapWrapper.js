@@ -4,86 +4,86 @@ var MapWrapper = function(container, coordinates, zoom) {
     center: coordinates,
     zoom: zoom,
     styles: [
-               {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
-               {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
-               {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
-               {
-                 featureType: 'administrative.locality',
-                 elementType: 'labels.text.fill',
-                 stylers: [{color: '#d59563'}]
-               },
-               {
-                 featureType: 'poi',
-                 elementType: 'labels.text.fill',
-                 stylers: [{color: '#d59563'}]
-               },
-               {
-                 featureType: 'poi.park',
-                 elementType: 'geometry',
-                 stylers: [{color: '#263c3f'}]
-               },
-               {
-                 featureType: 'poi.park',
-                 elementType: 'labels.text.fill',
-                 stylers: [{color: '#6b9a76'}]
-               },
-               {
-                 featureType: 'road',
-                 elementType: 'geometry',
-                 stylers: [{color: '#38414e'}]
-               },
-               {
-                 featureType: 'road',
-                 elementType: 'geometry.stroke',
-                 stylers: [{color: '#212a37'}]
-               },
-               {
-                 featureType: 'road',
-                 elementType: 'labels.text.fill',
-                 stylers: [{color: '#9ca5b3'}]
-               },
-               {
-                 featureType: 'road.highway',
-                 elementType: 'geometry',
-                 stylers: [{color: '#746855'}]
-               },
-               {
-                 featureType: 'road.highway',
-                 elementType: 'geometry.stroke',
-                 stylers: [{color: '#1f2835'}]
-               },
-               {
-                 featureType: 'road.highway',
-                 elementType: 'labels.text.fill',
-                 stylers: [{color: '#f3d19c'}]
-               },
-               {
-                 featureType: 'transit',
-                 elementType: 'geometry',
-                 stylers: [{color: '#2f3948'}]
-               },
-               {
-                 featureType: 'transit.station',
-                 elementType: 'labels.text.fill',
-                 stylers: [{color: '#d59563'}]
-               },
-               {
-                 featureType: 'water',
-                 elementType: 'geometry',
-                 stylers: [{color: '#17263c'}]
-               },
-               {
-                 featureType: 'water',
-                 elementType: 'labels.text.fill',
-                 stylers: [{color: '#515c6d'}]
-               },
-               {
-                 featureType: 'water',
-                 elementType: 'labels.text.stroke',
-                 stylers: [{color: '#17263c'}]
-               }
-             ]
-  });
+    {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
+    {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
+    {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
+    {
+     featureType: 'administrative.locality',
+     elementType: 'labels.text.fill',
+     stylers: [{color: '#d59563'}]
+   },
+   {
+     featureType: 'poi',
+     elementType: 'labels.text.fill',
+     stylers: [{color: '#d59563'}]
+   },
+   {
+     featureType: 'poi.park',
+     elementType: 'geometry',
+     stylers: [{color: '#263c3f'}]
+   },
+   {
+     featureType: 'poi.park',
+     elementType: 'labels.text.fill',
+     stylers: [{color: '#6b9a76'}]
+   },
+   {
+     featureType: 'road',
+     elementType: 'geometry',
+     stylers: [{color: '#38414e'}]
+   },
+   {
+     featureType: 'road',
+     elementType: 'geometry.stroke',
+     stylers: [{color: '#212a37'}]
+   },
+   {
+     featureType: 'road',
+     elementType: 'labels.text.fill',
+     stylers: [{color: '#9ca5b3'}]
+   },
+   {
+     featureType: 'road.highway',
+     elementType: 'geometry',
+     stylers: [{color: '#746855'}]
+   },
+   {
+     featureType: 'road.highway',
+     elementType: 'geometry.stroke',
+     stylers: [{color: '#1f2835'}]
+   },
+   {
+     featureType: 'road.highway',
+     elementType: 'labels.text.fill',
+     stylers: [{color: '#f3d19c'}]
+   },
+   {
+     featureType: 'transit',
+     elementType: 'geometry',
+     stylers: [{color: '#2f3948'}]
+   },
+   {
+     featureType: 'transit.station',
+     elementType: 'labels.text.fill',
+     stylers: [{color: '#d59563'}]
+   },
+   {
+     featureType: 'water',
+     elementType: 'geometry',
+     stylers: [{color: '#17263c'}]
+   },
+   {
+     featureType: 'water',
+     elementType: 'labels.text.fill',
+     stylers: [{color: '#515c6d'}]
+   },
+   {
+     featureType: 'water',
+     elementType: 'labels.text.stroke',
+     stylers: [{color: '#17263c'}]
+   }
+   ]
+ });
 }
 
 MapWrapper.prototype = {
@@ -92,12 +92,12 @@ MapWrapper.prototype = {
       position: coordinates,
       map: this.googleMap,
     });
-      this.googleMap.setCenter(coordinates)
+    this.googleMap.setCenter(coordinates)
   },
   setCurrentLocation: function(position) {
-      var pos = {lat: position.coords.latitude, lng: position.coords.longitude};
-      this.googleMap.setCenter(pos);
-      this.googleMap.setZoom(15);
+    var pos = {lat: position.coords.latitude, lng: position.coords.longitude};
+    this.googleMap.setCenter(pos);
+    this.googleMap.setZoom(15);
   },
   addMarker: function(coords) {
     var marker = new google.maps.Marker({
@@ -107,10 +107,10 @@ MapWrapper.prototype = {
   },
   addAstroMarker: function(coords) {
     var astro = {
-        url: "astro.png", 
-        scaledSize: new google.maps.Size(50, 50), 
-        origin: new google.maps.Point(0,0), 
-        anchor: new google.maps.Point(0, 0) 
+      url: "astro.png", 
+      scaledSize: new google.maps.Size(50, 50), 
+      origin: new google.maps.Point(0,0), 
+      anchor: new google.maps.Point(0, 0) 
     };
     var marker = new google.maps.Marker({
       position: coords,
@@ -124,7 +124,7 @@ MapWrapper.prototype = {
       content: contentString,
       position: coords,
       map: this.googleMap
-      });
+    });
   },
   setButtonClickNewCenter: function(button, coords, zoom) {
     button.onclick = function() {
@@ -134,8 +134,8 @@ MapWrapper.prototype = {
     }.bind(this)
   },
   setCenter: function(lati, lngi, zoom) {
-      this.googleMap.setCenter({lat: lati, lng: lngi});
-      this.googleMap.setZoom(zoom);
+    this.googleMap.setCenter({lat: lati, lng: lngi});
+    this.googleMap.setZoom(zoom);
   },
   mapClickChangesWeather: function(weather, ui) {
     google.maps.event.addListener(this.googleMap, "click", function(event) {
@@ -145,8 +145,8 @@ MapWrapper.prototype = {
         this.googleMap.setCenter({lat: lat, lng: lng});
         this.addMarker({lat: lat, lng: lng});
         ui.renderWeather(weathers);
-        }.bind(this))  
-      }.bind(this))
+      }.bind(this))  
+    }.bind(this))
   }
 }
 

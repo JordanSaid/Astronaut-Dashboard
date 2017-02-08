@@ -10,7 +10,7 @@ var UI = function () {
     this.news = new News();
 
     this.news.buzzfeedNews(function(buzzArray) {
-            this.renderBuzz(buzzArray);
+        this.renderBuzz(buzzArray);
             // console.log(buzzArray)
         }.bind(this))
 
@@ -136,17 +136,17 @@ UI.prototype = {
     },
 
     addResizeListener: function(){
-    var leftDiv = document.querySelector("#left");
-    var erd = elementResizeDetectorMaker({
+        var leftDiv = document.querySelector("#left");
+        var erd = elementResizeDetectorMaker({
     strategy: "scroll" //<- For ultra performance.
-    });
+});
 
-    erd.listenTo(leftDiv, function(element) {
-    var width = element.offsetWidth;
-    var opacity = ((width-45)/535);
-    leftDiv.style.opacity = opacity;
-    });
-    
+        erd.listenTo(leftDiv, function(element) {
+            var width = element.offsetWidth;
+            var opacity = ((width-45)/535);
+            leftDiv.style.opacity = opacity;
+        });
+        
     },
 
     renderMapFeatures: function (location) {
@@ -162,8 +162,8 @@ UI.prototype = {
             this.spaceStation.currentLocation(function(location) {
                 this.mapWrapper.setButtonClickNewCenter(button, location, 4);
                 this.weather.findWeatherByCoords(location.lat, location.lng, function(newWeather) {
-                this.mapWrapper.setCenter(location.lat,location.lng, 4);
-                this.renderWeather(newWeather);
+                    this.mapWrapper.setCenter(location.lat,location.lng, 4);
+                    this.renderWeather(newWeather);
                 }.bind(this))
             }.bind(this));
         }.bind(this)
@@ -173,10 +173,10 @@ UI.prototype = {
 
         while (ul.firstChild) {
           ul.removeChild(ul.firstChild);
-        };
+      };
 
-        var li1 = document.createElement('li');
-        if (location.name != "") {
+      var li1 = document.createElement('li');
+      if (location.name != "") {
         li1.innerText = "City:  " + location.name 
         li1.style.fontSize = "small";
         ul.appendChild(li1);
@@ -186,23 +186,23 @@ UI.prototype = {
         ul.appendChild(li1);
     }
 
-        var li2 = document.createElement('li');
-        li2.innerText = "Temp: " + location.main.temp + "C";
-        li2.style.fontSize = "small";
-        ul.appendChild(li2);
+    var li2 = document.createElement('li');
+    li2.innerText = "Temp: " + location.main.temp + "C";
+    li2.style.fontSize = "small";
+    ul.appendChild(li2);
 
-        var li3 = document.createElement('li');
-        li3.innerText = location.weather[0].description.charAt(0).toUpperCase() + location.weather[0].description.slice(1) + "   ";
-        li3.style.fontSize = "small";
-        ul.appendChild(li3);
+    var li3 = document.createElement('li');
+    li3.innerText = location.weather[0].description.charAt(0).toUpperCase() + location.weather[0].description.slice(1) + "   ";
+    li3.style.fontSize = "small";
+    ul.appendChild(li3);
 
-        var iconImg = document.createElement('img')
-        iconImg.src = "http://openweathermap.org/img/w/"
-              + location.weather[0].icon  + ".png",
-        li3.appendChild(iconImg);
-        ul.appendChild(li3);
+    var iconImg = document.createElement('img')
+    iconImg.src = "http://openweathermap.org/img/w/"
+    + location.weather[0].icon  + ".png",
+    li3.appendChild(iconImg);
+    ul.appendChild(li3);
 
-    }
+}
 }
 
 module.exports = UI;
