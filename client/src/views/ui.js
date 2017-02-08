@@ -4,7 +4,7 @@ var MemoView = require('./memoView');
 var MapWrapper = require('../models/MapWrapper');
 var SpaceStation = require('../models/spaceStation');
 var Weather = require('../models/weather');
-
+var elementResizeDetectorMaker = require("element-resize-detector");
 
 var UI = function () {
     this.news = new News();
@@ -47,7 +47,7 @@ var UI = function () {
     }.bind(this));
 
     this.renderMemo();
-
+    this.addResizeListener();
 
 }
 
@@ -134,12 +134,28 @@ UI.prototype = {
         var memoView = new MemoView(leftDiv);
         memoView.renderMemoDash();
     },
+
+    addResizeListener: function(){
+    var leftDiv = document.querySelector("#left");
+    var erd = elementResizeDetectorMaker({
+    strategy: "scroll" //<- For ultra performance.
+    });
+
+    erd.listenTo(leftDiv, function(element) {
+    var width = element.offsetWidth;
+    var opacity = ((width-45)/535);
+    leftDiv.style.opacity = opacity;
+    });
+    
+    },
+
     renderMapFeatures: function (location) {
         var markerString = "You're here!"
         this.mapWrapper.addInfoMarker(location, markerString);
         this.mapWrapper.addAstroMarker(location);
         this.mapWrapper.mapClickChangesWeather(this.weather, this);
     },
+    
     currentLocationButton: function() {
         var button = document.querySelector('#whereami');
         button.onclick = function() {
