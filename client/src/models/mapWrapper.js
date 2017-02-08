@@ -156,11 +156,10 @@ MapWrapper.prototype = {
     google.maps.event.addListener(this.googleMap, "click", function(event) {
       var lat = event.latLng.lat();
       var lng = event.latLng.lng();
-      weather.findWeatherByCoords(lat, lng, function(weathers) {
+      weather.findWeatherByCoords(lat, lng, function(newWeather) {
         this.googleMap.setCenter({lat: lat, lng: lng});
-        // this.clearMarkers();
         this.addMarker({lat: lat, lng: lng});
-        ui.renderWeather(weathers);
+        ui.renderWeather(newWeather);
       }.bind(this))  
     }.bind(this))
   }

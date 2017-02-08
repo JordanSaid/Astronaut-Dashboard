@@ -6,12 +6,6 @@ var Emoji = require('../models/emoji');
 var searchResult = [];
 
 
-//flatpickr('#flatpickr-tryme');
-
-
-
-"😂"
-
 var MemoView = function(container){
   this.container = container;
   this.memo = {};
@@ -22,7 +16,6 @@ MemoView.prototype = {
 
 
   renderMemoDash: function(){
-    // this.container.innerHTML = "";
     this.clearMemoForm();
     this.container.style.flexDirection = "row";
     var controlBar = document.createElement("section");
@@ -38,7 +31,6 @@ MemoView.prototype = {
     newButton.setAttribute("id","new-button");
     newButton.innerText = "New";
     searchButton.addEventListener("click",function(){
-      //going to search here
     this.startSearch(searchBox.value);
 
     }.bind(this));
@@ -72,7 +64,6 @@ MemoView.prototype = {
     var headerBar = document.createElement("section");
     headerBar.setAttribute("id","control-bar");
     var dateBox = document.createElement("input");
-    // dateBox.class = "flatpickr";
     dateBox.type = "text";
     dateBox.setAttribute("id","date-box");
     dateBox.value = data.date;
@@ -132,7 +123,6 @@ MemoView.prototype = {
         this.memo["body"] = memoBody.value;
         this.memo["timestamp"] = timestamp;
         this.memo["date"] = dateBox.value;
-        // this.memo["emoji"] = {};
         this.postMemo(this.memo,function(data){
         }.bind(this));
       }
@@ -148,7 +138,6 @@ MemoView.prototype = {
       this.memo["body"] = memoBody.value;
       this.memo["date"] = dateBox.value;      
       this.memo["timestamp"] = timestamp;
-      // this.memo["emoji"] = {};
       this.postMemo(this.memo,function(data){
       var justPosted = JSON.parse(data.data);
       if (justPosted._id != null){
@@ -156,9 +145,6 @@ MemoView.prototype = {
       }.bind(this));
     }
   }.bind(this));
-    // dateBox.addEventListener("click",function(){
-    //       dateBox.flatpickr();
-    // })
     this.container.appendChild(memoBody);
     this.container.appendChild(footerBar);
   },
@@ -206,7 +192,6 @@ MemoView.prototype = {
       if (retVal = true){
         this.deleteMemo(data[target],function(data){
           this.startSearch(oldQuery);
-          // this.renderMemoIndex(data);
           }.bind(this));
         }
       }else
@@ -222,14 +207,8 @@ MemoView.prototype = {
     childNode = this.container.children[i];
     if (childNode.id != ""){
       this.container.removeChild(childNode);
-    }else i++;
-    
-  };
- 
-// ("#control-bar");
-// ("footer-bar");
-// ("memo-body");
-
+      }else i++;
+    };
   },
 
   startSearch: function(query){
@@ -246,8 +225,6 @@ MemoView.prototype = {
   },
 
   parseSearch: function(query,callback){
-    //things to search on: date, title, body
-    //if we have / then it's probably a date
     var searchString = query.toLowerCase();
     var searchParam = ""; 
     if (searchString.indexOf('date')>-1){

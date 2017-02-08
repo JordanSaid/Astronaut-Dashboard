@@ -17,7 +17,6 @@ html,body{
 }
 
 #index-div{
-  /*background-color: #997733;*/
   display: flex;
   flex:1;
 }
@@ -137,7 +136,6 @@ li:nth-child(odd) {
   margin-left: 13%;
   width: 72%;
   height: 6%;
-  /*background-color: #DDBB77;*/
   background-color: transparent;
   color: #DDBB77;
   align-items: center;
@@ -178,7 +176,6 @@ li:nth-child(odd) {
 #search-button {
 
   margin-left: 4px;
- /* height: 70%;*/
   text-align: center;
   vertical-align: middle;
   border-radius: 25px;
@@ -186,7 +183,6 @@ li:nth-child(odd) {
 
 #new-button{
   margin-left: 4px;
- /* height: 70%;*/
   text-align: center;
   vertical-align: middle;
   border-radius: 25px;
@@ -217,7 +213,6 @@ li:nth-child(odd) {
   width:72%;
   margin-top: 3px;
   margin-left: 14%;
-  /*background-color: #DDBB77;*/
   align-items: center;
 }
 #finish-button{
