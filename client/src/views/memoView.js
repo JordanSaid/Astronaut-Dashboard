@@ -10,9 +10,12 @@ var searchResult = [];
 
 
 
+"😂"
+
 var MemoView = function(container){
   this.container = container;
   this.memo = {};
+
 };
 
 MemoView.prototype = {
@@ -64,23 +67,41 @@ MemoView.prototype = {
     if (data._id != null){
     id = data._id}
     var timestamp = data.timestamp;
-    // this.container.innerHTML = "";
     this.container.style.flexDirection = "column";
     this.emoji = data.emoji;
     var headerBar = document.createElement("section");
     headerBar.setAttribute("id","control-bar");
     var dateBox = document.createElement("input");
-    dateBox.class = "flatpickr";
+    // dateBox.class = "flatpickr";
     dateBox.type = "text";
     dateBox.setAttribute("id","date-box");
     dateBox.value = data.date;
     var titleBox = document.createElement("input");
     titleBox.setAttribute("id","title-box");
     titleBox.value = data.title;
-    var emojiBox = document.createElement("img");
+    var emojiBox = document.createElement("select");
     emojiBox.setAttribute("id","emoji-box");
+      
+    var select = document.createElement("option");
+    select.innerHTML = "😀";
+    emojiBox.appendChild(select);
+    select = document.createElement("option");
+    select.innerHTML = "😟";
+    emojiBox.appendChild(select);
+    select = document.createElement("option");
+    select.innerHTML = "😢";
+    emojiBox.appendChild(select);
+    select = document.createElement("option");
+    select.innerHTML = "😡";
+    emojiBox.appendChild(select);
+    
     if (data.emoji){
-    emojiBox.src = data.emoji.url;}
+      console.log(data.emoji)
+      emojiBox.value = data.emoji.name};
+    
+    emojiBox.addEventListener("change",function(){
+      this.memo.emoji.name = emojiBox.value;
+    }.bind(this))
 
     var memoBody = document.createElement("textarea");
     memoBody.setAttribute("id","memo-body");
@@ -106,11 +127,12 @@ MemoView.prototype = {
           if (id != null){
             this.memo["_id"] = id;
           }
+        console.log(this.memo);  
         this.memo["title"] = titleBox.value;
         this.memo["body"] = memoBody.value;
         this.memo["timestamp"] = timestamp;
         this.memo["date"] = dateBox.value;
-        this.memo["emoji"] = {};
+        // this.memo["emoji"] = {};
         this.postMemo(this.memo,function(data){
         }.bind(this));
       }
@@ -126,7 +148,7 @@ MemoView.prototype = {
       this.memo["body"] = memoBody.value;
       this.memo["date"] = dateBox.value;      
       this.memo["timestamp"] = timestamp;
-      this.memo["emoji"] = {};
+      // this.memo["emoji"] = {};
       this.postMemo(this.memo,function(data){
       var justPosted = JSON.parse(data.data);
       if (justPosted._id != null){
@@ -134,9 +156,9 @@ MemoView.prototype = {
       }.bind(this));
     }
   }.bind(this));
-    dateBox.addEventListener("click",function(){
-          dateBox.flatpickr();
-    })
+    // dateBox.addEventListener("click",function(){
+    //       dateBox.flatpickr();
+    // })
     this.container.appendChild(memoBody);
     this.container.appendChild(footerBar);
   },
@@ -177,10 +199,14 @@ MemoView.prototype = {
   ul.addEventListener("click",function(event){
     var target = event.target.id
     if (event.target.nodeName == "BUTTON"){
+      var searchBox = document.querySelector("#search-box");
+      var oldQuery = searchBox.value;
+      console.log(oldQuery);
       var retVal = confirm("Delete memo "+data[target].title+"?");
       if (retVal = true){
         this.deleteMemo(data[target],function(data){
-          this.renderMemoIndex(data);
+          this.startSearch(oldQuery);
+          // this.renderMemoIndex(data);
           }.bind(this));
         }
       }else
@@ -190,7 +216,7 @@ MemoView.prototype = {
     }.bind(this)); 
   },
 
-  clearMemoForm: function(query){
+  clearMemoForm: function(){
   var i = 0;
   while (i < this.container.children.length){
     childNode = this.container.children[i];
@@ -208,9 +234,14 @@ MemoView.prototype = {
 
   startSearch: function(query){
     searchResult = [];
+    console.log(query);
     this.parseSearch(query,function(){
       if (searchResult.length > 0){
-      this.renderMemoIndex(searchResult);}
+      this.renderMemoIndex(searchResult);} else
+      {
+      var resultDiv = document.querySelector("#index-div");
+      if (resultDiv != undefined){resultDiv.innerHTML = ""}
+      }
     }.bind(this));
   },
 
