@@ -143,10 +143,10 @@ UI.prototype = {
 
         while (ul.firstChild) {
           ul.removeChild(ul.firstChild);
-        };
+      };
 
-        var li1 = document.createElement('li');
-        if (location.name != "") {
+      var li1 = document.createElement('li');
+      if (location.name != "") {
         li1.innerText = "City:  " + location.name 
         li1.style.fontSize = "small";
         ul.appendChild(li1);
@@ -156,21 +156,20 @@ UI.prototype = {
                 ul.appendChild(li1);
         }
 
-        var li2 = document.createElement('li');
-        li2.innerText = "Temp: " + location.main.temp + "C";
-        li2.style.fontSize = "small";
-        ul.appendChild(li2);
+    var li2 = document.createElement('li');
+    li2.innerText = "Temp: " + location.main.temp + "C";
+    li2.style.fontSize = "small";
+    ul.appendChild(li2);
 
-        var li3 = document.createElement('li');
-        li3.innerText = location.weather[0].description.charAt(0).toUpperCase() + location.weather[0].description.slice(1) + "   ";
-        li3.style.fontSize = "small";
-        ul.appendChild(li3);
+    var li3 = document.createElement('li');
+    li3.innerText = location.weather[0].description.charAt(0).toUpperCase() + location.weather[0].description.slice(1) + "   ";
+    li3.style.fontSize = "small";
+    ul.appendChild(li3);
 
-        var iconImg = document.createElement('img')
-        iconImg.src = "http://openweathermap.org/img/w/"
-              + location.weather[0].icon  + ".png",
-        li3.appendChild(iconImg);
-        ul.appendChild(li3);
+    var iconImg = document.createElement('img')
+    iconImg.src = "http://openweathermap.org/img/w/"              + location.weather[0].icon  + ".png",
+    li3.appendChild(iconImg);
+    ul.appendChild(li3);
     }
 }
 

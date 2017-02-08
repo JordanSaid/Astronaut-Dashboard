@@ -45,10 +45,10 @@ Memos.prototype = {
 
   search: function(searchBy, searchData){
     var data = [];
-     this.makeRequest("GET", "http://localhost:3000/",function(){
-        var jsonString = this.responseText;
-        data = JSON.parse(jsonString);
-      });
+    this.makeRequest("GET", "http://localhost:3000/",function(){
+      var jsonString = this.responseText;
+      data = JSON.parse(jsonString);
+    });
     console.log(data);
 
   }

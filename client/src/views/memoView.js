@@ -5,16 +5,11 @@ var ajax = require("../helpers/ajax");
 var Emoji = require('../models/emoji');
 var searchResult = [];
 
-
 var MemoView = function(container){
   this.container = container;
   this.memo = {};
-
 };
-
 MemoView.prototype = {
-
-
   renderMemoDash: function(){
     this.clearMemoForm();
     this.container.style.flexDirection = "row";
@@ -32,7 +27,6 @@ MemoView.prototype = {
     newButton.innerText = "New";
     searchButton.addEventListener("click",function(){
     this.startSearch(searchBox.value);
-
     }.bind(this));
     newButton.addEventListener("click",function(){
       var options = {};
@@ -52,7 +46,6 @@ MemoView.prototype = {
     controlBar.appendChild(space);
     controlBar.appendChild(newButton);
   },
-
   renderMemo: function(data){
     this.clearMemoForm()
     var id = null;
@@ -93,7 +86,6 @@ MemoView.prototype = {
     emojiBox.addEventListener("change",function(){
       this.memo.emoji.name = emojiBox.value;
     }.bind(this))
-
     var memoBody = document.createElement("textarea");
     memoBody.setAttribute("id","memo-body");
     memoBody.rows = "8";
@@ -112,7 +104,6 @@ MemoView.prototype = {
     footerBar.appendChild(finishButton);
     footerBar.appendChild(dateBox);
     footerBar.appendChild(saveButton);
-
     finishButton.addEventListener("click",function(){
       if ((memoBody.value != "")&&(titleBox.value != "New Memo")){
           if (id != null){
@@ -128,7 +119,6 @@ MemoView.prototype = {
       }
     this.renderMemoDash();
     }.bind(this));
-
     saveButton.addEventListener("click",function(){
       if (memoBody.value != ""){
         if (id != null){
@@ -148,7 +138,6 @@ MemoView.prototype = {
     this.container.appendChild(memoBody);
     this.container.appendChild(footerBar);
   },
-
   renderMemoIndex: function(data){
     this.container.style.flexDirection = "column";
     var resultDiv = document.querySelector("#index-div");
@@ -200,7 +189,6 @@ MemoView.prototype = {
       }
     }.bind(this)); 
   },
-
   clearMemoForm: function(){
   var i = 0;
   while (i < this.container.children.length){
@@ -210,7 +198,6 @@ MemoView.prototype = {
       }else i++;
     };
   },
-
   startSearch: function(query){
     searchResult = [];
     console.log(query);
@@ -223,7 +210,6 @@ MemoView.prototype = {
       }
     }.bind(this));
   },
-
   parseSearch: function(query,callback){
     var searchString = query.toLowerCase();
     var searchParam = ""; 
@@ -247,11 +233,9 @@ MemoView.prototype = {
   searchString = searchString.replace(/^\s+|\s+$/g, ""); 
   this.searchMemo(searchParam,searchString,callback);  
   },
-
   searchMemo: function (searchBy, searchData,callback) {
         var url = "http://localhost:3000/memos/"        
         ajax.get(url, function (data) {
-
         if (data.length > 0){
         for (memo of data){
           if (searchBy == "date"){
@@ -271,14 +255,12 @@ MemoView.prototype = {
     callback(searchResult)  
       }); 
   },
-
   postMemo: function(memoToAdd,callback){
     var url = "http://localhost:3000/memos/";
     ajax.post(url,function(data){
       callback(data);
     },memoToAdd);
   },
-
   deleteMemo: function(memoToDelete,callback){
     var url = "http://localhost:3000/memos/";
     ajax.delete(url,function(data){
@@ -286,6 +268,4 @@ MemoView.prototype = {
     },memoToDelete);
   }
 };
-
-
  module.exports = MemoView;
